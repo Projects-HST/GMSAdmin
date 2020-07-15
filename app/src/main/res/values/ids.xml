@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="constituency_name" type="id" />
+    <item name="radio_constituency" type="id" />
+
+    <item name="user_profile_img" type="id" />
+    <item name="user_name" type="id" />
+    <item name="user_serial" type="id" />
+    <item name="user_number" type="id" />
+
+
+    <item name="interaction_question" type="id" />
+    <item name="interaction_yes" type="id" />
+    <item name="interaction_no" type="id" />
+
+    <item name="meeting_full_name" type="id" />
+    <item name="meeting_req_date" type="id" />
+    <item name="meeting_req_location" type="id" />
+    <item name="meeting_req_title" type="id" />
+    <item name="meeting_req_status" type="id" />
+    <item name="meeting_req_added_by" type="id" />
+
+    <item name="grievance_number" type="id" />
+    <item name="grievance_full_name" type="id" />
+    <item name="grievance_date" type="id" />
+    <item name="grievance_title" type="id" />
+    <item name="grievance_detail" type="id" />
+    <item name="grievance_status" type="id" />
+    <item name="grievance_req_added_by" type="id" />
+
+</resources>

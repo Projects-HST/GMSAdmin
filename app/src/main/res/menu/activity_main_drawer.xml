@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dash"
+            android:icon="@drawable/ic_side_menu_dashboard"
+
+            android:title="@string/side_menu_dash" />
+        <item
+            android:id="@+id/nav_constituents"
+            android:icon="@drawable/ic_side_menu_constituents"
+            android:title="@string/side_menu_constituent" />
+
+        <item
+            android:id="@+id/nav_constituent_sub_one"
+            android:visible="false"
+            android:title="@string/side_menu_constituent_sub_one" />
+        <item
+            android:id="@+id/nav_constituent_sub_two"
+            android:visible="false"
+            android:title="@string/side_menu_constituent_sub_two" />
+
+        <item
+            android:id="@+id/nav_grievance"
+            android:icon="@drawable/ic_side_menu_grievance"
+            android:title="@string/side_menu_grievance" />
+        <item
+            android:id="@+id/nav_staffs"
+            android:icon="@drawable/ic_side_menu_staff"
+            android:title="@string/side_menu_staff" />
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_side_menu_report"
+            android:title="@string/side_menu_report" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_gear"
+            android:title="@string/side_menu_settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_side_menu_logout"
+            android:title="@string/side_menu_logout" />
+    </group>
+</menu>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/status_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_report_status" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="@string/status"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/category_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_report_category" />
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/category"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/sub_category_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_report_sub_category" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="@string/sub_category"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/location_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_report_location" />
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/location"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/meeting_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_report_meetings" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="@string/meeting"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/staff_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_report_staff" />
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/staff"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/birthday_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/shadow_round"
+                    android:elevation="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_report_birthday" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="@string/birthday"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "931154531529",
+    "firebase_url": "https://gmsadmin-f03e8.firebaseio.com",
+    "project_id": "gmsadmin-f03e8",
+    "storage_bucket": "gmsadmin-f03e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931154531529:android:0b04824da98358b8942918",
+        "android_client_info": {
+          "package_name": "com.gms.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931154531529-r7d99jombf82b7ctdboilvii6qe3bfqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAav3wCfLG23p0XXIia-iUmDLIVgLqnREw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931154531529-r7d99jombf82b7ctdboilvii6qe3bfqi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

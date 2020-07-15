@@ -1,0 +1,78 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="33.495dp"
+    android:height="33.495dp"
+    android:viewportWidth="33.495"
+    android:viewportHeight="33.495">
+  <path
+      android:pathData="M32.936,5.024v26.8a1.116,1.116 0,0 1,-1.116 1.116L1.674,32.94A1.116,1.116 0,0 1,0.558 31.824L0.558,5.024Z"
+      android:fillColor="#e0edff"/>
+  <path
+      android:pathData="M0.558,5.024L0.558,1.674A1.116,1.116 0,0 1,1.674 0.558L31.82,0.558a1.116,1.116 0,0 1,1.116 1.116v3.349Z"
+      android:fillColor="#e0edff"/>
+  <path
+      android:pathData="M13.956,14.515h2.233v2.233L13.956,16.748Z"
+      android:fillColor="#548aff"/>
+  <path
+      android:pathData="M13.956,18.981h2.233v2.233L13.956,21.214Z"
+      android:fillColor="#548aff"/>
+  <path
+      android:pathData="M13.956,23.447h2.233v2.233L13.956,25.68Z"
+      android:fillColor="#548aff"/>
+  <path
+      android:pathData="M13.956,27.913h2.233v2.233L13.956,30.146Z"
+      android:fillColor="#548aff"/>
+  <path
+      android:pathData="M3.349,6.141v24h7.815L11.164,11.723L30.149,11.723L30.149,6.141Z"
+      android:fillColor="#548aff"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M31.82,0L1.675,0A1.677,1.677 0,0 0,0 1.675L0,31.82a1.677,1.677 0,0 0,1.675 1.675L31.82,33.495a1.677,1.677 0,0 0,1.675 -1.675L33.495,1.675A1.677,1.677 0,0 0,31.82 0ZM32.378,31.82a0.559,0.559 0,0 1,-0.558 0.558L1.675,32.378a0.559,0.559 0,0 1,-0.558 -0.558L1.117,1.675a0.559,0.559 0,0 1,0.558 -0.558L31.82,1.117a0.559,0.559 0,0 1,0.558 0.558Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M2.241,2.679a0.446,0.893 0,1 0,0.892 0a0.446,0.893 0,1 0,-0.892 0z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M4.027,2.679a0.446,0.893 0,1 0,0.892 0a0.446,0.893 0,1 0,-0.892 0z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M5.813,2.679a0.446,0.893 0,1 0,0.892 0a0.446,0.893 0,1 0,-0.892 0z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M16.189,13.956h-2.233a0.558,0.558 0,0 0,-0.558 0.558v2.233a0.558,0.558 0,0 0,0.558 0.558h2.233a0.558,0.558 0,0 0,0.558 -0.558v-2.233A0.558,0.558 0,0 0,16.189 13.956ZM15.631,16.189h-1.116v-1.117h1.116Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M18.422,15.073h1.675v1.116L18.422,16.189Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M21.213,15.073h7.815v1.116L21.213,16.189Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M16.189,18.422h-2.233a0.558,0.558 0,0 0,-0.558 0.558v2.233a0.558,0.558 0,0 0,0.558 0.558h2.233a0.558,0.558 0,0 0,0.558 -0.558v-2.233A0.558,0.558 0,0 0,16.189 18.422ZM15.631,20.655h-1.116v-1.116h1.116Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M18.422,19.539h1.675v1.116L18.422,20.655Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M21.213,19.539h7.815v1.116L21.213,20.655Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M16.189,22.888h-2.233a0.558,0.558 0,0 0,-0.558 0.558v2.233a0.558,0.558 0,0 0,0.558 0.558h2.233a0.558,0.558 0,0 0,0.558 -0.558v-2.233A0.558,0.558 0,0 0,16.189 22.888ZM15.631,25.121h-1.116v-1.116h1.116Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M18.422,24.005h1.675v1.116L18.422,25.121Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M21.213,24.005h7.815v1.116L21.213,25.121Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M16.189,27.354h-2.233a0.558,0.558 0,0 0,-0.558 0.558v2.233a0.558,0.558 0,0 0,0.558 0.558h2.233a0.558,0.558 0,0 0,0.558 -0.558v-2.233A0.558,0.558 0,0 0,16.189 27.354ZM15.631,29.587h-1.116v-1.116h1.116Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M18.422,28.471h1.675v1.116L18.422,29.587Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M21.213,28.471h7.815v1.116L21.213,29.587Z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M30.145,5.582h-26.8a0.558,0.558 0,0 0,-0.558 0.558v24a0.558,0.558 0,0 0,0.558 0.558h7.815a0.558,0.558 0,0 0,0.558 -0.558L11.718,12.282L30.145,12.282a0.558,0.558 0,0 0,0.558 -0.558L30.703,6.14A0.558,0.558 0,0 0,30.145 5.582ZM10.606,29.582h-6.7L3.906,12.282h6.7ZM29.591,11.164L3.907,11.164L3.907,6.698L29.591,6.698Z"/>
+</vector>

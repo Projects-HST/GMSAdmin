@@ -1,3 +1,174 @@
 <resources>
     <string name="app_name">GMSAdmin</string>
+
+
+    <!--General Strings-->
+    <string name="progress_loading">Loading…</string>
+    <string name="alert_button_ok">OK</string>
+    <string name="alert_button_cancel">Cancel</string>
+    <string name="alert_button_yes">Yes</string>
+    <string name="alert_button_no">No</string>
+    <string name="empty" />
+    <string name="error_no_net">No internet access. Please check your connection and try again.</string>
+    <string name="error_occurred">Failed to connect to the server. Please try again.</string>
+    <string name="error_entry">Entry Invalid</string>
+    <string name="empty_entry">Field cannot be empty</string>
+    <string name="error_username">Username cannot be empty</string>
+    <string name="error_password">Password cannot be empty</string>
+    <string name="drawer_open">Drawer open</string>
+    <string name="drawer_close">Drawer close</string>
+
+    <string name="login_text">Login to your Account</string>
+    <string name="select_constituency">Select Constituency</string>
+    <string name="select_area">Select Paguthi</string>
+    <string name="select_constituency_alert">Please select constituency before proceeding</string>
+    <string name="email_or_phone">Email / Phone number</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="send">Send</string>
+    <string name="lets_go">Let’s Go</string>
+
+    <string name="side_menu_dash">Dashboard</string>
+    <string name="side_menu_constituent">Constituents</string>
+    <string name="side_menu_constituent_sub_one">Constituent</string>
+    <string name="side_menu_constituent_sub_two">Meetings</string>
+    <string name="side_menu_grievance">Grievances</string>
+    <string name="side_menu_staff">Staffs</string>
+    <string name="side_menu_report">Report</string>
+    <string name="side_menu_settings">Settings</string>
+    <string name="side_menu_logout">Logout</string>
+    <string name="search">Search</string>
+
+
+    <string name="constituent_members">Constituent Members</string>
+    <string name="total_meetings">Total Meetings</string>
+    <string name="total_grievances">Total Grievances</string>
+    <string name="constituent_interaction">Constituent Interaction</string>
+    <string name="people">Constituents</string>
+    <string name="meetings">Meetings</string>
+    <string name="grievances">Grievances</string>
+    <string name="questions">Questions</string>
+    <string name="foot_fall">Foot Fall Report</string>
+    <string name="grievance_graph">Grievance Progress Report</string>
+    <string name="meetings_graph">Constituent Meetings Report</string>
+    <string name="view_more">View More Graphs</string>
+
+    <string name="graph">Graph</string>
+
+    <string name="total_male">Total Male</string>
+    <string name="total_female">Total Female</string>
+    <string name="no_od_voter">No. of Voter ID</string>
+    <string name="no_of_aadhaar">No. of Aadhaar Card</string>
+
+    <string name="total_requested">Meetings Requested</string>
+    <string name="total_completed">Meetings Completed</string>
+
+    <string name="total_enquiry">No. of Enquiry</string>
+    <string name="total_petition">No. of Petition</string>
+    <string name="no_of_processing">No. of Processing</string>
+    <string name="no_of_completed">No. of Completed</string>
+
+    <string name="know_this">Know this Person</string>
+    <string name="gms_interaction">GMS interaction</string>
+    <string name="nrc">NRC</string>
+    <string name="citizen">Citizenship</string>
+    <string name="cross">Cross Level</string>
+
+    <string name="no_constituent_added">No constituent has been to this Paguthi yet</string>
+    <string name="constituent_title">Constituent</string>
+    <string name="ward_no">Ward Number</string>
+    <string name="serial_no">Serial Number</string>
+    <string name="voter_id">Voter ID</string>
+    <string name="aadhaar_no">Aadhaar Number</string>
+    <string name="meeting">Meeting</string>
+    <string name="grievance">Grievance</string>
+    <string name="interaction">Interaction</string>
+    <string name="plant">Plants</string>
+    <string name="doc">View Documents</string>
+    <string name="view_profile">View Profile</string>
+
+
+    <!--Plant Donation Page Strings-->
+    <string name="plant_donation_title">Plant Donation</string>
+    <string name="plant_name_txt">Plant Name</string>
+    <string name="plant_count_txt">Plant Count</string>
+    <string name="plant_date_txt">Received On</string>
+
+
+    <string name="meeting_title">Meetings</string>
+    <string name="meeting_detail">Meetings Details</string>
+    <string name="meeting_detail_title">Details of Meeting</string>
+    <string name="no_grievance">No grievance found</string>
+
+
+    <!--Grievance Page Strings-->
+    <string name="grievance_title">Grievances</string>
+    <string name="grievance_detail_title">Details of Grievance</string>
+    <string name="grievance_detail_title_alt">Grievance Details</string>
+    <string name="seeker_type">Seeker Type</string>
+    <string name="created_on">Created On</string>
+    <string name="updated_on">Updated On</string>
+    <string name="description">Description</string>
+    <string name="reference">Reference Note</string>
+    <string name="all">All</string>
+    <string name="petition">Petition</string>
+    <string name="enquiry">Enquiry</string>
+    <string name="petition_num">Petition Number</string>
+    <string name="enquiry_num">Enquiry Number</string>
+    <string name="view_message">View Message History</string>
+
+    <string name="interaction_title">Interaction Question</string>
+
+    <string name="msg_history_title">Message History</string>
+
+    <string name="doc_constituent">Constituent Documents</string>
+    <string name="doc_grievance">Grievance Documents</string>
+    <string name="doc_download">Download</string>
+
+
+    <!--Profile Page Strings-->
+    <string name="profile_title">Constituency Profile</string>
+    <string name="profile">Profile Info</string>
+    <string name="constituency">Constituency Info</string>
+    <string name="interaction_tav">Interaction</string>
+    <string name="father_or_husband">Father or husband Name</string>
+    <string name="guardian">Guardian name</string>
+    <string name="email">Email ID</string>
+    <string name="phone">Phone Number</string>
+    <string name="whatsapp">Whatsapp Number</string>
+    <string name="dob">Date of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="religion">Religion</string>
+    <string name="address">Address</string>
+    <string name="pin">Pincode</string>
+    <string name="voterid">Voter ID</string>
+    <string name="aadhaar">Aadhaar Number</string>
+    <string name="general">General Setting</string>
+    <string name="change_user">Change Users</string>
+    <string name="about">About us</string>
+    <string name="terms">Terms and condition</string>
+    <string name="share">Share app</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_alert">Do you really want to signout?</string>
+
+    <!--Constituency Page Strings-->
+    <string name="constituency_name">Paguthi Name</string>
+    <string name="ward">Ward</string>
+    <string name="booth">Booth Name</string>
+    <string name="booth_address">Booth Address</string>
+    <string name="serial">Serial Number</string>
+
+    <!--Staff Page Strings-->
+    <string name="role">Role</string>
+    <string name="staff_detail_title">Staff Detail</string>
+
+    <!--Report Page Strings-->
+    <string name="status">Status</string>
+    <string name="category">Category</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="location">Location</string>
+    <string name="birthday">Birthday Letter</string>
+    <string name="staff">Staff</string>
+
+
 </resources>

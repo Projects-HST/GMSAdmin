@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:text="@string/constituency_name"
+                android:textColor="@color/text_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/constituency_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/constituency_name"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:text="@string/ward"
+                android:textColor="@color/text_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/ward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/father_or_husband"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:text="@string/booth"
+                android:textColor="@color/text_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/booth_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/booth"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:text="@string/booth_address"
+                android:textColor="@color/text_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/booth_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/booth_address"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:text="@string/serial_no"
+                android:textColor="@color/text_grey"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/serial_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:clickable="false"
+                android:enabled="false"
+                android:focusable="false"
+                android:hint="@string/serial_no"
+                android:inputType="text"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

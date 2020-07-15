@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#2D94EB</color>
+    <color name="colorPrimaryDark">#1C88E2</color>
+    <color name="colorAccent">#1C88E2</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="text_grey">#69696B</color>
+    <color name="chart_one">#3F51B5</color>
+    <color name="chart_two">#F41504</color>
+    <color name="chart_three">#FD8003</color>
+    <color name="enquiry_pie">#2184D9</color>
+    <color name="processing_pie">#CFFFD8</color>
+    <color name="completed_pie">#DBC9FF</color>
+    <color name="line_constituency">#707070</color>
+    <color name="constituent_count">#808080</color>
+    <color name="line_constituent_count">#CCCCCC</color>
+    <color name="line_staff_list">#CCCCCC</color>
+
+
+    <color name="status_bg">#F3F3F3</color>
+    <color name="requested">#FDA644</color>
+    <color name="completed_meeting">#70AD47</color>
+    <color name="completed_grievance">#36D66B</color>
+    <color name="seeker_color">#F2255D</color>
+
+    <color name="button_yes">#56DF95</color>
+    <color name="button_no">#FF6464</color>
+    <color name="button_inactive">#C4C4C4</color>
+    <color name="line_interaction">#ACAAAA</color>
+
+    <color name="msg_by_grey">#757575</color>
+    <color name="tab_color">#0977D3</color>
+
+    <color name="active">#6AA84F</color>
+    <color name="inactive">#CC0000</color>
+
 </resources>
