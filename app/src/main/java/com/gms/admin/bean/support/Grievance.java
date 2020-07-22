@@ -51,6 +51,14 @@ public class Grievance implements Serializable {
     @Expose
     private String full_name;
 
+    @SerializedName("created_at")
+    @Expose
+    private String created_at;
+
+    @SerializedName("updated_at")
+    @Expose
+    private String updated_at;
+
     /**
      * @return The id
      */
@@ -203,6 +211,34 @@ public class Grievance implements Serializable {
      */
     public void setFull_name(String full_name) {
         this.full_name = full_name;
+    }
+
+    /**
+     * @return The created_at
+     */
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    /**
+     * @param created_at The created_at
+     */
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    /**
+     * @return The updated_at
+     */
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    /**
+     * @param updated_at The updated_at
+     */
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 
     public Grievance(String id, String seeker_info, String grievance_name, String grievance_type, String petition_enquiry_no, String grievance_date,

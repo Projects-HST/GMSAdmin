@@ -20,6 +20,9 @@ import com.gms.admin.utils.PreferenceStorage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class IndividualPlantDonationActivity extends AppCompatActivity implements View.OnClickListener, IServiceListener, DialogClickListener {
 
     private static final String TAG = IndividualPlantDonationActivity.class.getName();
@@ -51,6 +54,39 @@ public class IndividualPlantDonationActivity extends AppCompatActivity implement
 
         getDonation();
 
+    }
+
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
+
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
     private void getDonation() {
@@ -117,9 +153,9 @@ public class IndividualPlantDonationActivity extends AppCompatActivity implement
                 String count = response.getJSONArray("plant_details").getJSONObject(0).getString("no_of_plant");
                 String date = response.getJSONArray("plant_details").getJSONObject(0).getString("created_at");
 
-                plantName.setText(plant);
-                plantCount.setText(count);
-                plantedDate.setText(date);
+                plantName.setText(capitalizeString(plant));
+                plantCount.setText(capitalizeString(count));
+                plantedDate.setText(getserverdateformat(date));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -30,6 +30,7 @@ import com.gms.admin.R;
 import com.gms.admin.activity.ConstituentDetailsActivity;
 import com.gms.admin.activity.MeetingDetailActivity;
 import com.gms.admin.activity.SearchResultActivity;
+import com.gms.admin.activity.SearchResultMeetingActivity;
 import com.gms.admin.adapter.ConstituentListAdapter;
 import com.gms.admin.adapter.MeetingListAdapter;
 import com.gms.admin.bean.support.ConstituentUserList;
@@ -47,6 +48,7 @@ import com.gms.admin.utils.CommonUtils;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -114,7 +116,15 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
 
         recyclerView = view.findViewById(R.id.recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.list_refresh);
-        swipeRefreshLayout.setRefreshing(true);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
 
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -161,9 +171,9 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
 //                } else {
 //                    Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
 //                }
-//                    if (query != null) {
-//                        makeSearch(query);
-//                    }
+                    if (query != null) {
+                        makeSearch(query);
+                    }
 
                 return false;
             }
@@ -196,7 +206,7 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
 
     private void makeSearch(String eventname) {
         PreferenceStorage.setSearchFor(getActivity(), eventname);
-        startActivity(new Intent(getActivity(), SearchResultActivity.class));
+        startActivity(new Intent(getActivity(), SearchResultMeetingActivity.class));
     }
 
     @Override

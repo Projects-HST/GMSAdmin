@@ -153,6 +153,11 @@ public class ConstituentFragment extends Fragment implements IServiceListener, D
 
     private void makeSearch(String eventname) {
         PreferenceStorage.setSearchFor(getActivity(), eventname);
+        String id = "", name = "";
+        id = paguthiArrayList.get(tab.getSelectedTabPosition()).getid();
+        name = paguthiArrayList.get(tab.getSelectedTabPosition()).getpaguthi_name();
+        PreferenceStorage.savePaguthiID(getActivity(), id);
+        PreferenceStorage.savePaguthiName(getActivity(), name);
         startActivity(new Intent(getActivity(), SearchResultConstituentActivity.class));
     }
 

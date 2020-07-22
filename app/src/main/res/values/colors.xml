@@ -6,9 +6,9 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="text_grey">#69696B</color>
-    <color name="chart_one">#3F51B5</color>
-    <color name="chart_two">#F41504</color>
-    <color name="chart_three">#FD8003</color>
+    <color name="chart_one">#2184D9</color>
+    <color name="chart_two">#CFFFD8</color>
+    <color name="chart_three">#DBC9FF</color>
     <color name="enquiry_pie">#2184D9</color>
     <color name="processing_pie">#CFFFD8</color>
     <color name="completed_pie">#DBC9FF</color>
@@ -30,6 +30,7 @@
     <color name="line_interaction">#ACAAAA</color>
 
     <color name="msg_by_grey">#757575</color>
+    <color name="fore">#3ED3D2D2</color>
     <color name="tab_color">#0977D3</color>
 
     <color name="active">#6AA84F</color>

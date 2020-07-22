@@ -1,5 +1,6 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,10 +58,35 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
     }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
 
     @Override
     public void onClick(View v) {
-        if (CommonUtils.isNetworkAvailable(getApplicationContext())) {
+        if (CommonUtils.isNetworkAvailable(this)) {
             if (v == btnSubmit) {
                 String username = edtEmailOrMobileNo.getText().toString();
                 if ((GMSValidator.checkNullString(username))) {
@@ -77,11 +104,11 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                         e.printStackTrace();
                     }
                 } else {
-                    AlertDialogHelper.showSimpleAlertDialog(getApplicationContext(), "Email ID/Mobile number is required tot reset password");
+                    AlertDialogHelper.showSimpleAlertDialog(this, "Email ID/ Phone number is required to reset password");
                 }
             }
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getApplicationContext(), "No Network connection available");
+            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available");
         }
 
     }
@@ -133,8 +160,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
         progressDialogHelper.hideProgressDialog();
             if (validateSignInResponse(response)) {
 
-                Toast.makeText(getApplicationContext(), "We have mailed you a link to reset your password", Toast.LENGTH_LONG).show();
-                Intent homeIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                Toast.makeText(this, "We have mailed you a link to reset your password", Toast.LENGTH_LONG).show();
+                Intent homeIntent = new Intent(this, LoginActivity.class);
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 homeIntent.putExtra("mobile_no", edtEmailOrMobileNo.getText().toString());
                 startActivity(homeIntent);

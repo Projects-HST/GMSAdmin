@@ -41,46 +41,46 @@ public class GMSConstants {
     //VERSION CHECK URL
     public static final String CHECK_VERSION = "apiandroid/version_check";
 
-    //VERSION CHECK URL
+    //PAGUTHI LIST URL
     public static final String GET_PAGUTHI = "apiandroid/listPaguthi";
 
-    //VERSION CHECK URL
+    //DASHBOARD URL
     public static final String GET_DASHBOARD_DETAIL = "apiandroid/dashBoard";
 
-    //VERSION CHECK URL
+    //MEMBER WIDGET URL
     public static final String GET_WIDGET_CONSTITUTENT = "apiandroid/widgets_members";
 
-    //VERSION CHECK URL
+    //MEETING WIDGET URL
     public static final String GET_WIDGET_MEETING = "apiandroid/widgets_meetings";
 
-    //VERSION CHECK URL
+    //GRIEVANCE WIDGET URL
     public static final String GET_WIDGET_GRIEVANCE = "apiandroid/widgets_grievances";
 
-    //VERSION CHECK URL
+    //INTERACTION WIDGET URL
     public static final String GET_WIDGET_INTERACTION = "apiandroid/widgets_interactions/";
 
-    //VERSION CHECK URL
+    //DASHBOARD SEARCH URL
     public static final String GET_SEARCH_RESULT = "apiandroid/dashBoard_searchnew";
 
-    //VERSION CHECK URL
+    //CONSTITUENT SEARCH URL
     public static final String GET_SEARCH_RESULT_CONSTITUENT = "apiandroid/listConstituentsearch";
 
-    //VERSION CHECK URL
+    //MEETING SEARCH URL
     public static final String GET_SEARCH_RESULT_MEETING = "apiandroid/meetingRequestsearch";
 
-    //VERSION CHECK URL
+    //GRIEVANCE SEARCH URL
     public static final String GET_SEARCH_RESULT_GRIEVANCE = "apiandroid/listGrievancesearch";
 
-    //VERSION CHECK URL
+    //CONSTITUENT LIST URL
     public static final String GET_CONSTITUENT_LIST = "apiandroid/listConstituentnew";
 
-    //VERSION CHECK URL
+    //CONSTITUENT DETAILS URL
     public static final String GET_CONSTITUENT_DETAIL = "apiandroid/constituentDetails";
 
-    //VERSION CHECK URL
+    //CONSTITUENT PLANTS URL
     public static final String GET_CONSTITUENT_PLANT = "apiandroid/constituentPlant";
 
-    //VERSION CHECK URL
+    //CONSTITUENT MEETINGS URL
     public static final String GET_CONSTITUENT_MEETINGS = "apiandroid/constituentMeetings";
 
     //VERSION CHECK URL
@@ -119,12 +119,56 @@ public class GMSConstants {
     //VERSION CHECK URL
     public static final String GET_GRIEVANCE_DETAILS = "apiandroid/constituentGrievancedetails";
 
-
     //VERSION CHECK URL
     public static final String GET_STAFF_LIST= "apiandroid/listStaff";
 
     //VERSION CHECK URL
     public static final String GET_STAFF_DETAILS = "apiandroid/staffDetails";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_STATUS = "apiandroid/reportStatusnew";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_STATUS_SEARCH = "apiandroid/reportStatussearch";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_CATEGORY = "apiandroid/reportCategorynew/";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_CATEGORY_SEARCH = "apiandroid/reportCategorysearch/";
+
+    //VERSION CHECK URL
+    public static final String GET_CATEGORY_LIST = "apiandroid/activeCategory/";
+
+    //VERSION CHECK URL
+    public static final String GET_SUB_CATEGORY_LIST = "apiandroid/activeSubcategory";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_SUB_CATEGORY = "apiandroid/reportsubCategorynew";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_SUB_CATEGORY_SEARCH = "apiandroid/reportsubCategorysearch";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_LOCATION = "apiandroid/reportLocationnew";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_LOCATION_SEARCH = "apiandroid/reportLocationnew";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_MEETING = "apiandroid/reportMeetingsnew";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_MEETING_SEARCH = "apiandroid/reportMeetingssearch";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_STAFF = "apiandroid/reportStaff/";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_BIRTHDAY = "apiandroid/reportBirthdaynew";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_BIRTHDAY_SEARCH = "apiandroid/reportBirthdaysearch";
 
 
 
@@ -160,6 +204,7 @@ public class GMSConstants {
     public static final String KEY_CONSTITUENT_ID = "constituent_id";
     public static final String KEY_GRIEVANCE_ID = "grievance_id";
     public static final String KEY_CONSTITUENCY_NAME = "constituency_name";
+    public static final String KEY_CONSTITUENT_NAME = "constituent_name";
     public static final String KEY_CLIENT_API_URL = "client_api_url";
     public static final String KEY_JUST_ID = "id";
     public static final String KEY_MEETING_ID = "meeting_id";
@@ -173,11 +218,16 @@ public class GMSConstants {
     public static final String KEY_USER_MAIL = "email";
     public static final String KEY_USER_MAIL_STATUS = "email_verify_status";
     public static final String KEY_USER_TYPE = "user_type";
+    public static final String KEY_FROM_DATE = "from_date";
+    public static final String KEY_TO_DATE = "to_date";
     public static final String KEY_STATUS = "status";
     public static final String KEY_LAST_LOGIN = "last_login";
     public static final String KEY_LOGIN_COUNT = "login_count";
     public static final String KEY_GRIEVANCE_TYPE = "grievance_type";
     public static final String KEY_OFFSET = "offset";
+    public static final String KEY_CATEGORY = "category";
+    public static final String KEY_SUB_CATEGORY = "sub_category";
+    public static final String KEY_MONTH = "select_month";
     public static final String KEY_ROWCOUNT = "rowcount";
     public static final String KEY_PINCODE = "pin_code";
     public static final String KEY_WHATSAPP_NO = "whatsapp_no";

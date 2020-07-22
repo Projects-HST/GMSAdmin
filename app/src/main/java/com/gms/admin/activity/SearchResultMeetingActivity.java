@@ -1,11 +1,15 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ConstituentListAdapter;
+import com.gms.admin.adapter.MeetingListAdapter;
+import com.gms.admin.bean.support.Meeting;
+import com.gms.admin.bean.support.MeetingList;
 import com.gms.admin.bean.support.SearchResultUserList;
 import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -33,7 +40,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SearchResultMeetingActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, ConstituentListAdapter.OnItemClickListener{
+public class SearchResultMeetingActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, MeetingListAdapter.OnItemClickListener{
     private static final String TAG = "AdvaSearchResAct";
     private LinearLayout userListView;
     View view;
@@ -41,7 +48,7 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
     String event = "";
     //    GeneralServiceListAdapter generalServiceListAdapter;
     private ServiceHelper serviceHelper;
-    ArrayList<User> serviceArrayList = new ArrayList<>();
+    ArrayList<Meeting> serviceArrayList = new ArrayList<>();
     int pageNumber = 0, totalCount = 0;
     protected ProgressDialogHelper progressDialogHelper;
     protected boolean isLoadingForFirstTime = true;
@@ -52,7 +59,7 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
     private RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     int listcount = 0;
-    ConstituentListAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,14 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
 //        getSupportActionBar().hide();
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
         swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
         recyclerView = findViewById(R.id.recycler_view);
         className = this.getClass().getSimpleName();
 //        serviceArrayList = new ArrayList<>();
@@ -115,7 +130,7 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
             try {
                 jsonObject.put(GMSConstants.SEARCH_TEXT, event);
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
-                jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, PreferenceStorage.getConstituencyID(this));
+                jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(this));
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
 
             } catch (JSONException e) {
@@ -161,9 +176,9 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
         progressDialogHelper.hideProgressDialog();
         if (validateResponse(response)) {
             Gson gson = new Gson();
-            searchResultUserList = gson.fromJson(response.toString(), SearchResultUserList.class);
-            serviceArrayList.addAll(searchResultUserList.getUserArrayList());
-            mAdapter = new ConstituentListAdapter(serviceArrayList, SearchResultMeetingActivity.this);
+            MeetingList meetingList = gson.fromJson(response.toString(), MeetingList.class);
+            serviceArrayList.addAll(meetingList.getMeetingArrayList());
+            MeetingListAdapter mAdapter = new MeetingListAdapter(serviceArrayList, SearchResultMeetingActivity.this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
@@ -191,10 +206,35 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
 
     @Override
     public void onItemClick(View view, int position) {
-        User user = null;
+        Meeting user = null;
         user = serviceArrayList.get(position);
-        Intent intent = new Intent(this, ConstituentDetailsActivity.class);
-        intent.putExtra("userObj", user);
+        Intent intent = new Intent(this, MeetingDetailActivity.class);
+        intent.putExtra("meetingObj", user.getid());
         startActivity(intent);
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 }

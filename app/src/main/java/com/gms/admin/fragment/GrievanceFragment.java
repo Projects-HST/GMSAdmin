@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.gms.admin.R;
 import com.gms.admin.activity.SearchResultActivity;
+import com.gms.admin.activity.SearchResultGrievanceActivity;
 import com.gms.admin.adapter.ConstituentPaguthiTabAdapter;
 import com.gms.admin.adapter.GrievancePaguthiTabAdapter;
 import com.gms.admin.bean.support.Paguthi;
@@ -118,9 +119,9 @@ public class GrievanceFragment extends Fragment implements IServiceListener, Dia
 //                } else {
 //                    Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
 //                }
-//                if (query != null) {
-//                    makeSearch(query);
-//                }
+                if (query != null) {
+                    makeSearch(query);
+                }
 
                 return false;
             }
@@ -155,7 +156,12 @@ public class GrievanceFragment extends Fragment implements IServiceListener, Dia
 
     private void makeSearch(String eventname) {
         PreferenceStorage.setSearchFor(getActivity(), eventname);
-        startActivity(new Intent(getActivity(), SearchResultActivity.class));
+        String id = "", name = "";
+        id = paguthiArrayList.get(tab.getSelectedTabPosition()).getid();
+        name = paguthiArrayList.get(tab.getSelectedTabPosition()).getpaguthi_name();
+        PreferenceStorage.savePaguthiID(getActivity(), id);
+        PreferenceStorage.savePaguthiName(getActivity(), name);
+        startActivity(new Intent(getActivity(), SearchResultGrievanceActivity.class));
     }
 
     @Override

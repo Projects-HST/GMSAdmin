@@ -14,7 +14,9 @@ import com.gms.admin.R;
 import com.gms.admin.bean.support.Grievance;
 import com.gms.admin.bean.support.Grievance;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHolder> {
@@ -79,12 +81,12 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHold
             holder.txtPetitionEnquiryNo.setText("Enquiry Number - " + Grievance.getpetition_enquiry_no());
         }
 
-        holder.txtSeekerType.setText(Grievance.getseeker_info());
-        holder.txtdate.setText(Grievance.getgrievance_date());
-        holder.txtUser.setText(Grievance.getFull_name());
-        holder.txtGrievanceName.setText(Grievance.getgrievance_name());
-        holder.txtGrievanceStatus.setText(Grievance.getstatus());
-        holder.txtGrievanceSubCategory.setText(Grievance.getSub_category_name());
+        holder.txtSeekerType.setText(capitalizeString(Grievance.getseeker_info()));
+        holder.txtdate.setText(getserverdateformat(Grievance.getgrievance_date()));
+        holder.txtUser.setText(capitalizeString(Grievance.getFull_name()));
+        holder.txtGrievanceName.setText(capitalizeString(Grievance.getgrievance_name()));
+        holder.txtGrievanceStatus.setText(capitalizeString(Grievance.getstatus()));
+        holder.txtGrievanceSubCategory.setText(capitalizeString(Grievance.getSub_category_name()));
 
         if (Grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
             holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.completed_grievance));
@@ -94,6 +96,39 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHold
 //                holder.totalLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.shadow_foreground));
 //            }
         }
+    }
+
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
+
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
     @Override

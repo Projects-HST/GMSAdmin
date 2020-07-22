@@ -156,7 +156,7 @@ public class PreferenceStorage {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(GMSConstants.FULL_NAME, userName);
+        editor.putString(GMSConstants.KEY_CONSTITUENT_NAME, userName);
         editor.apply();
     }
 
@@ -164,7 +164,7 @@ public class PreferenceStorage {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         String userId;
-        userId = sharedPreferences.getString(GMSConstants.FULL_NAME, "");
+        userId = sharedPreferences.getString(GMSConstants.KEY_CONSTITUENT_NAME, "");
         return userId;
     }
     /*End*/
@@ -197,6 +197,24 @@ public class PreferenceStorage {
     }
 
     public static String getAddress(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String userId;
+        userId = sharedPreferences.getString(GMSConstants.KEY_USER_ADDRESS, "");
+        return userId;
+    }
+    /*End*/
+
+    // UserAddress
+    public static void saveConstituentAddress(Context context, String userAddress) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_USER_ADDRESS, userAddress);
+        editor.apply();
+    }
+
+    public static String getConstituentAddress(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         String userId;
@@ -632,6 +650,114 @@ public class PreferenceStorage {
                 .getDefaultSharedPreferences(context);
         String ser;
         ser = sharedPreferences.getString(GMSConstants.KEY_GRIEVANCE_TYPE, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveFromDate(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_FROM_DATE, ser);
+        editor.apply();
+    }
+
+    public static String getFromDate(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_FROM_DATE, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveToDate(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_TO_DATE, ser);
+        editor.apply();
+    }
+
+    public static String getToDate(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_TO_DATE, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveReportStatus(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_STATUS, ser);
+        editor.apply();
+    }
+
+    public static String getReportStatus(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_STATUS, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveReportCategory(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_CATEGORY, ser);
+        editor.apply();
+    }
+
+    public static String getReportCategory(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_CATEGORY, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveReportSubCategory(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_SUB_CATEGORY, ser);
+        editor.apply();
+    }
+
+    public static String getReportSubCategory(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_SUB_CATEGORY, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveMonth(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_MONTH, ser);
+        editor.apply();
+    }
+
+    public static String getMonth(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_MONTH, "");
         return ser;
     }
     /*End*/

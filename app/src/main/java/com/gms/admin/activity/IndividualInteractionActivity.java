@@ -1,10 +1,15 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,7 +33,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class IndividualInteractionActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener {
 
@@ -38,11 +45,7 @@ public class IndividualInteractionActivity extends AppCompatActivity implements 
     private ProgressDialogHelper progressDialogHelper;
     private LinearLayout listView;
     private int ab = 0;
-    private ArrayList<Grievance> grievances = new ArrayList<>();
-    private GrievanceListAdapter grievanceListAdapter;
-    private TextView grievanceCount, noGrievance;
     private User user;
-    private IndividualGrievanceList individualGrievanceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +175,7 @@ public class IndividualInteractionActivity extends AppCompatActivity implements 
                 textQuestion.setId(R.id.interaction_question);
                 textQuestion.setTextColor(ContextCompat.getColor(this, R.color.black));
                 textQuestion.setGravity(Gravity.CENTER_HORIZONTAL);
-                textQuestion.setText(memberCount.getJSONObject(c1).getString("interaction_text"));
+                textQuestion.setText(capitalizeString(memberCount.getJSONObject(c1).getString("interaction_text")));
                 textQuestion.setLayoutParams(textQuestionParams);
 
                 TextView yes = new TextView(this);
@@ -231,4 +234,65 @@ public class IndividualInteractionActivity extends AppCompatActivity implements 
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
+
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
+
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
+    }
+
+
 }

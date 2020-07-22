@@ -9,6 +9,9 @@
     <item name="user_serial" type="id" />
     <item name="user_number" type="id" />
 
+    <item name="doc_name" type="id" />
+    <item name="doc_date" type="id" />
+
 
     <item name="interaction_question" type="id" />
     <item name="interaction_yes" type="id" />

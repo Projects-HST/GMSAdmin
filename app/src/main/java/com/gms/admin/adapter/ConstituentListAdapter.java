@@ -73,7 +73,7 @@ public class ConstituentListAdapter extends RecyclerView.Adapter<ConstituentList
     @Override
     public void onBindViewHolder(ConstituentListAdapter.MyViewHolder holder, int position) {
         User user = users.get(position);
-        holder.txtUserName.setText(users.get(position).getfull_name());
+        holder.txtUserName.setText(capitalizeString(users.get(position).getfull_name()));
         holder.txtUserSerial.setText(users.get(position).getmobile_no());
         holder.txtUserDOB.setText("Serial Number -" +users.get(position).getSerial_no());
 
@@ -85,6 +85,19 @@ public class ConstituentListAdapter extends RecyclerView.Adapter<ConstituentList
             holder.userImage.setImageResource(R.drawable.ic_profile);
         }
 
+    }
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
     @Override

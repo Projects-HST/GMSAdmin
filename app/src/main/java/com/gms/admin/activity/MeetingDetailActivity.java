@@ -29,7 +29,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MeetingDetailActivity extends AppCompatActivity implements View.OnClickListener, IServiceListener, DialogClickListener {
 
@@ -218,17 +220,50 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
                     Toast.makeText(this, "Status updated successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     JSONArray data = response.getJSONArray("meeting_details");
-                    meetinConstName.setText(data.getJSONObject(0).getString("full_name"));
-                    meetingDate.setText(data.getJSONObject(0).getString("meeting_date"));
-                    meetingArea.setText(data.getJSONObject(0).getString("paguthi_name"));
-                    meetingTitle.setText(data.getJSONObject(0).getString("meeting_title"));
-                    meetingDetail.setText(data.getJSONObject(0).getString("meeting_detail"));
-                    meetingStatus.setText(data.getJSONObject(0).getString("meeting_status"));
+                    meetinConstName.setText(capitalizeString(data.getJSONObject(0).getString("full_name")));
+                    meetingDate.setText(getserverdateformat(data.getJSONObject(0).getString("meeting_date")));
+                    meetingArea.setText(capitalizeString(data.getJSONObject(0).getString("paguthi_name")));
+                    meetingTitle.setText(capitalizeString(data.getJSONObject(0).getString("meeting_title")));
+                    meetingDetail.setText(capitalizeString(data.getJSONObject(0).getString("meeting_detail")));
+                    meetingStatus.setText(capitalizeString(data.getJSONObject(0).getString("meeting_status")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
+
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
     @Override

@@ -26,6 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MessageHistoryActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener {
 
     private static final String TAG = IndividualGrievanceActivity.class.getName();
@@ -165,7 +168,18 @@ public class MessageHistoryActivity extends AppCompatActivity implements IServic
                 sentAt.setLayoutParams(sentDateParams);
                 sentAt.setGravity(Gravity.END);
                 sentAt.setTextSize(12.0f);
-                sentAt.setText(memberCount.getJSONObject(c1).getString("created_at"));
+
+                String date = memberCount.getJSONObject(c1).getString("created_at");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date testDate = null;
+                try {
+                    testDate = formatter.parse(date);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a, dd MMM yyyy");
+
+                sentAt.setText(sdf.format(testDate));
 
                 TextView sentBy = new TextView(this);
                 sentBy.setTextColor(ContextCompat.getColor(this, R.color.msg_by_grey));

@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.Meeting;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.MyViewHolder> {
 
@@ -72,11 +75,37 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
         holder.txtConstituentName.setText(capitalizeString(meeting.getfull_name()));
         holder.txtPaguthi.setText(capitalizeString(meeting.getpaguthi_name()));
         holder.txtMeetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
-        holder.txtMeetingDate.setText(capitalizeString(meeting.getmeeting_date()));
+        holder.txtMeetingDate.setText(getserverdateformat(meeting.getmeeting_date()));
         holder.txtMeetingStatus.setText(capitalizeString(meeting.getmeeting_status()));
         holder.txtCreatedBy.setText("Created by - " +capitalizeString(meeting.getcreated_by()));
 
+        if (meeting.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
+            holder.txtMeetingStatus.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.completed_meeting));
+        } else {
+            holder.txtMeetingStatus.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.requested));
+        }
+
     }
+
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
+
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
+    }
+
     public static String capitalizeString(String string) {
         char[] chars = string.toLowerCase().toCharArray();
         boolean found = false;

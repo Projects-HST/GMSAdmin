@@ -20,7 +20,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -64,12 +66,12 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private TextView meetPopupCount, requestedmeetingCount, completedmeetingCount;
     private TextView interPopupCount, knowCount, interCount, nrcCount, citezeincount, crossCount;
     BarChart barChart;
-    float groupSpace = 0.08f;
-    float barSpace = 0.03f; // x4 DataSet
-    float barWidth = 0.3f; // x4 DataSet
-    // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
+    float groupSpace = 0.31f;
+    float barSpace = 0.03f; // x3 DataSet
+    float barWidth = 0.2f; // x3 DataSet
+    // (0.2 + 0.03) * 3 + 0.31 = 1.00 -> interval per "group"
 
-    int groupCount = 3;
+    int groupCount = 12;
 
     public static DashboardFragment newInstance(int position) {
         DashboardFragment frag = new DashboardFragment();
@@ -211,7 +213,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             e.printStackTrace();
         }
 
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+//        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
         String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_PAGUTHI;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
@@ -468,21 +470,39 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     barChart.getXAxis().setAxisMinimum(-(0.5f));
                     barChart.getXAxis().setAxisMaximum(12);
 
+                    Legend l = barChart.getLegend();
+                    l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+                    l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+                    l.setOrientation(Legend.LegendOrientation.VERTICAL);
+                    l.setDrawInside(true);
+                    l.setYOffset(0f);
+                    l.setXOffset(10f);
+                    l.setYEntrySpace(0f);
+                    l.setTextSize(8f);
+
+                    YAxis leftAxis = barChart.getAxisLeft();
+//                    leftAxis.setValueFormatter(new LargeValueFormatter());
+                    leftAxis.setDrawGridLines(false);
+                    leftAxis.setSpaceTop(35f);
+                    leftAxis.setAxisMinimum(0f);
+//                    leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+
+                    barChart.getAxisRight().setEnabled(false);
+
                     XAxis xAxis = barChart.getXAxis();
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setDrawGridLines(false);
                     xAxis.setGranularity(1f); // only intervals of 1 day
                     xAxis.setLabelCount(12);
+                    xAxis.setCenterAxisLabels(true);
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(year));
-//                    xAxis.setValueFormatter(xAxisFormatter);
 
-                    // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
 //                    barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
-//                    barChart.groupBars(0, groupSpace, barSpace);
-                    barChart.setVisibleXRangeMaximum(5);
+                    barChart.groupBars(-0, groupSpace, barSpace);
+                    barChart.setVisibleXRangeMaximum(3);
                     barChart.invalidate();
                 } else if (checkRes.equalsIgnoreCase("widget_consti")) {
-                    constiPopupCount.setText(response.getJSONObject("constituent_details").getString("member_count"));
+                    constiPopupCount.setText(getString(R.string.constituent_members)+" - "+response.getJSONObject("constituent_details").getString("member_count"));
                     maleCount.setText(response.getJSONObject("constituent_details").getString("male_count"));
                     femaleCount.setText(response.getJSONObject("constituent_details").getString("female_count"));
                     voterCount.setText(response.getJSONObject("constituent_details").getString("voterid_count"));
@@ -493,7 +513,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     grievanceLayout.setClickable(false);
                     interactionLayout.setClickable(false);
                 } else if (checkRes.equalsIgnoreCase("widget_grie")) {
-                    grievPopupCount.setText(response.getJSONObject("grievances_details").getString("grievance_count"));
+                    grievPopupCount.setText(getString(R.string.total_grievances)+" - "+response.getJSONObject("grievances_details").getString("grievance_count"));
                     enquiryCount.setText(response.getJSONObject("grievances_details").getString("enquiry_count"));
                     petitionCount.setText(response.getJSONObject("grievances_details").getString("petition_count"));
                     processinggriveCount.setText(response.getJSONObject("grievances_details").getString("processing_count"));
@@ -504,7 +524,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     grievanceLayout.setClickable(false);
                     interactionLayout.setClickable(false);
                 } else if (checkRes.equalsIgnoreCase("widget_meet")) {
-                    meetPopupCount.setText(response.getJSONObject("meeting_details").getString("meeting_count"));
+                    meetPopupCount.setText(getString(R.string.total_meetings)+" - "+response.getJSONObject("meeting_details").getString("meeting_count"));
                     requestedmeetingCount.setText(response.getJSONObject("meeting_details").getString("requested_count"));
                     completedmeetingCount.setText(response.getJSONObject("meeting_details").getString("completed_count"));
                     meetingPopup.setVisibility(View.VISIBLE);
@@ -513,7 +533,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     grievanceLayout.setClickable(false);
                     interactionLayout.setClickable(false);
                 } else if (checkRes.equalsIgnoreCase("widget_inter")) {
-                    interPopupCount.setText(response.getString("interaction_count"));
+                    interPopupCount.setText(getString(R.string.constituent_interaction)+" - "+response.getString("interaction_count"));
                     knowCount.setText(response.getJSONArray("interaction_details").getJSONObject(0).getString("tot_values"));
                     interCount.setText(response.getJSONArray("interaction_details").getJSONObject(1).getString("tot_values"));
                     nrcCount.setText(response.getJSONArray("interaction_details").getJSONObject(2).getString("tot_values"));

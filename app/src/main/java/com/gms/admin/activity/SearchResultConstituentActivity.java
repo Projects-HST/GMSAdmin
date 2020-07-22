@@ -1,11 +1,15 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ConstituentListAdapter;
+import com.gms.admin.bean.support.ConstituencyList;
+import com.gms.admin.bean.support.ConstituentUserList;
 import com.gms.admin.bean.support.SearchResultUserList;
 import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -48,7 +54,7 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
     Handler mHandler = new Handler();
     private SearchView mSearchView = null;
     String advSearch = "";
-    SearchResultUserList searchResultUserList;
+    ConstituentUserList searchResultUserList;
     private RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     int listcount = 0;
@@ -61,6 +67,14 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
 //        getSupportActionBar().hide();
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
         swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
         recyclerView = findViewById(R.id.recycler_view);
         className = this.getClass().getSimpleName();
 //        serviceArrayList = new ArrayList<>();
@@ -115,7 +129,7 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
             try {
                 jsonObject.put(GMSConstants.SEARCH_TEXT, event);
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
-                jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiName(this));
+                jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
 
             } catch (JSONException e) {
@@ -161,7 +175,7 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
         progressDialogHelper.hideProgressDialog();
         if (validateResponse(response)) {
             Gson gson = new Gson();
-            searchResultUserList = gson.fromJson(response.toString(), SearchResultUserList.class);
+            searchResultUserList = gson.fromJson(response.toString(), ConstituentUserList.class);
             serviceArrayList.addAll(searchResultUserList.getUserArrayList());
             mAdapter = new ConstituentListAdapter(serviceArrayList, SearchResultConstituentActivity.this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -196,5 +210,30 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
         Intent intent = new Intent(this, ConstituentDetailsActivity.class);
         intent.putExtra("userObj", user);
         startActivity(intent);
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 }

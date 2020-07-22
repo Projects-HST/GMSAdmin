@@ -1,11 +1,16 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -76,6 +81,32 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
+
+    @Override
     public void onAlertPositiveClicked(int tag) {
 
     }
@@ -133,27 +164,36 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
                 ArrayList<PieEntry> entries = new ArrayList<>();
                 int count = getLineData.length();
 
-//                entries.add(new PieEntry(Float.parseFloat((getData.getString("gerv_ecount"))),"Enquiry"));
-//                entries.add(new PieEntry(Float.parseFloat((getData.getString("gerv_ppcount"))),"Processing"));
-//                entries.add(new PieEntry(Float.parseFloat((getData.getString("gerv_pccount"))),"Completed"));
+                entries.add(new PieEntry(Float.parseFloat((getData.getString("gerv_ecount"))),"Enquiry"));
+                entries.add(new PieEntry(Float.parseFloat((getData.getString("gerv_ppcount"))),"Processing"));
+                entries.add(new PieEntry(Float.parseFloat((getData.getString("gerv_pccount"))),"Completed"));
 
-                entries.add(new PieEntry(125f, "Enquiry"));
-                entries.add(new PieEntry(230f, "Processing"));
-                entries.add(new PieEntry(50f, "Completed"));
+//                entries.add(new PieEntry(125f, "Enquiry"));
+//                entries.add(new PieEntry(230f, "Processing"));
+//                entries.add(new PieEntry(50f, "Completed"));
 
                 PieDataSet dataSet = new PieDataSet(entries, "");
 
                 PieData data = new PieData(dataSet);
                 pieChart.setData(data);
 
+                Legend l = pieChart.getLegend();
+                l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+                l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+                l.setOrientation(Legend.LegendOrientation.VERTICAL);
+                l.setDrawInside(false);
+                l.setXEntrySpace(7f);
+                l.setYEntrySpace(0f);
+                l.setYOffset(0f);
+
 //                dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 dataSet.setColors(new int[]{ContextCompat.getColor(this, R.color.enquiry_pie), ContextCompat.getColor(this, R.color.processing_pie), ContextCompat.getColor(this, R.color.completed_pie)});
 // dataSet.setSliceSpace(3f);
                 dataSet.setSelectionShift(5f);
-                dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-                dataSet.setValueLinePart1OffsetPercentage(80.f);
-                dataSet.setValueLinePart1Length(0.3f);
-                dataSet.setValueLinePart2Length(0.6f);
+//                dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+//                dataSet.setValueLinePart1OffsetPercentage(80.f);
+//                dataSet.setValueLinePart1Length(0.3f);
+//                dataSet.setValueLinePart2Length(0.5f);
 //                dataSet.setUsingSliceColorAsValueLineColor(true);
                 pieChart.animateXY(1000, 1000);
 
@@ -167,7 +207,7 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
 //                pieChart.setTransparentCircleRadius(12f);
                 pieChart.setDrawSlicesUnderHole(true);
                 pieChart.setEntryLabelColor(dataSet.getValueLineColor());
-                pieChart.getLegend().setEnabled(false);
+//                pieChart.getLegend().setEnabled(false);
                 pieChart.invalidate();
 
 
@@ -214,6 +254,15 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
                 xAxis.setLabelCount(12);
                 xAxis.setValueFormatter(new IndexAxisValueFormatter(year));
 
+                Legend ll = lineChart.getLegend();
+                ll.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+                ll.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+                ll.setOrientation(Legend.LegendOrientation.VERTICAL);
+                ll.setDrawInside(true);
+                ll.setYOffset(0f);
+                ll.setXOffset(10f);
+                ll.setYEntrySpace(0f);
+                ll.setTextSize(8f);
 
                 lineChart.getDescription().setEnabled(false);
                 lineChart.getLegend().setEnabled(false);

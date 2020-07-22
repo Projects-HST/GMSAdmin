@@ -1,20 +1,36 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.GrievanceListAdapter;
+import com.gms.admin.adapter.SampleAdapter;
 import com.gms.admin.bean.support.Grievance;
+import com.gms.admin.bean.support.GrievanceList;
 import com.gms.admin.bean.support.IndividualGrievanceList;
 import com.gms.admin.bean.support.User;
+import com.gms.admin.fragment.DynamicGrievanceFragment;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -29,7 +45,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class IndividualGrievanceActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class IndividualGrievanceActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, GrievanceListAdapter.OnItemClickListener {
 
     private static final String TAG = IndividualGrievanceActivity.class.getName();
     private View rootView;
@@ -41,23 +57,37 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
     private GrievanceListAdapter grievanceListAdapter;
     private TextView grievanceCount, noGrievance;
     private User user;
+    private RecyclerView recyclerView;
+    private GrievanceListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_grievance);
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //What to do on back clicked
                 finish();
-
             }
         });
 
+//        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//
+//            }
+//        });
+
         user = (User) getIntent().getSerializableExtra("userObj");
 
-        listView = (ListView) findViewById(R.id.list_petition);
-        listView.setOnItemClickListener(this);
+        recyclerView = findViewById(R.id.recycler_view);
+
 
         noGrievance = (TextView) findViewById(R.id.no_grievance);
         grievanceCount = (TextView) findViewById(R.id.individual_grievance_count);
@@ -68,6 +98,53 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
 
         getGrievances();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.right_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_item);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 
     private void getGrievances() {
@@ -141,27 +218,12 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
                 e.printStackTrace();
             }
             Gson gson = new Gson();
-            IndividualGrievanceList individualGrievanceList = gson.fromJson(response.toString(), IndividualGrievanceList.class);
-            if (individualGrievanceList.getGrievanceArrayList() != null && individualGrievanceList.getGrievanceArrayList().size() > 0) {
-//                    this.ongoingServiceArrayList.addAll(ongoingServiceList.getserviceArrayList());
-                updateListAdapter(individualGrievanceList.getGrievanceArrayList());
-            } else {
-                if (grievances != null) {
-                    grievances.clear();
-                    updateListAdapter(individualGrievanceList.getGrievanceArrayList());
-                }
-            }
-        }
-    }
-
-    protected void updateListAdapter(ArrayList<Grievance> grievanceArrayList) {
-        grievances.clear();
-        grievances.addAll(grievanceArrayList);
-        if (grievanceListAdapter == null) {
-            grievanceListAdapter = new GrievanceListAdapter(this, grievances);
-            listView.setAdapter(grievanceListAdapter);
-        } else {
-            grievanceListAdapter.notifyDataSetChanged();
+            IndividualGrievanceList grievanceList = gson.fromJson(response.toString(), IndividualGrievanceList.class);
+            grievances.addAll(grievanceList.getGrievanceArrayList());
+            mAdapter = new GrievanceListAdapter(grievances, IndividualGrievanceActivity.this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setAdapter(mAdapter);
         }
     }
 
@@ -172,18 +234,9 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(TAG, "onEvent list item clicked" + position);
+    public void onItemClick(View view, int position) {
         Grievance grievance = null;
-        if ((grievanceListAdapter != null) && (grievanceListAdapter.ismSearching())) {
-            Log.d(TAG, "while searching");
-            int actualindex = grievanceListAdapter.getActualEventPos(position);
-            Log.d(TAG, "actual index" + actualindex);
-            grievance = grievances.get(actualindex);
-        } else {
-            grievance = grievances.get(position);
-        }
-//        PreferenceStorage.saveUserId(this, news.getid());
+        grievance = grievances.get(position);
         Intent intent = new Intent(this, IndividualGrievanceDetailActivity.class);
         intent.putExtra("serviceObj", grievance);
         startActivity(intent);

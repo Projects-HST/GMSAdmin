@@ -102,7 +102,14 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
         recyclerView = view.findViewById(R.id.recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.list_refresh);
         swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -120,6 +127,7 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
                 return false;
             }
         });
+        PreferenceStorage.saveGrievanceType(getActivity(), subtabName);
 
         getGrievanceList(subtabName, String.valueOf(listcount));
 

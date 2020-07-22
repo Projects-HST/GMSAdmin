@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import com.gms.admin.bean.support.IndividualMeeting;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class IndividualMeetingListAdapter extends BaseAdapter {
+public class IndividualMeetingListAdapter extends BaseAdapter implements Filterable {
 
     //    private final Transformation transformation;
     private Context context;
@@ -30,6 +32,42 @@ public class IndividualMeetingListAdapter extends BaseAdapter {
     Boolean click = false;
     private ArrayList<Integer> mValidSearchIndices = new ArrayList<Integer>();
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            private ArrayList<IndividualMeeting> filtered = new ArrayList<IndividualMeeting>();
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString().toLowerCase();
+                filtered.clear();
+                if(charString.isEmpty()){
+                    filtered = meetings;
+                    //filteredCUG = CUG;
+                }
+                else{
+                    for (IndividualMeeting cug : meetings){
+                        if( cug.getmeeting_title().toLowerCase().contains(charString) || cug.getmeeting_detail().toLowerCase().contains(charString) ||
+                                cug.getmeeting_status().toLowerCase().contains(charString) || cug.getcreated_at().toLowerCase().contains(charString) ||
+                                cug.getmeeting_date().toLowerCase().contains(charString)){
+                            filtered.add(cug);
+                        }
+                    }
+                    //filteredCUG = filtered;
+                }
+                FilterResults filterResults = new FilterResults();
+
+                filterResults.values = filtered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                //filteredCUG.clear();
+                meetings = (ArrayList<IndividualMeeting>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public IndividualMeetingListAdapter(Context context, ArrayList<IndividualMeeting> meetings) {
         this.context = context;
@@ -115,6 +153,20 @@ public class IndividualMeetingListAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
     public void startSearch(String eventName) {

@@ -12,6 +12,9 @@ import com.gms.admin.R;
 import com.gms.admin.bean.support.IndividualMeeting;
 import com.gms.admin.interfaces.DialogClickListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class IndividualMeetingDetailActivity extends AppCompatActivity implements View.OnClickListener, DialogClickListener {
 
     private static final String TAG = IndividualMeetingDetailActivity.class.getName();
@@ -31,7 +34,7 @@ public class IndividualMeetingDetailActivity extends AppCompatActivity implement
 
             }
         });
-        meeting = (IndividualMeeting) getIntent().getSerializableExtra("serviceObj");
+        meeting = (IndividualMeeting) getIntent().getSerializableExtra("meetingObj");
 
         meetingTitle = (TextView) findViewById(R.id.meeting_title);
         meetingDetail = (TextView) findViewById(R.id.meeting_details);
@@ -39,17 +42,48 @@ public class IndividualMeetingDetailActivity extends AppCompatActivity implement
         meetingStatus = (TextView) findViewById(R.id.meeting_status);
 
 
-        meetingTitle.setText(meeting.getmeeting_title());
-        meetingDetail.setText(meeting.getmeeting_detail());
-        meetingDate.setText(meeting.getmeeting_date());
-        meetingStatus.setText(meeting.getmeeting_status());
+        meetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
+        meetingDetail.setText(capitalizeString(meeting.getmeeting_detail()));
+        meetingDate.setText(getserverdateformat(meeting.getmeeting_date()));
+        meetingStatus.setText(capitalizeString(meeting.getmeeting_status()));
         if (meeting.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
             meetingStatus.setTextColor(ContextCompat.getColor(this, R.color.completed_meeting));
         } else {
             meetingStatus.setTextColor(ContextCompat.getColor(this, R.color.requested));
         }
+    }
 
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
 
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
     @Override

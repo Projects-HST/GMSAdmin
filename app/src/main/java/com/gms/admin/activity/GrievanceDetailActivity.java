@@ -1,9 +1,14 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,13 +29,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class GrievanceDetailActivity extends AppCompatActivity implements View.OnClickListener, IServiceListener, DialogClickListener {
 
     private static final String TAG = IndividualGrievanceDetailActivity.class.getName();
 
     private String grievance, constituent;
     private TextView txtConstituency, seekerType, txtPetitionEnquiry, petitionEnquiryNo, grievanceName,
-            grievanceSubCat, grievanceDesc, createdOn, updatedOn, grievanceStatus;
+            grievanceSubCat, grievanceDesc, createdOn, updatedOn, grievanceReference, grievanceStatus;
     private TextView history, profile;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
@@ -58,6 +66,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
         createdOn = (TextView) findViewById(R.id.created_on);
         updatedOn = (TextView) findViewById(R.id.updated_on);
         grievanceStatus = (TextView) findViewById(R.id.grievance_status);
+        grievanceReference = (TextView) findViewById(R.id.grievance_reference_note);
 
         history = findViewById(R.id.msg_history);
         history.setOnClickListener(this);
@@ -157,9 +166,10 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                 grievanceSubCat.setText(data.getString("sub_category_name"));
                 grievanceDesc.setText(data.getString("description"));
                 grievanceStatus.setText(data.getString("status"));
-                createdOn.setText(data.getString("created_at"));
-                updatedOn.setText(data.getString("updated_at"));
+                createdOn.setText(getserverdateformat(data.getString("created_at")));
+                updatedOn.setText(getserverdateformat(data.getString("updated_at")));
                 constituent = data.getString("constituent_id");
+                grievanceReference.setText(data.getString("reference_note"));
                 if (data.getString("status").equalsIgnoreCase("COMPLETED")) {
                     grievanceStatus.setTextColor(ContextCompat.getColor(this, R.color.completed_grievance));
                 } else {
@@ -172,6 +182,51 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
+
+    private String getserverdateformat(String dd) {
+        String serverFormatDate = "";
+        if (dd != null && dd != "") {
+
+            String date = dd;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date testDate = null;
+            try {
+                testDate = formatter.parse(date);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            serverFormatDate = sdf.format(testDate);
+            System.out.println(".....Date..." + serverFormatDate);
+        }
+        return serverFormatDate;
     }
 
     @Override

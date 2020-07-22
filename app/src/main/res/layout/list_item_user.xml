@@ -44,7 +44,7 @@
                 android:text="ABCDEFG"
                 android:drawableStart="@drawable/ic_phone_grey"
                 android:drawablePadding="10dp"
-                android:textColor="@color/text_grey"
+                android:textColor="@color/msg_by_grey"
                 android:textSize="14sp" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ABCDEFG"
-                android:textColor="@color/text_grey"
+                android:textColor="@color/msg_by_grey"
                 android:textSize="14sp" />
 
         </LinearLayout>

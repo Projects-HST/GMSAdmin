@@ -1,11 +1,15 @@
 package com.gms.admin.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ConstituentListAdapter;
+import com.gms.admin.adapter.SampleAdapter;
+import com.gms.admin.bean.support.Grievance;
+import com.gms.admin.bean.support.GrievanceList;
 import com.gms.admin.bean.support.SearchResultUserList;
 import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -33,7 +40,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SearchResultGrievanceActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, ConstituentListAdapter.OnItemClickListener{
+public class SearchResultGrievanceActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, SampleAdapter.OnItemClickListener{
     private static final String TAG = "AdvaSearchResAct";
     private LinearLayout userListView;
     View view;
@@ -41,14 +48,14 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
     String event = "";
     //    GeneralServiceListAdapter generalServiceListAdapter;
     private ServiceHelper serviceHelper;
-    ArrayList<User> serviceArrayList = new ArrayList<>();
+    ArrayList<Grievance> serviceArrayList = new ArrayList<>();
     int pageNumber = 0, totalCount = 0;
     protected ProgressDialogHelper progressDialogHelper;
     protected boolean isLoadingForFirstTime = true;
     Handler mHandler = new Handler();
     private SearchView mSearchView = null;
     String advSearch = "";
-    SearchResultUserList searchResultUserList;
+    GrievanceList searchResultUserList;
     private RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     int listcount = 0;
@@ -61,6 +68,14 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
 //        getSupportActionBar().hide();
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
         swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
         recyclerView = findViewById(R.id.recycler_view);
         className = this.getClass().getSimpleName();
 //        serviceArrayList = new ArrayList<>();
@@ -115,7 +130,7 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
             try {
                 jsonObject.put(GMSConstants.SEARCH_TEXT, event);
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
-                jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiName(this));
+                jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
                 jsonObject.put(GMSConstants.KEY_GRIEVANCE_TYPE, PreferenceStorage.getGrievanceType(this));
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
 
@@ -162,9 +177,9 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
         progressDialogHelper.hideProgressDialog();
         if (validateResponse(response)) {
             Gson gson = new Gson();
-            searchResultUserList = gson.fromJson(response.toString(), SearchResultUserList.class);
-            serviceArrayList.addAll(searchResultUserList.getUserArrayList());
-            mAdapter = new ConstituentListAdapter(serviceArrayList, SearchResultGrievanceActivity.this);
+            searchResultUserList = gson.fromJson(response.toString(), GrievanceList.class);
+            serviceArrayList.addAll(searchResultUserList.getGrievanceArrayList());
+            SampleAdapter mAdapter = new SampleAdapter(serviceArrayList, SearchResultGrievanceActivity.this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);
@@ -192,10 +207,35 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
 
     @Override
     public void onItemClick(View view, int position) {
-        User user = null;
+        Grievance user = null;
         user = serviceArrayList.get(position);
-        Intent intent = new Intent(this, ConstituentDetailsActivity.class);
-        intent.putExtra("userObj", user);
+        Intent intent = new Intent(this, GrievanceDetailActivity.class);
+        intent.putExtra("grievanceObj", user.getid());
         startActivity(intent);
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 }

@@ -53,9 +53,10 @@ public class DocsConstituentFragment extends Fragment implements IServiceListene
     private View view;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
-    private LinearLayout loadMoreListView;
+    public static LinearLayout loadMoreListView;
     private TextView constituentCount;
     String url, filename;
+    static int cc = 0;
 
     public static DocsConstituentFragment newInstance(int position) {
         DocsConstituentFragment frag = new DocsConstituentFragment();
@@ -95,8 +96,8 @@ public class DocsConstituentFragment extends Fragment implements IServiceListene
         progressDialogHelper.hideProgressDialog();
         if (validateResponse(response)) {
             try {
+                cc = response.getJSONArray("constituent_documents").length();
                 loadMembersList(response.getJSONArray("constituent_documents"));
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -177,6 +178,7 @@ public class DocsConstituentFragment extends Fragment implements IServiceListene
                 sentByParams.setMargins(20, 10, 20, 0);
 
                 TextView titleDoc = new TextView(getActivity());
+                titleDoc.setId(R.id.doc_name);
                 titleDoc.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
                 titleDoc.setLayoutParams(msgParams);
                 titleDoc.setText(memberCount.getJSONObject(c1).getString("doc_name"));
@@ -184,12 +186,24 @@ public class DocsConstituentFragment extends Fragment implements IServiceListene
                 titleDoc.setTypeface(null, Typeface.BOLD);
 
                 TextView sentAt = new TextView(getActivity());
+                sentAt.setId(R.id.doc_date);
                 sentAt.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
                 sentAt.setLayoutParams(sentByParams);
                 sentAt.setTextSize(12.0f);
                 sentAt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0);
                 sentAt.setCompoundDrawablePadding(20);
-                sentAt.setText(memberCount.getJSONObject(c1).getString("created_at"));
+
+                String date = memberCount.getJSONObject(c1).getString("created_at");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date testDate = null;
+                try {
+                    testDate = formatter.parse(date);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a, dd MMM yyyy");
+
+                sentAt.setText(sdf.format(testDate));
 
                 TextView download = new TextView(getActivity());
                 download.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
@@ -235,6 +249,20 @@ public class DocsConstituentFragment extends Fragment implements IServiceListene
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public static void seaarchtext(String text) {
+        for (int a = 0; a < cc; a++) {
+            if (text.isEmpty()) {
+                loadMoreListView.getChildAt(a).setVisibility(View.VISIBLE);
+            } else {
+                TextView date = loadMoreListView.getChildAt(a).findViewById(R.id.doc_date);
+                TextView titi = loadMoreListView.getChildAt(a).findViewById(R.id.doc_name);
+                if (!(date.getText().toString().toLowerCase().contains(text) || titi.getText().toString().toLowerCase().contains(text))) {
+                    loadMoreListView.getChildAt(a).setVisibility(View.GONE);
+                }
+            }
         }
     }
 

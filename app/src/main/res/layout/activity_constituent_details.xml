@@ -69,7 +69,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/user_image"
-                    android:layout_alignBottom="@+id/user_image"
                     android:layout_marginStart="10dp"
                     android:layout_toRightOf="@+id/user_image"
                     android:gravity="center_vertical"
