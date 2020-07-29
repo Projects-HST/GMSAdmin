@@ -133,6 +133,6 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
 
     @Override
     public int getItemCount() {
-        return reportStaffArrayList.size();
+        return reportStaffArrayListFiltered.size();
     }
 }

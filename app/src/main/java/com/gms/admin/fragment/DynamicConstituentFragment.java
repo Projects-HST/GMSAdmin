@@ -203,6 +203,7 @@ public class DynamicConstituentFragment extends Fragment implements IServiceList
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
 //                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
+                        swipeRefreshLayout.setRefreshing(false);
                         if (listcount == 0) {
                             swipeRefreshLayout.setVisibility(View.GONE);
                         }

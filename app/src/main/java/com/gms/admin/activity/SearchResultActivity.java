@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,21 +74,35 @@ public class SearchResultActivity extends AppCompatActivity implements IServiceL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
+
 //        getSupportActionBar().hide();
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
-        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
         recyclerView = findViewById(R.id.recycler_view);
         className = this.getClass().getSimpleName();
 //        serviceArrayList = new ArrayList<>();
         serviceHelper = new ServiceHelper(this);
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
         event = PreferenceStorage.getSearchFor(this);
         if (!event.isEmpty()) {
             makeSearch(event, String.valueOf(listcount));
@@ -160,7 +175,9 @@ public class SearchResultActivity extends AppCompatActivity implements IServiceL
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         swipeRefreshLayout.setRefreshing(false);
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        if (listcount == 0) {
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                        }
                     }
                 }
             } catch (JSONException e) {

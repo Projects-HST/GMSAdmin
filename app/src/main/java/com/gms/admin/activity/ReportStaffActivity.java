@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.SpinnerData;
@@ -58,9 +59,13 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_staff);
 
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //What to do on back clicked
                 finish();
             }
         });
@@ -107,8 +112,32 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
         } if (dateFrom.getText().toString().equalsIgnoreCase("To date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
+        }if (!checkTime()) {
+            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
+            return false;
         }
         return true;
+    }
+
+    private boolean checkTime() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String dateString1 = dateFrom.getText().toString();
+            String dateString2 = dateTo.getText().toString();
+            Date date1 = null;
+            Date date2 = null;
+            date1 = sdf.parse(dateString1);
+            date2 = sdf.parse(dateString2);
+            if (date2.before(date1)) {
+                return false;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.i(TAG, "parce exception");
+        }
+        return true;
+
     }
 
     private void sendSearch() {
@@ -121,7 +150,12 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
     private void showBirthdayDate() {
         Log.d(TAG, "Show the birthday date");
         Calendar newCalendar = Calendar.getInstance();
-        String currentdate = dateFrom.getText().toString();
+        String currentdate = "";
+        if (fr) {
+            currentdate = dateFrom.getText().toString();
+        } else {
+            currentdate = dateTo.getText().toString();
+        }
         Log.d(TAG, "current date is" + currentdate);
         int month = newCalendar.get(Calendar.MONTH);
         int day = newCalendar.get(Calendar.DAY_OF_MONTH);
@@ -141,13 +175,13 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
+                mDatePicker = new DatePickerDialog(this,this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
+            mDatePicker = new DatePickerDialog(this,this, year, month, day);
             mDatePicker.show();
         }
     }

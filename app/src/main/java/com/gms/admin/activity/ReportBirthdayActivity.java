@@ -81,6 +81,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     private BirthdayList birthdayList;
     private ArrayList<Birthday> birthdayArrayList = new ArrayList<>();
     private int totalCount = 0, checkrun = 0;
+    private MenuItem searchItem ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +178,8 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.right_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.menu_item);
+        searchItem = menu.findItem(R.id.menu_item);
+        searchItem.setVisible(false);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -233,6 +235,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         }
         if (v == search) {
             if (validateFields()) {
+                searchItem.setVisible(true);
                 sendSearch();
             }
         }

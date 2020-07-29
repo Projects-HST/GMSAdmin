@@ -5,41 +5,14 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/toolbar_view"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:minHeight="60dp" />
-
-        <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:minHeight="60dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/tvtitletext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/img_back"
-            android:gravity="center_vertical"
-            android:minHeight="60dp"
-            android:padding="5dp"
-            android:text="@string/graph"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_toolbar"
+        style="@style/ToolBarStyle.Event"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,7 +30,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/grievance_graph"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +47,7 @@
                     android:id="@+id/pie_chart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:minHeight="250dp"/>
+                    android:minHeight="250dp" />
 
             </LinearLayout>
 
@@ -85,7 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/meetings_graph"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

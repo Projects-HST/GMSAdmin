@@ -127,6 +127,7 @@
                 android:gravity="center|start"
                 android:paddingStart="10dp"
                 android:text="completed"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.3"
                 android:textColor="@color/requested"
                 android:textSize="14sp" />
@@ -134,9 +135,10 @@
             <TextView
                 android:id="@+id/meeting_created_by"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center|end"
                 android:paddingEnd="10dp"
+                android:layout_gravity="center_vertical"
                 android:text="completed"
                 android:layout_weight="0.7"
                 android:textColor="@color/msg_by_grey"

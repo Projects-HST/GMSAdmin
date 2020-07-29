@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.gms.admin.R;
@@ -30,12 +31,18 @@ public class IndividualGrievanceDetailActivity extends AppCompatActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_grievance_detail);
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //What to do on back clicked
                 finish();
             }
         });
+
         grievance = (Grievance) getIntent().getSerializableExtra("serviceObj");
 
         txtConstituency = (TextView) findViewById(R.id.text_constituency);

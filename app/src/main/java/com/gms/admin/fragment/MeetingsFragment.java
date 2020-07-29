@@ -273,6 +273,7 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
                         if (listcount == 0) {
                             swipeRefreshLayout.setVisibility(View.GONE);
                         }
+                        swipeRefreshLayout.setRefreshing(false);
 
                     }
                 }

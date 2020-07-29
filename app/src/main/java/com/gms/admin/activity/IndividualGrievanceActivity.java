@@ -192,8 +192,7 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        noGrievance.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {

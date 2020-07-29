@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ConstituentListAdapter;
@@ -70,9 +71,13 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_status);
 
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //What to do on back clicked
                 finish();
             }
         });
@@ -98,7 +103,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         progressDialogHelper = new ProgressDialogHelper(this);
 
         statusSpinnerData.add("ALL");
-        statusSpinnerData.add("REQUESTED");
+        statusSpinnerData.add("PROCESSING");
         statusSpinnerData.add("COMPLETED");
 
         statusSpinnerDataArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_data_layout, R.id.data_name, statusSpinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
@@ -202,17 +207,44 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
             return false;
-        } if (dateFrom.getText().toString().equalsIgnoreCase("To date")) {
+        }
+        if (dateFrom.getText().toString().equalsIgnoreCase("To date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
-        } if (paguthiId.equalsIgnoreCase("0")) {
+        }
+        if (paguthiId.equalsIgnoreCase("0")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select category");
             return false;
-        } if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {
+        }
+        if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+            return false;
+        } if (!checkTime()) {
+            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
             return false;
         }
         return true;
+    }
+
+    private boolean checkTime() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String dateString1 = dateFrom.getText().toString();
+            String dateString2 = dateTo.getText().toString();
+            Date date1 = null;
+            Date date2 = null;
+            date1 = sdf.parse(dateString1);
+            date2 = sdf.parse(dateString2);
+            if (date2.before(date1)) {
+                return false;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.i(TAG, "parce exception");
+        }
+        return true;
+
     }
 
     private void getPaguthi() {
@@ -243,7 +275,12 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
     private void showBirthdayDate() {
         Log.d(TAG, "Show the birthday date");
         Calendar newCalendar = Calendar.getInstance();
-        String currentdate = dateFrom.getText().toString();
+        String currentdate = "";
+        if (fr) {
+            currentdate = dateFrom.getText().toString();
+        } else {
+            currentdate = dateTo.getText().toString();
+        }
         Log.d(TAG, "current date is" + currentdate);
         int month = newCalendar.get(Calendar.MONTH);
         int day = newCalendar.get(Calendar.DAY_OF_MONTH);
@@ -263,13 +300,13 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
+                mDatePicker = new DatePickerDialog(this,this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
+            mDatePicker = new DatePickerDialog(this,this, year, month, day);
             mDatePicker.show();
         }
     }
@@ -383,6 +420,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         }
         return serverFormatDate;
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View v = getCurrentFocus();
@@ -404,7 +442,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
 
     public static void hideKeyboard(Activity activity) {
         if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
-            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
     }

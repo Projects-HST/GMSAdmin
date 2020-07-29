@@ -4,9 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_toolbar"
-        layout="@layout/toolbar" />
+        style="@style/ToolBarStyle.Event"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
+
 
     <TextView
         android:id="@+id/individual_grievance_count"

@@ -43,6 +43,7 @@ public class SplashScreenActivity extends Activity {
 
                 if (GMSValidator.checkNullString(PreferenceStorage.getUserId(getApplicationContext()))) {
                     Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    i.putExtra("page", "splash");
                     startActivity(i);
                     finish();
                 } else {

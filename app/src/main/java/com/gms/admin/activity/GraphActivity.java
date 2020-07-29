@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -27,9 +28,11 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.gms.admin.R;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -62,9 +65,13 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //What to do on back clicked
                 finish();
             }
         });
@@ -186,8 +193,12 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
                 l.setYEntrySpace(0f);
                 l.setYOffset(0f);
 
+                // entry label styling
+                pieChart.setEntryLabelColor(Color.WHITE);
+                pieChart.setEntryLabelTextSize(12f);
+
 //                dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                dataSet.setColors(new int[]{ContextCompat.getColor(this, R.color.enquiry_pie), ContextCompat.getColor(this, R.color.processing_pie), ContextCompat.getColor(this, R.color.completed_pie)});
+                dataSet.setColors(ContextCompat.getColor(this, R.color.enquiry_pie), ContextCompat.getColor(this, R.color.processing_pie), ContextCompat.getColor(this, R.color.completed_pie));
 // dataSet.setSliceSpace(3f);
                 dataSet.setSelectionShift(5f);
 //                dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
@@ -195,17 +206,30 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
 //                dataSet.setValueLinePart1Length(0.3f);
 //                dataSet.setValueLinePart2Length(0.5f);
 //                dataSet.setUsingSliceColorAsValueLineColor(true);
+                dataSet.setDrawIcons(false);
+
+                dataSet.setSliceSpace(3f);
+                dataSet.setIconsOffset(new MPPointF(0, 40));
+                dataSet.setSelectionShift(5f);
                 pieChart.animateXY(1000, 1000);
 
                 // undo all highlights
+
+                PieData daasdta = new PieData(dataSet);
+                daasdta.setValueFormatter(new PercentFormatter(pieChart));
+                daasdta.setValueTextSize(11f);
+                daasdta.setValueTextColor(Color.BLACK);
+                pieChart.setData(daasdta);
+
                 pieChart.highlightValues(null);
                 pieChart.setDrawHoleEnabled(false);
                 pieChart.getLegend().setWordWrapEnabled(true);
-
+                pieChart.setExtraRightOffset(50f);
                 pieChart.getDescription().setEnabled(false);
 //                pieChart.setHoleRadius(10.0f);
 //                pieChart.setTransparentCircleRadius(12f);
                 pieChart.setDrawSlicesUnderHole(true);
+                pieChart.setDrawEntryLabels(false);
                 pieChart.setEntryLabelColor(dataSet.getValueLineColor());
 //                pieChart.getLegend().setEnabled(false);
                 pieChart.invalidate();

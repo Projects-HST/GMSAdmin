@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -71,6 +72,17 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
         setContentView(R.layout.activity_search_result);
 //        getSupportActionBar().hide();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
+
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_refresh);
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -88,12 +100,6 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         event = PreferenceStorage.getSearchFor(this);
         if (!event.isEmpty()) {
@@ -166,7 +172,9 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         swipeRefreshLayout.setRefreshing(false);
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        if (listcount == 0) {
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                        }
                     }
                 }
             } catch (JSONException e) {

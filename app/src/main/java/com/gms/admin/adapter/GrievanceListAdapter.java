@@ -175,6 +175,6 @@ public class GrievanceListAdapter extends RecyclerView.Adapter<GrievanceListAdap
 
     @Override
     public int getItemCount() {
-        return og.size();
+        return grievancesListFiltered.size();
     }
 }

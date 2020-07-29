@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -66,6 +67,18 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
+
 //        getSupportActionBar().hide();
 
         page = getIntent().getStringExtra("page");
@@ -87,13 +100,6 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
         serviceHelper = new ServiceHelper(this);
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
-
-        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         event = PreferenceStorage.getSearchFor(this);
         if (!event.isEmpty()) {
@@ -117,6 +123,17 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
                 return false;
             }
         });
+
+        if (page.equalsIgnoreCase("category")) {
+            toolbar.setTitle(getString(R.string.report_category_title));
+        } else if (page.equalsIgnoreCase("status")) {
+            toolbar.setTitle(getString(R.string.report_status_title));
+        } else if (page.equalsIgnoreCase("sub_category")) {
+            toolbar.setTitle(getString(R.string.report_sub_category_title));
+        } else if (page.equalsIgnoreCase("location")) {
+            toolbar.setTitle(getString(R.string.report_location_title));
+        }
+
     }
 
     private void loadmore() {
@@ -237,7 +254,9 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         swipeRefreshLayout.setRefreshing(false);
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        if (listcount == 0) {
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                        }
                     }
                 }
             } catch (JSONException e) {

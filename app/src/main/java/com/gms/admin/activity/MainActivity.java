@@ -1,10 +1,8 @@
 package com.gms.admin.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -14,12 +12,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,7 +42,6 @@ import com.gms.admin.utils.CommonUtils;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -64,8 +59,9 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     private ImageView profilePic;
     private TextView name, area;
     private boolean doubleBackToExitPressedOnce = false;
-    private NavigationView navigationView;
+    NavigationView navigationView;
     private boolean submenuVisible = false;
+    String page;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -100,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        page = getIntent().getExtras().getString("page");
+
         initializeNavigationDrawer();
         initializeService();
         initializeIDs();
@@ -115,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
         navigationView = findViewById(R.id.nav_view);
         profilePic = navigationView.getHeaderView(0).findViewById(R.id.imageView);
         name = navigationView.getHeaderView(0).findViewById(R.id.full_name);
-        name.setText(PreferenceStorage.getName(this));
+        name.setText(PreferenceStorage.getAdminName(this));
         area = navigationView.getHeaderView(0).findViewById(R.id.area);
-        area.setText(PreferenceStorage.getConstituencyName(this));
+        area.setText(PreferenceStorage.getUserConstituencyName(this));
 
         if (GMSValidator.checkNullString(PreferenceStorage.getProfilePic(this))) {
             Picasso.get().load(PreferenceStorage.getProfilePic(this)).into(profilePic);
@@ -135,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
                             case R.id.nav_dash:
                                 changePage(0);
                                 break;
-
                             case R.id.nav_constituents:
                                 showItems();
                                 break;
@@ -164,8 +162,19 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
                         return true;
                     }
                 });
-        changePage(0);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        if (page.equalsIgnoreCase("settings")) {
+            changePage(6);
+            navigationView.getMenu().getItem(7).setChecked(true);
+        } else {
+            changePage(0);
+            navigationView.getMenu().getItem(0).setChecked(true);
+        }
+
+        if (PreferenceStorage.getUserRole(this).equalsIgnoreCase("1")) {
+            navigationView.getMenu().getItem(5).setVisible(true);
+        } else {
+            navigationView.getMenu().getItem(5).setVisible(false);
+        }
 
         callGetSubCategoryService();
 
@@ -192,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
         }
     }
 
-    private void changePage(int position) {
+    public void changePage(int position) {
 
         Fragment newFragment = null;
 

@@ -24,7 +24,7 @@
         android:id="@+id/error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/no_constituent_added"
+        android:text="@string/no_document_added"
         android:textColor="@color/text_grey"
         android:gravity="center"
         android:textSize="16sp"/>

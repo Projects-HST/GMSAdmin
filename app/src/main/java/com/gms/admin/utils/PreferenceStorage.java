@@ -134,7 +134,7 @@ public class PreferenceStorage {
     /*End*/
 
     // UserName
-    public static void saveName(Context context, String userName) {
+    public static void saveAdminName(Context context, String userName) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -142,7 +142,7 @@ public class PreferenceStorage {
         editor.apply();
     }
 
-    public static String getName(Context context) {
+    public static String getAdminName(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         String userId;
@@ -187,6 +187,24 @@ public class PreferenceStorage {
     }
     /*End*/
 
+    // UserGender
+    public static void saveAdminGender(Context context, String userGender) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_USER_GENDER, userGender);
+        editor.apply();
+    }
+
+    public static String getAdminGender(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String userId;
+        userId = sharedPreferences.getString(GMSConstants.KEY_USER_GENDER, "");
+        return userId;
+    }
+    /*End*/
+
     // UserAddress
     public static void saveAddress(Context context, String userAddress) {
         SharedPreferences sharedPreferences = PreferenceManager
@@ -201,6 +219,24 @@ public class PreferenceStorage {
                 .getDefaultSharedPreferences(context);
         String userId;
         userId = sharedPreferences.getString(GMSConstants.KEY_USER_ADDRESS, "");
+        return userId;
+    }
+    /*End*/
+
+    // UserAddress
+    public static void saveAdminAddress(Context context, String userAddress) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_ADMIN_ADDRESS, userAddress);
+        editor.apply();
+    }
+
+    public static String getAdminAddress(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String userId;
+        userId = sharedPreferences.getString(GMSConstants.KEY_ADMIN_ADDRESS, "");
         return userId;
     }
     /*End*/
@@ -237,6 +273,24 @@ public class PreferenceStorage {
                 .getDefaultSharedPreferences(context);
         String userId;
         userId = sharedPreferences.getString(GMSConstants.KEY_USER_MAIL, "");
+        return userId;
+    }
+    /*End*/
+
+    // UserEmail
+    public static void saveAdminEmail(Context context, String userEmail) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_ADMIN_MAIL, userEmail);
+        editor.apply();
+    }
+
+    public static String getAdminEmail(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String userId;
+        userId = sharedPreferences.getString(GMSConstants.KEY_ADMIN_MAIL, "");
         return userId;
     }
     /*End*/
@@ -362,6 +416,24 @@ public class PreferenceStorage {
                 .getDefaultSharedPreferences(context);
         String mobileNo;
         mobileNo = sharedPreferences.getString(GMSConstants.KEY_MOBILE_NUMBER, "");
+        return mobileNo;
+    }
+    /*End*/
+
+    /*To store mobile number*/
+    public static void saveAdminMobileNo(Context context, String type) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_ADMIN_MOBILE_NUMBER, type);
+        editor.apply();
+    }
+
+    public static String getAdminMobileNo(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String mobileNo;
+        mobileNo = sharedPreferences.getString(GMSConstants.KEY_ADMIN_MOBILE_NUMBER, "");
         return mobileNo;
     }
     /*End*/
@@ -578,6 +650,24 @@ public class PreferenceStorage {
                 .getDefaultSharedPreferences(context);
         String mobileNo;
         mobileNo = sharedPreferences.getString(GMSConstants.KEY_CONSTITUENT_ID, "");
+        return mobileNo;
+    }
+    /*End*/
+
+    /*To store Constituency ID*/
+    public static void saveUserConstituencyName(Context context, String type) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_CONSTITUENCY_NAME, type);
+        editor.apply();
+    }
+
+    public static String getUserConstituencyName(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String mobileNo;
+        mobileNo = sharedPreferences.getString(GMSConstants.KEY_CONSTITUENCY_NAME, "");
         return mobileNo;
     }
     /*End*/

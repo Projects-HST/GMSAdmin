@@ -153,7 +153,7 @@ public class GMSConstants {
     public static final String GET_REPORT_LOCATION = "apiandroid/reportLocationnew";
 
     //VERSION CHECK URL
-    public static final String GET_REPORT_LOCATION_SEARCH = "apiandroid/reportLocationnew";
+    public static final String GET_REPORT_LOCATION_SEARCH = "apiandroid/reportLocationsearch";
 
     //VERSION CHECK URL
     public static final String GET_REPORT_MEETING = "apiandroid/reportMeetingsnew";
@@ -169,6 +169,18 @@ public class GMSConstants {
 
     //VERSION CHECK URL
     public static final String GET_REPORT_BIRTHDAY_SEARCH = "apiandroid/reportBirthdaysearch";
+
+    //VERSION CHECK URL
+    public static final String GET_PROFILE = "apiandroid/profileDetails";
+
+    //VERSION CHECK URL
+    public static final String UPDATE_PROFILE = "apiandroid/profileUpdate";
+
+    //VERSION CHECK URL
+    public static final String UPLOAD_PIC = "apiandroid/profilePictureUpload/";
+
+    //VERSION CHECK URL
+    public static final String CHANGE_PASSWORD = "apiandroid/changePassword/";
 
 
 
@@ -190,6 +202,7 @@ public class GMSConstants {
 
     //    Shared Phone No
     public static final String KEY_MOBILE_NUMBER = "mobile_no";
+    public static final String KEY_ADMIN_MOBILE_NUMBER = "mobile_no";
 
     //    Shared Lang
     public static final String KEY_LANGUAGE = "language";
@@ -200,6 +213,8 @@ public class GMSConstants {
     public static final String KEY_USER_ROLE = "user_role";
     public static final String KEY_USER_NAME = "user_name";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_OLD_PASSWORD = "old_password";
+    public static final String KEY_NEW_PASSWORD = "new_password";
     public static final String KEY_CONSTITUENCY_ID = "constituency_id";
     public static final String KEY_CONSTITUENT_ID = "constituent_id";
     public static final String KEY_GRIEVANCE_ID = "grievance_id";
@@ -211,11 +226,15 @@ public class GMSConstants {
     public static final String KEY_STAFF_ID = "staff_id";
     public static final String KEY_PARTY_ID = "party_id";
     public static final String FULL_NAME = "full_name";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_PHONE = "PHONE";
     public static final String KEY_USER_GENDER = "gender";
     public static final String KEY_USER_ADDRESS = "address";
+    public static final String KEY_ADMIN_ADDRESS = "address";
     public static final String KEY_USER_PROFILE_PIC = "profile_pic";
     public static final String KEY_CONST_PROFILE_PIC = "const_profile_pic";
     public static final String KEY_USER_MAIL = "email";
+    public static final String KEY_ADMIN_MAIL = "email";
     public static final String KEY_USER_MAIL_STATUS = "email_verify_status";
     public static final String KEY_USER_TYPE = "user_type";
     public static final String KEY_FROM_DATE = "from_date";

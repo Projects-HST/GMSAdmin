@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.Meeting;
+import com.gms.admin.bean.support.ReportStaff;
 import com.gms.admin.bean.support.Staff;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
@@ -22,11 +25,48 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.MyViewHolder> {
+public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.MyViewHolder> implements Filterable {
 
     private ArrayList<Staff> staffArrayList;
+    private ArrayList<Staff> staffArrayListFiltered;
+    private ArrayList<Staff> og;
     Context context;
     private OnItemClickListener onItemClickListener;
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString().toLowerCase();
+                if (charString.isEmpty()) {
+                    staffArrayListFiltered = og;
+                    //filteredCUG = CUG;
+                } else {
+                    ArrayList<Staff> filtered = new ArrayList<>();
+                    for (Staff cug : staffArrayList) {
+                        if( cug.getfull_name().toLowerCase().contains(charString)){
+                            filtered.add(cug);
+                        }
+                    }
+                    staffArrayListFiltered = filtered;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = staffArrayListFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                //filteredCUG.clear();
+                staffArrayList = (ArrayList<Staff>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView txtstaffName, txtstaffMail, txtPaguthi, txtStatus;
@@ -119,6 +159,6 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return staffArrayList.size();
+        return staffArrayListFiltered.size();
     }
 }

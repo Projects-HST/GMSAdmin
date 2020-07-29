@@ -35,5 +35,6 @@
 
     <color name="active">#6AA84F</color>
     <color name="inactive">#CC0000</color>
+    <color name="radio_grey">#69696B</color>
 
 </resources>

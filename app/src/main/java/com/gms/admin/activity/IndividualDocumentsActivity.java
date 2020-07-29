@@ -65,14 +65,7 @@ public class IndividualDocumentsActivity extends AppCompatActivity implements Vi
                 finish();
             }
         });
-//        findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewPager.removeOnPageChangeListener(tabatab);
-//                finish();
-//
-//            }
-//        });
+
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         initialiseTabs();

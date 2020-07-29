@@ -1,46 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/toolbar_view"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:minHeight="60dp" />
-
-        <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:minHeight="60dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/tvtitletext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/img_back"
-            android:gravity="center_vertical"
-            android:minHeight="60dp"
-            android:padding="5dp"
-            android:text="@string/profile_title"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_toolbar"
+        style="@style/ToolBarStyle.Event"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
 
 
     <LinearLayout
@@ -51,18 +24,18 @@
         android:orientation="vertical">
 
         <com.gms.admin.customview.CircleImageView
+            android:id="@+id/profile_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/profile_img"
-            android:src="@drawable/ic_profile"/>
+            android:src="@drawable/ic_profile" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
             android:layout_marginTop="5dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -71,16 +44,16 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/serial_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
                 android:layout_marginTop="5dp"
-                android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
 
         </LinearLayout>
@@ -94,8 +67,8 @@
         android:layout_gravity="center"
         android:background="@color/tab_color"
         android:minHeight="?attr/actionBarSize"
-        app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white" />
 
     <androidx.viewpager.widget.ViewPager
@@ -103,7 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 
 
 </LinearLayout>

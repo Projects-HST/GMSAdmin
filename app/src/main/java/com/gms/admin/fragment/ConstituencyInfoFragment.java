@@ -45,7 +45,7 @@ public class ConstituencyInfoFragment extends Fragment implements DialogClickLis
         boothAddress = (TextView) rootView.findViewById(R.id.booth_address);
         serialNo = (TextView) rootView.findViewById(R.id.serial_no);
 
-        constituencyName.setText(PreferenceStorage.getConstituencyName(getActivity()));
+        constituencyName.setText(PreferenceStorage.getPaguthiName(getActivity()));
         ward.setText(PreferenceStorage.getWard(getActivity()));
         boothName.setText(PreferenceStorage.getBooth(getActivity()));
         boothAddress.setText(PreferenceStorage.getBoothAddress(getActivity()));

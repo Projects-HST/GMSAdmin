@@ -71,6 +71,7 @@ IndividualMeetingListAdapterNew mAdapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_meetings);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
@@ -81,7 +82,6 @@ IndividualMeetingListAdapterNew mAdapter;
                 finish();
             }
         });
-
 
         user = (User) getIntent().getSerializableExtra("userObj");
 

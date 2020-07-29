@@ -161,7 +161,7 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //    adapter.getFilter().filter(newText);
+                mAdapter.getFilter().filter(newText);
 
                 return false;
             }
@@ -249,7 +249,7 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-//                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
+                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
                         if (listcount == 0) {
 //                            swipeRefreshLayout.setVisibility(View.GONE);
                         }

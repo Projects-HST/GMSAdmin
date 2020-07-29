@@ -282,17 +282,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     PreferenceStorage.saveUserRole(this, userRole);
                     PreferenceStorage.saveConstituencyID(this, constituencyId);
                     PreferenceStorage.savePaguthiID(this, pugathiId);
-                    PreferenceStorage.saveName(this, fullName);
-                    PreferenceStorage.saveMobileNo(this, phoneNumber);
-                    PreferenceStorage.saveEmail(this, emailId);
-                    PreferenceStorage.saveGender(this, gender);
-                    PreferenceStorage.saveAddress(this, address);
+                    PreferenceStorage.saveAdminName(this, fullName);
+                    PreferenceStorage.saveAdminMobileNo(this, phoneNumber);
+                    PreferenceStorage.saveAdminEmail(this, emailId);
+                    PreferenceStorage.saveAdminGender(this, gender);
+                    PreferenceStorage.saveAdminAddress(this, address);
                     PreferenceStorage.saveProfilePic(this, pictureUrl);
                     PreferenceStorage.saveStatus(this, status);
                     PreferenceStorage.saveLogin(this, lastLogin);
                     PreferenceStorage.saveLoginCount(this, loginCount);
 
                     Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("page", "login");
                     startActivity(intent);
                     finish();
                 } else if (whatRes.equalsIgnoreCase("ANS")) {
@@ -357,11 +358,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
                 if (c1 == 0) {
                     constiRadio.setChecked(true);
+                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
                 } else {
                     constiRadio.setChecked(false);
+                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
                 }
                 layoutSpinner.addView(constiRadio);
             }
+
             ScrollView.LayoutParams params = null;
             if (memberCount < 5) {
                 int height = memberCount * 100;
@@ -381,8 +385,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             RadioButton rad = layoutSpinner.getChildAt(position).findViewById(R.id.radio_constituency);
             if (position == pooos) {
                 rad.setChecked(true);
+                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+
             } else {
                 rad.setChecked(false);
+                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
             }
 
         }
@@ -395,6 +402,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             RadioButton rad = layoutSpinner.getChildAt(position).findViewById(R.id.radio_constituency);
             if (rad.isChecked()) {
                 idConsti = position;
+                PreferenceStorage.saveUserConstituencyName(this, rad.getText().toString());
             }
 
         }
