@@ -100,6 +100,8 @@ public class StaffListAdapter extends RecyclerView.Adapter<StaffListAdapter.MyVi
 
     public StaffListAdapter(ArrayList<Staff> staffArrayList, OnItemClickListener onItemClickListener) {
         this.staffArrayList = staffArrayList;
+        this.og = staffArrayList;
+        this.staffArrayListFiltered = staffArrayList;
         this.onItemClickListener = onItemClickListener;
     }
 

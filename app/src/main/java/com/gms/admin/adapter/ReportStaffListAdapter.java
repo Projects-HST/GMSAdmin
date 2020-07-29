@@ -96,6 +96,7 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
     public ReportStaffListAdapter(ArrayList<ReportStaff> reportStaffArrayList, ReportStaffListAdapter.OnItemClickListener onItemClickListener) {
         this.reportStaffArrayList = reportStaffArrayList;
         this.og = reportStaffArrayList;
+        this.reportStaffArrayListFiltered = reportStaffArrayList;
         this.onItemClickListener = onItemClickListener;
     }
 

@@ -82,15 +82,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         setContentView(R.layout.activity_report_grievance_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //What to do on back clicked
-                finish();
-            }
-        });
+
 
         page = getIntent().getStringExtra("page");
 
@@ -141,6 +133,15 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
             toolbar.setTitle(getString(R.string.report_location_title));
             getLocationList(String.valueOf(listcount));
         }
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
     }
 
     @Override

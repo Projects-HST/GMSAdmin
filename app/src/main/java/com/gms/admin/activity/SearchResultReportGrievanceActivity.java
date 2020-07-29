@@ -69,15 +69,6 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
         setContentView(R.layout.activity_search_result);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //What to do on back clicked
-                finish();
-            }
-        });
 
 //        getSupportActionBar().hide();
 
@@ -134,6 +125,15 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
             toolbar.setTitle(getString(R.string.report_location_title));
         }
 
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
     }
 
     private void loadmore() {
