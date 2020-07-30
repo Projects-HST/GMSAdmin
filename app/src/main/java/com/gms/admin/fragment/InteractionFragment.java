@@ -53,7 +53,7 @@ public class InteractionFragment extends Fragment  implements IServiceListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.activity_individual_interaction, container, false);
-        rootView.findViewById(R.id.toolbar_view).setVisibility(View.GONE);
+        rootView.findViewById(R.id.activity_toolbar).setVisibility(View.GONE);
         listView = (LinearLayout) rootView.findViewById(R.id.list_view_interaction);
 
         serviceHelper = new ServiceHelper(getActivity());

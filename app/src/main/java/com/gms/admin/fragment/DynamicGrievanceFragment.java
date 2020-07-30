@@ -90,11 +90,11 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(view.getContext());
         val = getArguments().getInt("someInt", 0);
-        if (val!=0) {
-            paguthiID = paguthis.get(val - 1).getid();
-        } else {
+//        if (val!=0) {
+//            paguthiID = paguthis.get(val - 1).getid();
+//        } else {
             paguthiID = paguthis.get(val).getid();
-        }
+//        }
 //        loadMoreListView = view.findViewById(R.id.list_view_grievance);
         grievCount = view.findViewById(R.id.frag_grievance_count);
         all = view.findViewById(R.id.all);

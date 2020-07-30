@@ -129,11 +129,10 @@ public class GrievanceListAdapter extends RecyclerView.Adapter<GrievanceListAdap
         holder.txtGrievanceName.setText(capitalizeString(grievance.getgrievance_name()));
         holder.txtGrievanceStatus.setText(capitalizeString(grievance.getstatus()));
         holder.txtGrievanceSubCategory.setText(capitalizeString(grievance.getSub_category_name()));
-
         if (grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
-            holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.completed_grievance));
+            holder.txtGrievanceStatus.setBackground(ContextCompat.getDrawable(holder.txtGrievanceStatus.getContext(), R.drawable.btn_round_completed));
         } else {
-            holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.requested));
+            holder.txtGrievanceStatus.setBackground(ContextCompat.getDrawable(holder.txtGrievanceStatus.getContext(), R.drawable.btn_round_processing));
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                holder.totalLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.shadow_foreground));
 //            }

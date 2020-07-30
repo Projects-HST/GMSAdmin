@@ -14,12 +14,10 @@
         android:minHeight="@dimen/abc_action_bar_default_height_material"
         android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/view_message_history"
-        android:layout_below="@+id/toolbar_view">
+        android:layout_below="@+id/activity_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,13 +27,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/shadow_round"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
-                android:elevation="10dp">
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shadow_round"
+                android:elevation="10dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/select_constituency"
@@ -44,8 +42,8 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="50dp"
-                    android:gravity="center|center_vertical"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center|center_vertical">
 
                     <ImageView
                         android:layout_width="40dp"
@@ -61,42 +59,16 @@
                         android:text="Select Constituency"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="1"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="@string/seeker_type"/>
-
-                        <TextView
-                            android:id="@+id/seeker_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/seeker_color"
-                            android:textSize="14sp"/>
-
-                    </LinearLayout>
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -108,19 +80,48 @@
                             android:id="@+id/txt_petition_enquiry"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="@color/black"
-                            android:textStyle="bold"/>
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/petition_enquiry_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:textColor="@color/msg_by_grey"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/grievance_reference_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/reference"
+                            android:textColor="@color/black"
                             android:textSize="14sp"
-                            android:textColor="@color/msg_by_grey" />
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/grievance_reference_note"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text=""
+                            android:textColor="@color/msg_by_grey"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -131,81 +132,76 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/seeker_type"
+                        android:textColor="@color/seeker_color"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seeker_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:textSize="14sp" />
 
 
                     <TextView
                         android:id="@+id/grievance_name"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
-                        android:layout_height="wrap_content"
                         android:text=""
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/grievance_sub_category"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:text=""
                         android:textColor="@color/msg_by_grey"
-                        android:layout_marginStart="10dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/grievance_des_txt"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content"
                         android:text="@string/description"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/grievance_description"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:text=""
-                        android:layout_marginStart="10dp"
                         android:textColor="@color/msg_by_grey"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"/>
-
-
-                    <TextView
-                        android:id="@+id/grievance_reference_txt"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reference"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
-
-                    <TextView
-                        android:id="@+id/grievance_reference_note"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:text=""
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/msg_by_grey"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"/>
-
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -216,12 +212,12 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/created_on"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="@string/created_on"/>
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/created_on"
@@ -229,7 +225,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:textColor="@color/msg_by_grey"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -242,78 +238,78 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/updated_on"
                             android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:text="@string/updated_on"/>
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/updated_on"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/msg_by_grey" />
+                            android:textColor="@color/msg_by_grey"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="1dp"
+                <TextView
+                    android:id="@+id/grievance_status"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="5dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_round_processing"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="completed"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/grievance_status"
-                        android:layout_width="match_parent"
+                        android:id="@+id/msg_history"
+                        android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:background="@color/status_bg"
-                        android:gravity="center_vertical"
-                        android:text="completed"
-                        android:paddingStart="20dp"
-                        android:textSize="14sp" />
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/btn_round_color"
+                        android:gravity="center"
+                        android:text="@string/msg_history_title"
+                        android:textColor="@color/white" />
 
-                </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/view_profile"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/btn_outline_color"
+                        android:drawableStart="@drawable/ic_user_profile"
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:text="@string/view_profile"
+                        android:textColor="@color/colorPrimary" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="0.5"
-                    android:id="@+id/msg_history"
-                    android:text="@string/msg_history_title"
-                    android:layout_marginEnd="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:background="@drawable/btn_round_color"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="0.5"
-                    android:layout_marginStart="5dp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/view_profile"
-                    android:id="@+id/view_profile"
-                    android:background="@drawable/btn_round_color"/>
+                </LinearLayout>
 
             </LinearLayout>
-
 
         </LinearLayout>
 

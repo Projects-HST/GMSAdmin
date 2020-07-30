@@ -20,8 +20,11 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -126,8 +129,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         profilePic = (ImageView) findViewById(R.id.profile_img);
         edtName = (TextInputEditText) findViewById(R.id.name);
         edtNumber = (TextInputEditText) findViewById(R.id.phone);
-        edtAddress = (TextInputEditText) findViewById(R.id.email);
-        edtEmail = (TextInputEditText) findViewById(R.id.address);
+        edtEmail = (TextInputEditText) findViewById(R.id.email);
+        edtAddress = (TextInputEditText) findViewById(R.id.address);
         male = (RadioButton) findViewById(R.id.male);
         female = (RadioButton) findViewById(R.id.female);
         saveProfile = (LinearLayout) findViewById(R.id.save_profile);
@@ -137,8 +140,54 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         female.setOnClickListener(this);
         saveProfile.setOnClickListener(this);
 
+        if (!PreferenceStorage.getUserRole(this).equalsIgnoreCase("1")) {
+            profilePic.setClickable(false);
+            profilePic.setFocusable(false);
+            edtName.setClickable(false);
+            edtName.setFocusable(false);
+            edtNumber.setClickable(false);
+            edtNumber.setFocusable(false);
+            edtEmail.setClickable(false);
+            edtEmail.setFocusable(false);
+            edtAddress.setClickable(false);
+            edtAddress.setFocusable(false);
+            male.setClickable(false);
+            male.setFocusable(false);
+            female.setClickable(false);
+            female.setFocusable(false);
+            saveProfile.setClickable(false);
+            saveProfile.setFocusable(false);
+            saveProfile.setVisibility(View.GONE);
+        }
+
         getProfile();
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View v = getCurrentFocus();
+
+        if (v != null &&
+                (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) &&
+                v instanceof EditText &&
+                !v.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            v.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + v.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + v.getTop() - scrcoords[1];
+
+            if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
+                hideKeyboard(this);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 
     private void getProfile() {
@@ -319,6 +368,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     PreferenceStorage.saveAdminMobileNo(this, edtNumber.getText().toString());
                     PreferenceStorage.saveAdminGender(this, gend);
                     Toast.makeText(this, "Profile Updated!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(EditProfileActivity.this, MainActivity.class);
+                    i.putExtra("page", "settings");
+                    startActivity(i);
+                    finish();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

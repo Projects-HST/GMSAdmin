@@ -82,6 +82,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     private ArrayList<Birthday> birthdayArrayList = new ArrayList<>();
     private int totalCount = 0, checkrun = 0;
     private MenuItem searchItem ;
+    private ReportBirthdayListAdapter mAdapter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +173,9 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                 return false;
             }
         });
+
+        mAdapter = new ReportBirthdayListAdapter(birthdayArrayList, ReportBirthdayActivity.this);
+
     }
 
     @Override
@@ -214,7 +218,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         JSONObject jsonObject = new JSONObject();
         try {
 
-            jsonObject.put(GMSConstants.KEY_MONTH, PreferenceStorage.getMonth(this));
+            jsonObject.put(GMSConstants.KEY_MONTH, paguthiId);
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
 
@@ -235,7 +239,8 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         }
         if (v == search) {
             if (validateFields()) {
-                searchItem.setVisible(true);
+                totalCount = 0;
+                listcount = 0;
                 sendSearch();
             }
         }
@@ -279,7 +284,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     }
 
     private void sendSearch() {
-        PreferenceStorage.saveMonth(this, paguthiId);
+//        PreferenceStorage.saveMonth(this, paguthiId);
         getCategoryList(String.valueOf(listcount));
     }
 
@@ -309,6 +314,9 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                         Log.d(TAG, "Show error dialog");
                         if (totalCount == 0) {
                             AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                            birthdayArrayList.clear();
+                            mAdapter.notifyDataSetChanged();
+                            listLay.setVisibility(View.GONE);
                         }
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -335,11 +343,13 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
             } else {
                 reportCount.setText(cou + " Record");
             }
+            searchItem.setVisible(true);
+
             totalCount = cou;
             Gson gson = new Gson();
             birthdayList = gson.fromJson(response.toString(), BirthdayList.class);
             birthdayArrayList.addAll(birthdayList.getBirthdayArrayList());
-            ReportBirthdayListAdapter mAdapter = new ReportBirthdayListAdapter(birthdayArrayList, ReportBirthdayActivity.this);
+            mAdapter = new ReportBirthdayListAdapter(birthdayArrayList, ReportBirthdayActivity.this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(mAdapter);

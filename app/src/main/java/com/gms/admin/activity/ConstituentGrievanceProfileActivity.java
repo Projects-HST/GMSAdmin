@@ -274,7 +274,7 @@ public class ConstituentGrievanceProfileActivity extends AppCompatActivity imple
 
                 PreferenceStorage.saveConstituencyName(this, constituency);
                 userName.setText(name);
-                txtSerialNo.setText(constituency);
+                txtSerialNo.setText(constituencyName);
                 String urrl =  profilePicture;
 
                 if (GMSValidator.checkNullString(data.getString("profile_pic"))) {

@@ -177,9 +177,9 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                 constituent = data.getString("constituent_id");
                 grievanceReference.setText(data.getString("reference_note"));
                 if (data.getString("status").equalsIgnoreCase("COMPLETED")) {
-                    grievanceStatus.setTextColor(ContextCompat.getColor(this, R.color.completed_grievance));
+                    grievanceStatus.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_round_completed));
                 } else {
-                    grievanceStatus.setTextColor(ContextCompat.getColor(this, R.color.requested));
+                    grievanceStatus.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_round_processing));
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                holder.totalLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.shadow_foreground));
 //            }

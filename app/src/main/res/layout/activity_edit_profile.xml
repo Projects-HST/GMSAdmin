@@ -51,6 +51,7 @@
                     android:inputType="textCapSentences"
                     android:maxLines="1"
                     android:textAllCaps="true"
+                    android:maxLength="30"
                     android:textColor="@color/msg_by_grey"
                     android:textSize="14sp" />
 
@@ -99,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:maxLength="30"
                     android:textAllCaps="true"
                     android:textColor="@color/msg_by_grey"
                     android:textSize="14sp" />
@@ -166,6 +168,7 @@
                     android:inputType="textCapWords"
                     android:maxLines="1"
                     android:textAllCaps="true"
+                    android:maxLength="240"
                     android:textColor="@color/msg_by_grey"
                     android:textSize="14sp" />
 

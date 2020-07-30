@@ -80,9 +80,9 @@ public class IndividualGrievanceDetailActivity extends AppCompatActivity impleme
         createdOn.setText(getserverdateformat(grievance.getCreated_at()));
         updatedOn.setText(getserverdateformat(grievance.getUpdated_at()));
         if (grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
-            grievanceStatus.setTextColor(ContextCompat.getColor(this, R.color.completed_grievance));
+            grievanceStatus.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_round_completed));
         } else {
-            grievanceStatus.setTextColor(ContextCompat.getColor(this, R.color.requested));
+            grievanceStatus.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_round_processing));
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                holder.totalLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.shadow_foreground));
 //            }

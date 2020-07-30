@@ -74,7 +74,7 @@ public class IndividualProfileActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         userName.setText(PreferenceStorage.getConstituentName(this));
-        txtSerialNo.setText(PreferenceStorage.getSerialNo(this));
+        txtSerialNo.setText(PreferenceStorage.getPaguthiName(this));
 
         String urrl = PreferenceStorage.getCOnstituentProfilePic(this);
 
