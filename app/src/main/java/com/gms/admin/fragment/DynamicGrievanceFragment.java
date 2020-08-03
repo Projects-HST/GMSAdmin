@@ -256,8 +256,10 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
 //                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
-                        view.findViewById(R.id.list_refresh).setVisibility(View.GONE);
-
+                        if (listcount == 0) {
+                            view.findViewById(R.id.list_refresh).setVisibility(View.GONE);
+                        }
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 }
             } catch (JSONException e) {

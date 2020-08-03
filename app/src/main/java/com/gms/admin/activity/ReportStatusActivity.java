@@ -51,7 +51,7 @@ import java.util.Locale;
 
 public class ReportStatusActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = ReportStatusActivity.class.getName();
-    private String checkRes = "", paguthiId = "ALL";
+    private String checkRes = "", paguthiId = "0";
     private SearchView searchView;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
@@ -208,12 +208,12 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
             AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
             return false;
         }
-        if (dateFrom.getText().toString().equalsIgnoreCase("To date")) {
+        if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
         }
         if (paguthiId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select category");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
             return false;
         }
         if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {

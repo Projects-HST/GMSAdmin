@@ -154,7 +154,8 @@ public class ReportSubCategoryActivity extends AppCompatActivity implements ISer
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
             return false;
-        } if (dateFrom.getText().toString().equalsIgnoreCase("To date")) {
+        }
+        if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
         } if (paguthiId.equalsIgnoreCase("0")) {

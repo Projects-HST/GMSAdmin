@@ -109,7 +109,8 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
             return false;
-        } if (dateFrom.getText().toString().equalsIgnoreCase("To date")) {
+        }
+        if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
         }if (!checkTime()) {
