@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<IndividualMeetingListAdapterNew.MyViewHolder> implements Filterable {
@@ -105,6 +106,7 @@ public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<Indivi
 
 
     public IndividualMeetingListAdapterNew(ArrayList<IndividualMeeting> meetingArrayList, IndividualMeetingListAdapterNew.OnItemClickListener onItemClickListener) {
+        Collections.reverse(meetingArrayList);
         this.meetingArrayList = meetingArrayList;
         this.meetingArrayListFiltered = meetingArrayList;
         this.og = meetingArrayList;
@@ -133,9 +135,11 @@ public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<Indivi
 
         if (meeting.getmeeting_status().equalsIgnoreCase("REQUESTED")) {
             holder.txtStatusTitle.setText("Upcoming");
+            holder.txtMeetingTitle.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.black));
             holder.txtMeetingStatus.setBackgroundColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.requested));
             holder.meetingImage.setImageResource(R.drawable.ic_meeting_active);
             holder.meetingDateImage.setImageResource(R.drawable.ic_date_active);
+            holder.disableLayout.setVisibility(View.GONE);
         } else if (meeting.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
             holder.txtStatusTitle.setText("Earlier");
             holder.txtMeetingTitle.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.text_grey));
@@ -145,9 +149,22 @@ public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<Indivi
             holder.disableLayout.setVisibility(View.VISIBLE);
         }
         if (position != 0) {
-            if (meeting.getmeeting_status().equalsIgnoreCase((meetingArrayList.get(position - 1).getmeeting_status()))) {
+            if (checkdatapos(position)) {
                 holder.txtStatusTitle.setVisibility(View.GONE);
+            } else {
+                holder.txtStatusTitle.setVisibility(View.VISIBLE);
             }
+        } else {
+            holder.txtStatusTitle.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private boolean checkdatapos(int position) {
+        IndividualMeeting meeting = meetingArrayList.get(position);
+        if (meeting.getmeeting_status().equalsIgnoreCase((meetingArrayList.get(position - 1).getmeeting_status()))) {
+            return true;
+        } else {
+            return false;
         }
     }
 
