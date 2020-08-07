@@ -175,8 +175,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 sendLogin();
             }
         } else if (v == forgot) {
-            Intent intent = new Intent(this, ForgotPasswordActivity.class);
-            startActivity(intent);
+            if (contistuencyText.getText().toString().equalsIgnoreCase(getString(R.string.select_constituency))) {
+                AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.select_constituency_alert));
+            } else {
+                Intent intent = new Intent(this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
         }
     }
 

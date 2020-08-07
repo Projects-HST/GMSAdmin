@@ -379,6 +379,20 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         return signInSuccess;
     }
 
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
+    }
+
     @Override
     public void onResponse(JSONObject response) {
         progressDialogHelper.hideProgressDialog();
@@ -391,11 +405,11 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     String id = "";
                     String name = "";
                     spinnerData = new ArrayList<>();
-                    spinnerData.add(new SpinnerData("ALL", "ALL"));
+                    spinnerData.add(new SpinnerData("ALL", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
-                        name = getData.getJSONObject(i).getString("paguthi_name");
+                        name = capitalizeString(getData.getJSONObject(i).getString("paguthi_name"));
                         spinnerData.add(new SpinnerData(id, name));
                     }
 

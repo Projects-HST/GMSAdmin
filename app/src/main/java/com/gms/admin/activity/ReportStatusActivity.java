@@ -65,6 +65,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
     private Button search;
+    private String A = "ALL", P = "PROCESSING", C = "COMPLETED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +103,9 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
-        statusSpinnerData.add("ALL");
-        statusSpinnerData.add("PROCESSING");
-        statusSpinnerData.add("COMPLETED");
+        statusSpinnerData.add("All");
+        statusSpinnerData.add("Processing");
+        statusSpinnerData.add("Completed");
 
         statusSpinnerDataArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_data_layout, R.id.data_name, statusSpinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
             @Override
@@ -265,7 +266,25 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
     private void sendSearch() {
         PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
         PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
-        PreferenceStorage.saveReportStatus(this, status.getText().toString());
+        String stat = "";
+        if (!status.getText().toString().isEmpty()) {
+            String ca = status.getText().toString();
+            switch (ca) {
+                case "All":
+                    stat = A;
+                    break;
+                case "Processing":
+                    stat = P;
+                    break;
+                case "Completed":
+                    stat = C;
+                    break;
+                default:
+                    Toast.makeText(this, "---INVALID---", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+        PreferenceStorage.saveReportStatus(this, stat);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
         intt.putExtra("page", "status");
@@ -345,6 +364,20 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         return signInSuccess;
     }
 
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
+    }
+
     @Override
     public void onResponse(JSONObject response) {
         progressDialogHelper.hideProgressDialog();
@@ -357,11 +390,11 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
                     String id = "";
                     String name = "";
                     spinnerData = new ArrayList<>();
-                    spinnerData.add(new SpinnerData("ALL", "ALL"));
+                    spinnerData.add(new SpinnerData("ALL", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
-                        name = getData.getJSONObject(i).getString("paguthi_name");
+                        name = capitalizeString(getData.getJSONObject(i).getString("paguthi_name"));
                         spinnerData.add(new SpinnerData(id, name));
                     }
 

@@ -83,8 +83,8 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
-        spinnerData.add("REQUESTED");
-        spinnerData.add("COMPLETED");
+        spinnerData.add("Requested");
+        spinnerData.add("Completed");
 
         spinnerDataArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_data_layout, R.id.data_name, spinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
             @Override

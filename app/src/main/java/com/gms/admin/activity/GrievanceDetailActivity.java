@@ -236,12 +236,12 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                         grievanceDesc.setVisibility(View.GONE);
                         findViewById(R.id.grievance_des_txt).setVisibility(View.GONE);
                     }
-                    txtConstituency.setText(data.getString("paguthi_name"));
+                    txtConstituency.setText(capitalizeString(data.getString("paguthi_name")));
                     petitionEnquiryNo.setText(data.getString("petition_enquiry_no"));
-                    grievanceName.setText(data.getString("grievance_name"));
-                    grievanceSubCat.setText(data.getString("sub_category_name"));
-                    grievanceDesc.setText(data.getString("description"));
-                    grievanceStatus.setText(data.getString("status"));
+                    grievanceName.setText(capitalizeString(data.getString("grievance_name")));
+                    grievanceSubCat.setText(capitalizeString(data.getString("sub_category_name")));
+                    grievanceDesc.setText(capitalizeString(data.getString("description")));
+                    grievanceStatus.setText(capitalizeString(data.getString("status")));
                     createdOn.setText(getserverdateformat(data.getString("created_at")));
                     updatedOn.setText(getserverdateformat(data.getString("updated_at")));
                     constituent = data.getString("constituent_id");

@@ -297,11 +297,11 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                     String id = "";
                     String name = "";
                     spinnerData = new ArrayList<>();
-                    spinnerData.add(new SpinnerData("ALL", "ALL"));
+                    spinnerData.add(new SpinnerData("ALL", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
-                        name = getData.getJSONObject(i).getString("grievance_name");
+                        name = capitalizeString(getData.getJSONObject(i).getString("grievance_name"));
                         spinnerData.add(new SpinnerData(id, name));
                     }
 
@@ -384,6 +384,20 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
+    }
+
+    public static String capitalizeString(String string) {
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 
 }
