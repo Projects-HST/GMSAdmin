@@ -67,7 +67,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@color/line_interaction" />
+                android:background="@color/line_grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"

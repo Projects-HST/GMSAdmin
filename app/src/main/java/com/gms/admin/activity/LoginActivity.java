@@ -343,10 +343,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String consti = constituencyList.getConstituencyArrayList().get(c1).getconstituency_name();
                 constiRadio.setText(consti);
                 constiRadio.setId(R.id.radio_constituency);
-                constiRadio.setTextSize(18.0f);
+                constiRadio.setTextSize(16.0f);
                 constiRadio.setElevation(20.0f);
                 constiRadio.setPadding(10, 0, 0, 0);
-                constiRadio.setTextColor(ContextCompat.getColor(this, R.color.black));
+                constiRadio.setTextColor(ContextCompat.getColor(this, R.color.radio_grey));
                 constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
 
                 final int finalC = c1;
