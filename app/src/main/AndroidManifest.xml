@@ -329,6 +329,16 @@
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
 
+        <activity
+            android:name=".activity.SampleClassasa"
+            android:label="@string/privacy_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name="com.gms.admin.customview.StoryPlayer"/>
+
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

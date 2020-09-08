@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.gms.admin.R;
 import com.gms.admin.activity.ChangePasswordActivity;
 import com.gms.admin.activity.EditProfileActivity;
+import com.gms.admin.activity.SampleClassasa;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 
@@ -58,7 +59,8 @@ public class SettingsFragment extends Fragment implements IServiceListener, Dial
         }if (v == terms) {
 
         }if (v == privacy) {
-
+            Intent i = new Intent (getActivity(), SampleClassasa.class);
+            startActivity(i);
         }
     }
 
