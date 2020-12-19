@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -65,216 +66,258 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/dashBoard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/dash"
-                android:textColor="@color/title_black"
-                android:textSize="16sp"/>
+            android:layout_marginBottom="20dp">
 
             <RelativeLayout
-                android:id="@+id/constituent_layout"
+                android:id="@+id/layer_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dashBoard"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/shadow_round"
-                android:elevation="5dp">
-
-                <ImageView
-                    android:id="@+id/constituency_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/ic_constituents_01"/>
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/constituent"
+                    android:id="@+id/dashBoard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/constituency_img"
-                    android:layout_toEndOf="@id/constituency_img"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/constituent_count"
-                    android:textColor="@color/text_black"
-                    android:textSize="14sp" />
+                    android:text="@string/dash"
+                    android:textColor="@color/title_black"
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/constituent_count"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/constituent_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/constituency_img"
-                    android:layout_below="@id/constituent"
+                    android:layout_below="@id/dashBoard"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shadow_round"
+                    android:elevation="5dp">
+
+                    <ImageView
+                        android:id="@+id/constituency_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/ic_constituents_01" />
+
+                    <TextView
+                        android:id="@+id/constituent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/constituency_img"
+                        android:layout_toEndOf="@id/constituency_img"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/constituent_count"
+                        android:textColor="@color/text_black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/overall_constituent_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/constituent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@id/constituency_img"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/constituent_layout"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/grievance_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_grievance_01" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:gravity="center"
+                            android:text="@string/total_grievances"
+                            android:textColor="@color/text_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/overall_grievance_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/footfall_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_footfall_01" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:text="@string/footfall_count"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/overall_footfall_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_one"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/constituent_layout"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/grievance_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/shadow_round"
-                    android:elevation="5dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_grievance_01"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="@string/total_grievances"
-                        android:textColor="@color/text_black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/grievance_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center_vertical"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/footfall_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/shadow_round"
-                    android:elevation="5dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_footfall_01"/>
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="@string/footfall_count"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/meetings_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
             <include
                 android:id="@+id/constituent_count_popup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
                 layout="@layout/popup_consituent"
-                android:layout_centerVertical="true"/>
-
-            <include
-                android:id="@+id/meeting_count_popup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/graph_layout"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                layout="@layout/popup_meeting"
-                android:layout_centerInParent="true"/>
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
 
             <include
                 android:id="@+id/grievance_count_popup"
+                layout="@layout/popup_grievance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                layout="@layout/popup_grievance"
-                android:layout_centerInParent="true"/>
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
 
             <include
-                android:id="@+id/interaction_count_popup"
+                android:id="@+id/footfall_count_popup"
+                layout="@layout/popup_footfall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:visibility="invisible"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/meeting_count_popup"
+                layout="@layout/popup_meeting"
+                android:layout_above="@id/layout_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/volunteer_count_popup"
+                layout="@layout/popup_volunteer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_three"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/greetings_count_popup"
+                layout="@layout/popup_greetings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_three"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
+
+
+            <include
+                android:id="@+id/video_count_popup"
                 layout="@layout/popup_interaction"
-                android:layout_centerInParent="true"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_three"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/layout_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout_one"
-                android:layout_marginTop="5dp"
+                android:layout_below="@id/layer_one"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -282,7 +325,7 @@
                     android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="0.5"
@@ -291,17 +334,17 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_meeting_01"/>
+                        android:src="@drawable/ic_meeting_01" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/total_meetings"
@@ -309,7 +352,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/meeting_count"
+                        android:id="@+id/overall_meeting_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -327,35 +370,35 @@
                     android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="0.5"
                     android:background="@drawable/shadow_round"
                     android:elevation="5dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_volunteer_01"/>
+                        android:src="@drawable/ic_volunteer_01" />
 
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
-                        android:text="@string/total_meetings"
+                        android:text="@string/volunteer_count"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/volunteer_count"
+                        android:id="@+id/overall_volunteer_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -391,25 +434,25 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_letter_01"/>
+                        android:src="@drawable/ic_letter_01" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/total_greetings"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/grievances_count"
+                        android:id="@+id/overall_greeting_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -436,24 +479,25 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_video_01"/>
+                        android:src="@drawable/ic_video_01" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/total_videos"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/overall_video_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -471,8 +515,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginStart="20dp"
                 android:layout_below="@+id/layout_three"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="@color/line_grey" />
@@ -481,9 +525,9 @@
                 android:id="@+id/footfall_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/layout_three"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:layout_below="@id/layout_three"
                 android:text="@string/foot_fall"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -492,13 +536,13 @@
                 android:id="@+id/graph_layout"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:layout_below="@+id/footfall_txt"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_below="@+id/footfall_txt"
                 android:layout_marginBottom="20dp"
-                android:elevation="10dp"
-                android:background="@drawable/shadow_round">
+                android:background="@drawable/shadow_round"
+                android:elevation="10dp">
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/BarChart"
@@ -511,18 +555,18 @@
                 android:id="@+id/view_more"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:background="@drawable/btn_outline_color"
-                android:layout_marginStart="40dp"
-                android:paddingStart="20dp"
-                android:layout_gravity="center_horizontal"
-                android:paddingEnd="20dp"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/graph_layout"
-                android:text="@string/view_more"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_outline_color"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/view_more"
+                android:textColor="@color/colorPrimary" />
 
 
         </RelativeLayout>

@@ -57,10 +57,10 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private String checkRes = "", paguthiId = "ALL";
     private ArrayList<SpinnerData> spinnerData;
     private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter = null;
-    private RelativeLayout selectArea, consituentPopup, meetingPopup, grievancePopup, interactionPopup;
-    private LinearLayout constituencyLayout, meetingLayout, grievanceLayout, interactionLayout;
-    private ImageView closeConstitutePop, closeGrievancePop, closeMeetingPop, closeInteractionPop;
-    private TextView area, constituentCount, meetingCount, grievanceCount, questionCount, viewMore;
+    private RelativeLayout selectArea, constituencyLayout, consituentPopup, grievancePopup, footfallPopup, meetingPopup, volunteerPopup, greetingsPopup, videoPopup;
+    private LinearLayout grievanceLayout, footfallLayout, meetingLayout, volunteerLayout, greetingsLayout, videoLayout;
+    private ImageView closeConstitutePop, closeGrievancePop, closeFootfallPop, closeMeetingPop, closeVolunteerPop, closeGreetingsPop, closeVideoPop;
+    private TextView area, constituentCount, meetingCount, grievanceCount, videoCount, viewMore;
     private TextView constiPopupCount, maleCount, femaleCount, voterCount, aadhaarcount;
     private TextView grievPopupCount, enquiryCount, petitionCount, processinggriveCount, completedgrivecount;
     private TextView meetPopupCount, requestedmeetingCount, completedmeetingCount;
@@ -90,67 +90,79 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        rootView = inflater.inflate(R.layout.fragment_testing, container, false);
 
         selectArea = rootView.findViewById(R.id.select_area);
 
-        constituencyLayout = rootView.findViewById(R.id.constituency_layout);
-        meetingLayout = rootView.findViewById(R.id.meeting_layout);
+        constituencyLayout = rootView.findViewById(R.id.constituent_layout);
         grievanceLayout = rootView.findViewById(R.id.grievance_layout);
-        interactionLayout = rootView.findViewById(R.id.interaction_layout);
+        footfallLayout = rootView.findViewById(R.id.footfall_layout);
+        meetingLayout = rootView.findViewById(R.id.meeting_layout);
+        volunteerLayout = rootView.findViewById(R.id.volunteer_layout);
+        greetingsLayout = rootView.findViewById(R.id.greeting_layout);
+        videoLayout = rootView.findViewById(R.id.video_layout);
 
         selectArea.setOnClickListener(this);
         constituencyLayout.setOnClickListener(this);
-        meetingLayout.setOnClickListener(this);
         grievanceLayout.setOnClickListener(this);
-        interactionLayout.setOnClickListener(this);
+        footfallLayout.setOnClickListener(this);
+        meetingLayout.setOnClickListener(this);
+        volunteerLayout.setOnClickListener(this);
+        greetingsLayout.setOnClickListener(this);
+        videoLayout.setOnClickListener(this);
 
 
         consituentPopup = rootView.findViewById(R.id.constituent_count_popup);
-        meetingPopup = rootView.findViewById(R.id.meeting_count_popup);
         grievancePopup = rootView.findViewById(R.id.grievance_count_popup);
-        interactionPopup = rootView.findViewById(R.id.interaction_count_popup);
+        footfallPopup = rootView.findViewById(R.id.footfall_count_popup);
+        meetingPopup = rootView.findViewById(R.id.meeting_count_popup);
+        volunteerPopup = rootView.findViewById(R.id.volunteer_count_popup);
+        greetingsPopup = rootView.findViewById(R.id.greetings_count_popup);
+        videoPopup = rootView.findViewById(R.id.video_count_popup);
 
         closeConstitutePop = rootView.findViewById(R.id.close_constituent);
-        closeMeetingPop = rootView.findViewById(R.id.close_meeting);
         closeGrievancePop = rootView.findViewById(R.id.close_grievance);
-        closeInteractionPop = rootView.findViewById(R.id.close_inteaction);
+        closeFootfallPop = rootView.findViewById(R.id.close_footfall);
+        closeMeetingPop = rootView.findViewById(R.id.close_meeting);
+        closeVolunteerPop = rootView.findViewById(R.id.close_volunteer);
+        closeGreetingsPop = rootView.findViewById(R.id.close_greeting);
+        closeVideoPop = rootView.findViewById(R.id.close_video);
 
         closeConstitutePop.setOnClickListener(this);
-        closeMeetingPop.setOnClickListener(this);
         closeGrievancePop.setOnClickListener(this);
-        closeInteractionPop.setOnClickListener(this);
+        closeFootfallPop.setOnClickListener(this);
+        closeMeetingPop.setOnClickListener(this);
+        closeVolunteerPop.setOnClickListener(this);
+        closeGreetingsPop.setOnClickListener(this);
+        closeVideoPop.setOnClickListener(this);
 
-        constiPopupCount = rootView.findViewById(R.id.constituent_popup_count);
-        grievPopupCount = rootView.findViewById(R.id.grievance_popup_count);
-        meetPopupCount = rootView.findViewById(R.id.meeting_count);
-        interPopupCount = rootView.findViewById(R.id.inteaction_count);
+        constiPopupCount = rootView.findViewById(R.id.constituency_count);
+        grievPopupCount = rootView.findViewById(R.id.grievance_count);
+        meetPopupCount = rootView.findViewById(R.id.meetings_count);
+        interPopupCount = rootView.findViewById(R.id.video_count);
 
         maleCount = rootView.findViewById(R.id.male_count);
         femaleCount = rootView.findViewById(R.id.female_count);
         voterCount = rootView.findViewById(R.id.voter_count);
-        aadhaarcount = rootView.findViewById(R.id.aadhaar_count);
+        aadhaarcount = rootView.findViewById(R.id.phone_count);
 
         enquiryCount = rootView.findViewById(R.id.enquiry_count);
         petitionCount = rootView.findViewById(R.id.petition_count);
-        processinggriveCount = rootView.findViewById(R.id.processing_grievance_count);
-        completedgrivecount = rootView.findViewById(R.id.completed_grievance_count);
+        processinggriveCount = rootView.findViewById(R.id.on_petition_count);
+        completedgrivecount = rootView.findViewById(R.id.civic_petition_count);
 
         requestedmeetingCount = rootView.findViewById(R.id.requested_count);
-        completedmeetingCount = rootView.findViewById(R.id.completed_count);
+        completedmeetingCount = rootView.findViewById(R.id.complete_count);
 
-        knowCount = rootView.findViewById(R.id.known_count);
-        interCount = rootView.findViewById(R.id.gms_interaction_count);
-        nrcCount = rootView.findViewById(R.id.nrc_count);
-        citezeincount = rootView.findViewById(R.id.citizen_count);
-        crossCount = rootView.findViewById(R.id.cross_count);
-
+        interCount = rootView.findViewById(R.id.office_count_1);
+        nrcCount = rootView.findViewById(R.id.office_count_2);
+        citezeincount = rootView.findViewById(R.id.office_count_3);
 
         area = rootView.findViewById(R.id.text_area);
-        constituentCount = rootView.findViewById(R.id.constituent_count);
-        meetingCount = rootView.findViewById(R.id.meetings_count);
-        grievanceCount = rootView.findViewById(R.id.grievances_count);
-        questionCount = rootView.findViewById(R.id.question_count);
+        constituentCount = rootView.findViewById(R.id.overall_constituent_count);
+        meetingCount = rootView.findViewById(R.id.overall_meeting_count);
+        grievanceCount = rootView.findViewById(R.id.overall_grievance_count);
+        videoCount = rootView.findViewById(R.id.overall_video_count);
         viewMore = rootView.findViewById(R.id.view_more);
         viewMore.setOnClickListener(this);
 
@@ -306,7 +318,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         if (v == grievanceLayout) {
             getGrievWidgetData();
         }
-        if (v == interactionLayout) {
+        if (v == videoLayout) {
             getInterWidgetData();
         }
         if (v == viewMore) {
@@ -317,30 +329,65 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         if (v == closeConstitutePop) {
             consituentPopup.setVisibility(View.GONE);
             constituencyLayout.setClickable(true);
-            meetingLayout.setClickable(true);
             grievanceLayout.setClickable(true);
-            interactionLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
         }
         if (v == closeGrievancePop) {
             grievancePopup.setVisibility(View.GONE);
             constituencyLayout.setClickable(true);
-            meetingLayout.setClickable(true);
             grievanceLayout.setClickable(true);
-            interactionLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
+        }
+        if (v == closeFootfallPop){
+            footfallPopup.setVisibility(View.GONE);
+            constituencyLayout.setClickable(true);
+            grievanceLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
         }
         if (v == closeMeetingPop) {
             meetingPopup.setVisibility(View.GONE);
             constituencyLayout.setClickable(true);
-            meetingLayout.setClickable(true);
             grievanceLayout.setClickable(true);
-            interactionLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
         }
-        if (v == closeInteractionPop) {
-            interactionPopup.setVisibility(View.GONE);
+        if (v == closeVolunteerPop){
+            volunteerPopup.setVisibility(View.GONE);
             constituencyLayout.setClickable(true);
-            meetingLayout.setClickable(true);
             grievanceLayout.setClickable(true);
-            interactionLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
+        }
+        if (v == closeGreetingsPop){
+            greetingsPopup.setVisibility(View.GONE);
+            constituencyLayout.setClickable(true);
+            grievanceLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
+        }
+        if (v == closeVideoPop) {
+            videoPopup.setVisibility(View.GONE);
+            constituencyLayout.setClickable(true);
+            grievanceLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
         }
     }
 
@@ -432,7 +479,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     constituentCount.setText(getData.getString("constituent_count"));
                     meetingCount.setText(getData.getString("meeting_count"));
                     grievanceCount.setText(getData.getString("grievance_count"));
-                    questionCount.setText(getData.getString("interaction_count"));
+                    videoCount.setText(getData.getString("interaction_count"));
 
                     JSONArray data = response.getJSONArray("footfall_graph");
 
@@ -516,7 +563,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     barChart.setVisibleXRangeMaximum(3);
                     barChart.invalidate();
                 } else if (checkRes.equalsIgnoreCase("widget_consti")) {
-                    constiPopupCount.setText(getString(R.string.constituent_members)+" - "+response.getJSONObject("constituent_details").getString("member_count"));
+                    constiPopupCount.setText(getString(R.string.constituent_count)+" - "+response.getJSONObject("constituent_details").getString("member_count"));
                     maleCount.setText(response.getJSONObject("constituent_details").getString("male_count"));
                     femaleCount.setText(response.getJSONObject("constituent_details").getString("female_count"));
                     voterCount.setText(response.getJSONObject("constituent_details").getString("voterid_count"));
@@ -525,18 +572,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
-                    interactionLayout.setClickable(false);
+                    videoLayout.setClickable(false);
                 } else if (checkRes.equalsIgnoreCase("widget_grie")) {
                     grievPopupCount.setText(getString(R.string.total_grievances)+" - "+response.getJSONObject("grievances_details").getString("grievance_count"));
                     enquiryCount.setText(response.getJSONObject("grievances_details").getString("enquiry_count"));
                     petitionCount.setText(response.getJSONObject("grievances_details").getString("petition_count"));
-                    processinggriveCount.setText(response.getJSONObject("grievances_details").getString("processing_count"));
-                    completedgrivecount.setText(response.getJSONObject("grievances_details").getString("completed_count"));
+//                    processinggriveCount.setText(response.getJSONObject("grievances_details").getString("processing_count"));
+//                    completedgrivecount.setText(response.getJSONObject("grievances_details").getString("completed_count"));
                     grievancePopup.setVisibility(View.VISIBLE);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
-                    interactionLayout.setClickable(false);
+                    videoLayout.setClickable(false);
                 } else if (checkRes.equalsIgnoreCase("widget_meet")) {
                     meetPopupCount.setText(getString(R.string.total_meetings)+" - "+response.getJSONObject("meeting_details").getString("meeting_count"));
                     requestedmeetingCount.setText(response.getJSONObject("meeting_details").getString("requested_count"));
@@ -545,19 +592,19 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
-                    interactionLayout.setClickable(false);
+                    videoLayout.setClickable(false);
                 } else if (checkRes.equalsIgnoreCase("widget_inter")) {
-                    interPopupCount.setText(getString(R.string.constituent_interaction)+" - "+response.getString("interaction_count"));
-                    knowCount.setText(response.getJSONArray("interaction_details").getJSONObject(0).getString("tot_values"));
+                    interPopupCount.setText(getString(R.string.total_greetings)+" - "+response.getString("interaction_count"));
+//                    knowCount.setText(response.getJSONArray("interaction_details").getJSONObject(0).getString("tot_values"));
                     interCount.setText(response.getJSONArray("interaction_details").getJSONObject(1).getString("tot_values"));
                     nrcCount.setText(response.getJSONArray("interaction_details").getJSONObject(2).getString("tot_values"));
                     citezeincount.setText(response.getJSONArray("interaction_details").getJSONObject(3).getString("tot_values"));
-                    crossCount.setText(response.getJSONArray("interaction_details").getJSONObject(4).getString("tot_values"));
-                    interactionPopup.setVisibility(View.VISIBLE);
+//                    crossCount.setText(response.getJSONArray("interaction_details").getJSONObject(4).getString("tot_values"));
+                    videoPopup.setVisibility(View.VISIBLE);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
-                    interactionLayout.setClickable(false);
+                    videoLayout.setClickable(false);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

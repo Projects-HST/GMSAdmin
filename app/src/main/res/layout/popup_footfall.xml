@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
     android:background="@drawable/shadow_round"
-    android:elevation="20dp"
     android:layout_gravity="center"
+    android:elevation="20dp"
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/close_grievance"
+        android:id="@+id/close_footfall"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
@@ -18,24 +18,23 @@
         android:padding="5dp"
         android:src="@drawable/ic_close" />
 
-
     <ImageView
-        android:id="@+id/grievance_img"
+        android:id="@+id/footfall_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/close_grievance"
+        android:layout_below="@id/close_footfall"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_grievance_01"/>
+        android:src="@drawable/ic_footfall_01"/>
 
     <RelativeLayout
         android:id="@+id/count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/grievance_img"
+        android:layout_below="@id/footfall_img"
         android:gravity="center">
 
         <TextView
-            android:id="@+id/grievance_count"
+            android:id="@+id/footfall_cout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -47,8 +46,8 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-    </RelativeLayout>
 
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -77,96 +76,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginStart="20dp"
-                android:text="@string/overall_count"
-                android:textColor="@color/btn_grievance"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/overall_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="end"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/btn_grievance"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/petition_count"
+                android:text="@string/unique_ct"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/petition_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="end"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/on_petition"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/online_count_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="end"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/civic_petition"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/civic_count_1"
+                android:id="@+id/requested_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -188,13 +103,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/enquiry_count"
+                android:text="@string/total_foot_ct"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/enquiry_count"
+                android:id="@+id/tot_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -207,8 +121,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -216,13 +130,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/on_petition"
+                android:text="@string/paguthi_1_ct"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/online_count_2"
+                android:id="@+id/paguthi_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -233,11 +146,10 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -245,13 +157,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginStart="20dp"
-                android:fontFamily="@font/roboto_regular"
-                android:text="@string/civic_petition"
+                android:text="@string/other_paguthi"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/civic_count_2"
+                android:id="@+id/other_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -267,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/btn_grievance_more">
+            android:background="@drawable/btn_more">
 
             <TextView
                 android:id="@+id/more"
@@ -277,7 +188,7 @@
                 android:paddingEnd="2dp"
                 android:gravity="center"
                 android:text="@string/more"
-                android:textColor="@color/btn_grievance"
+                android:textColor="@color/button_more"
                 android:textSize="14sp"/>
 
             <ImageView
@@ -285,7 +196,7 @@
                 android:layout_height="40dp"
                 android:layout_toEndOf="@id/more"
                 android:padding="6dp"
-                android:src="@drawable/ic_know_more_02"/>
+                android:src="@drawable/ic_know_more_01"/>
 
         </RelativeLayout>
 

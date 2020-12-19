@@ -267,7 +267,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else if (whatRes.equalsIgnoreCase("login")) {
                     JSONObject data = response.getJSONObject("userData");
 
-
                     String userID = data.getString("user_id");
                     String userRole = data.getString("user_role");
                     String constituencyId = data.getString("constituency_id");
