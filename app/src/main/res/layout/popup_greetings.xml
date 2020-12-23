@@ -177,16 +177,16 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/fest_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/diwali"
                     android:textColor="@color/black"
                     android:textSize="14sp"/>
 
                 <TextView
-                    android:id="@+id/per_diwali"
+                    android:id="@+id/per_fest_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -202,7 +202,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/diwali_count"
+                    android:id="@+id/fest_count_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -227,16 +227,16 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/fest_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/christmas"
                     android:textColor="@color/black"
                     android:textSize="14sp"/>
 
                 <TextView
-                    android:id="@+id/per_xmas"
+                    android:id="@+id/per_fest_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -252,7 +252,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/xmas_count"
+                    android:id="@+id/fest_count_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -277,16 +277,16 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/fest_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@string/ramzan"
                     android:textColor="@color/black"
                     android:textSize="14sp"/>
 
                 <TextView
-                    android:id="@+id/per_ramzan"
+                    android:id="@+id/per_fest_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -302,7 +302,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/ramzan_count"
+                    android:id="@+id/fest_count_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"

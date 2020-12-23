@@ -24,9 +24,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBarLogin"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.FootfallActivity"></activity>
-        <activity android:name=".activity.GrievanceActivity" />
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" /> <!-- <service -->
@@ -61,6 +58,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".activity.FootfallActivity"
+            android:label="@string/footfall_count"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.GrievanceActivity"
+            android:label="@string/total_grievances"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activity.GraphActivity"
             android:label="@string/graph"

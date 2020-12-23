@@ -34,7 +34,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/footfall_cout"
+            android:id="@+id/footfall_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -81,7 +81,7 @@
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/requested_count"
+                android:id="@+id/unique_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -108,7 +108,7 @@
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/tot_count"
+                android:id="@+id/tot_footFall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -128,7 +128,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.75"
                 android:layout_marginStart="20dp"
                 android:text="@string/paguthi_1_ct"
                 android:textColor="@color/black"
@@ -138,7 +138,7 @@
                 android:id="@+id/paguthi_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.25"
                 android:gravity="end"
                 android:layout_marginEnd="20dp"
                 android:textColor="@color/black"
@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.75"
                 android:layout_marginStart="20dp"
                 android:text="@string/other_paguthi"
                 android:textColor="@color/black"
@@ -165,7 +165,7 @@
                 android:id="@+id/other_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.25"
                 android:gravity="end"
                 android:layout_marginEnd="20dp"
                 android:textColor="@color/black"
@@ -173,32 +173,19 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/foot_more"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/btn_more">
-
-            <TextView
-                android:id="@+id/more"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="2dp"
-                android:gravity="center"
-                android:text="@string/more"
-                android:textColor="@color/button_more"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_toEndOf="@id/more"
-                android:padding="6dp"
-                android:src="@drawable/ic_know_more_01"/>
-
-        </RelativeLayout>
+            android:drawableEnd="@drawable/ic_know_more_01"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:background="@drawable/btn_more"
+            android:text="@string/more"
+            android:textColor="@color/button_more"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

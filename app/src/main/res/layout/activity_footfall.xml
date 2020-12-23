@@ -13,28 +13,13 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool"
+            android:id="@+id/activity_toolbar"
+            style="@style/ToolBarStyle.Event"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorPrimary"
-            android:minHeight="?android:attr/actionBarSize" />
-
-        <ImageView
-            android:id="@+id/img_back"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="15dp"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toEndOf="@id/img_back"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/footfall_count"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:minHeight="@dimen/abc_action_bar_default_height_material"
+            android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
 
     </RelativeLayout>
 
@@ -52,14 +37,14 @@
                 android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
                 android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/footfall_img"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_footfall_01" />
 
@@ -90,7 +75,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/overall_count"
+                        android:id="@+id/unique_ff_count"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
@@ -358,7 +343,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.75"
                         android:text="@string/paguthi_1_ct"
                         android:textColor="@color/button_more"
                         android:textSize="14sp" />
@@ -368,7 +353,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.25"
                         android:gravity="end"
                         android:textColor="@color/button_more"
                         android:textSize="14sp" />
