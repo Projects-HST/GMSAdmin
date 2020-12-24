@@ -98,7 +98,8 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private TextView meetPopupCount, perRequest, requestedmeetingCount, perComplete, completedmeetingCount;
     private TextView volPopupCount, perVol, volCount, perNonVol, nonVolCount;
     private TextView greetPopupCount, perBirth, birthCount, perFest, festCount, fest1, perFest1, festCount1, fest2, perFest2, festCount2, fest3, perFest3, festCount3;
-    private TextView vidPopupCount, off1, perVid1, vidCount1, off2, perVid2, vidCount2, off3, perVid3, vidCount3;
+    private TextView vidPopupCount, off1, perVid1, vidCount1, off2, perVid2, vidCount2, off3, perVid3, vidCount3,off4, perVid4, vidCount4, off5, perVid5, vidCount5,
+            off6, perVid6, vidCount6, off7, perVid7, vidCount7, off8, perVid8, vidCount8, off9, perVid9, vidCount9;
     BarChart barChart;
     LineChart lineChart;
     float groupSpace = 0.31f;
@@ -250,16 +251,33 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         fest3 = rootView.findViewById(R.id.fest_3);
         perFest3 = rootView.findViewById(R.id.per_fest_3);
         festCount3 = rootView.findViewById(R.id.fest_count_3);
-
-        off1 = rootView.findViewById(R.id.sigOff1);
-        perVid1 = rootView.findViewById(R.id.per_off_1);
-        vidCount1 = rootView.findViewById(R.id.office_count_1);
-        off2 = rootView.findViewById(R.id.sigOff2);
+        off4 = rootView.findViewById(R.id.office_4);
+        perVid4 = rootView.findViewById(R.id.per_off_4);
+        vidCount4 = rootView.findViewById(R.id.office_count_4);
+        off2 = rootView.findViewById(R.id.office_2);
         perVid2 = rootView.findViewById(R.id.per_off_2);
         vidCount2 = rootView.findViewById(R.id.office_count_2);
-        off3 = rootView.findViewById(R.id.sigOff3);
+        off3 = rootView.findViewById(R.id.office_3);
         perVid3 = rootView.findViewById(R.id.per_off_3);
         vidCount3 = rootView.findViewById(R.id.office_count_3);
+        off1 = rootView.findViewById(R.id.office_1);
+        perVid1 = rootView.findViewById(R.id.per_off_1);
+        vidCount1 = rootView.findViewById(R.id.office_count_1);
+        off5 = rootView.findViewById(R.id.office_5);
+        perVid5 = rootView.findViewById(R.id.per_off_5);
+        vidCount5 = rootView.findViewById(R.id.office_count_5);
+        off6 = rootView.findViewById(R.id.office_6);
+        perVid6 = rootView.findViewById(R.id.per_off_6);
+        vidCount6 = rootView.findViewById(R.id.office_count_6);
+        off7 = rootView.findViewById(R.id.office_7);
+        perVid7 = rootView.findViewById(R.id.per_off_7);
+        vidCount7 = rootView.findViewById(R.id.office_count_7);
+        off8 = rootView.findViewById(R.id.office_8);
+        perVid8 = rootView.findViewById(R.id.per_off_8);
+        vidCount8 = rootView.findViewById(R.id.office_count_8);
+        off9 = rootView.findViewById(R.id.office_9);
+        perVid9 = rootView.findViewById(R.id.per_off_9);
+        vidCount9 = rootView.findViewById(R.id.office_count_9);
 
         area = rootView.findViewById(R.id.text_area);
         constituentCount = rootView.findViewById(R.id.overall_constituent_count);
@@ -514,6 +532,14 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             getGrievWidgetData();
         }
         if (v == grievMore) {
+            grievancePopup.setVisibility(View.GONE);
+            constituencyLayout.setClickable(true);
+            grievanceLayout.setClickable(true);
+            footfallLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
             Intent griIntent = new Intent(getActivity(), GrievanceActivity.class);
             griIntent.putExtra("paguthi", paguthiId);
             startActivity(griIntent);
@@ -522,6 +548,14 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             getFootfallWidgetData();
         }
         if (v == footMore) {
+            footfallPopup.setVisibility(View.GONE);
+            constituencyLayout.setClickable(true);
+            grievanceLayout.setClickable(true);
+            footfallLayout.setClickable(true);
+            meetingLayout.setClickable(true);
+            volunteerLayout.setClickable(true);
+            greetingsLayout.setClickable(true);
+            videoLayout.setClickable(true);
             Intent footIntent = new Intent(getActivity(), FootfallActivity.class);
             footIntent.putExtra("paguthi", paguthiId);
             startActivity(footIntent);
@@ -1023,12 +1057,30 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                         off1.setText(getData.getJSONObject(0).getString("office_name"));
                         perVid1.setText("( " + getData.getJSONObject(0).getString("video_percentage") + "%" + " )");
                         vidCount1.setText(getData.getJSONObject(0).getString("video_cnt"));
-                        off2.setText(getData.getJSONObject(4).getString("office_name"));
-                        perVid2.setText("( " + getData.getJSONObject(4).getString("video_percentage") + "%" + " )");
-                        vidCount2.setText(getData.getJSONObject(4).getString("video_cnt"));
-                        off3.setText(getData.getJSONObject(5).getString("office_name"));
-                        perVid3.setText("( " + getData.getJSONObject(5).getString("video_percentage") + "%" + " )");
-                        vidCount3.setText(getData.getJSONObject(5).getString("video_cnt"));
+                        off2.setText(getData.getJSONObject(1).getString("office_name"));
+                        perVid2.setText("( " + getData.getJSONObject(1).getString("video_percentage") + "%" + " )");
+                        vidCount2.setText(getData.getJSONObject(1).getString("video_cnt"));
+                        off3.setText(getData.getJSONObject(2).getString("office_name"));
+                        perVid3.setText("( " + getData.getJSONObject(2).getString("video_percentage") + "%" + " )");
+                        vidCount3.setText(getData.getJSONObject(2).getString("video_cnt"));
+                        off4.setText(getData.getJSONObject(3).getString("office_name"));
+                        perVid4.setText("( " + getData.getJSONObject(3).getString("video_percentage") + "%" + " )");
+                        vidCount4.setText(getData.getJSONObject(3).getString("video_cnt"));
+                        off5.setText(getData.getJSONObject(4).getString("office_name"));
+                        perVid5.setText("( " + getData.getJSONObject(4).getString("video_percentage") + "%" + " )");
+                        vidCount5.setText(getData.getJSONObject(4).getString("video_cnt"));
+                        off6.setText(getData.getJSONObject(5).getString("office_name"));
+                        perVid6.setText("( " + getData.getJSONObject(5).getString("video_percentage") + "%" + " )");
+                        vidCount6.setText(getData.getJSONObject(5).getString("video_cnt"));
+                        off7.setText(getData.getJSONObject(6).getString("office_name"));
+                        perVid7.setText("( " + getData.getJSONObject(6).getString("video_percentage") + "%" + " )");
+                        vidCount7.setText(getData.getJSONObject(6).getString("video_cnt"));
+                        off8.setText(getData.getJSONObject(7).getString("office_name"));
+                        perVid8.setText("( " + getData.getJSONObject(7).getString("video_percentage") + "%" + " )");
+                        vidCount8.setText(getData.getJSONObject(7).getString("video_cnt"));
+                        off9.setText(getData.getJSONObject(8).getString("office_name"));
+                        perVid9.setText("( " + getData.getJSONObject(8).getString("video_percentage") + "%" + " )");
+                        vidCount9.setText(getData.getJSONObject(8).getString("video_cnt"));
                     }
                     videoPopup.setVisibility(View.VISIBLE);
                     constituencyLayout.setClickable(false);

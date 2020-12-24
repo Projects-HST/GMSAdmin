@@ -131,24 +131,24 @@ public class FootfallActivity extends AppCompatActivity implements View.OnClickL
             try{
                 if (response.getString("status").equalsIgnoreCase("Success")){
                     uniqueCount.setText(response.getJSONObject("footfall_details").getString("total_unique_footfall_cnt"));
-                    perConst.setText(response.getJSONObject("footfall_details").getString("cons_unique_footfall_cnt_presntage"));
+                    perConst.setText("( " + response.getJSONObject("footfall_details").getString("cons_unique_footfall_cnt_presntage") + "%" + " )");
                     constCount.setText(response.getJSONObject("footfall_details").getString("cons_unique_footfall_cnt"));
-                    perOther.setText(response.getJSONObject("footfall_details").getString("other_unique_footfall_cnt_presntage"));
+                    perOther.setText("( " + response.getJSONObject("footfall_details").getString("other_unique_footfall_cnt_presntage") + "%" + " )");
                     otherCount.setText(response.getJSONObject("footfall_details").getString("other_unique_footfall_cnt"));
                     totalCount.setText(response.getJSONObject("footfall_details").getString("total_footfall_cnt"));
-                    perUnique.setText(response.getJSONObject("footfall_details").getString("unique_footfall_cnt_presntage"));
+                    perUnique.setText("( " + response.getJSONObject("footfall_details").getString("unique_footfall_cnt_presntage") + "%" + " )");
                     uniCnt.setText(response.getJSONObject("footfall_details").getString("unique_footfall_cnt"));
-                    perRpt.setText(response.getJSONObject("footfall_details").getString("repeated_footfall_cnt_presntage"));
+                    perRpt.setText("( " + response.getJSONObject("footfall_details").getString("repeated_footfall_cnt_presntage") + "%" + " )");
                     rptCnt.setText(response.getJSONObject("footfall_details").getString("repeated_footfall_cnt"));
                     parConstCnt.setText(response.getJSONObject("footfall_details").getString("constituency_cnt"));
-                    perUniPar.setText(response.getJSONObject("footfall_details").getString("cons_unique_cnt_presntage"));
+                    perUniPar.setText("( " + response.getJSONObject("footfall_details").getString("cons_unique_cnt_presntage") + "%" + " )");
                     uniParCnt.setText(response.getJSONObject("footfall_details").getString("cons_unique_cnt"));
-                    perParRpt.setText(response.getJSONObject("footfall_details").getString("cons_repeated_cnt_presntage"));
+                    perParRpt.setText("( " + response.getJSONObject("footfall_details").getString("cons_repeated_cnt_presntage") + "%" + " )");
                     parRptCnt.setText(response.getJSONObject("footfall_details").getString("cons_repeated_cnt"));
                     otherConstCnt.setText(response.getJSONObject("footfall_details").getString("other_cnt"));
-                    perUniOth.setText(response.getJSONObject("footfall_details").getString("other_unique_cnt_presntage"));
+                    perUniOth.setText("( " + response.getJSONObject("footfall_details").getString("other_unique_cnt_presntage") + "%" + " )");
                     uniOthCnt.setText(response.getJSONObject("footfall_details").getString("other_unique_cnt"));
-                    perRptOth.setText(response.getJSONObject("footfall_details").getString("other_repeated_cnt_presntage"));
+                    perRptOth.setText("( " + response.getJSONObject("footfall_details").getString("other_repeated_cnt_presntage") + "%" + " )");
                     othRptCnt.setText(response.getJSONObject("footfall_details").getString("other_repeated_cnt"));
                 }
             } catch (Exception e) {
