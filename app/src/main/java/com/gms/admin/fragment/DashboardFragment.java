@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.DatePicker;
 
@@ -28,6 +30,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -86,8 +89,9 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private SimpleDateFormat mDateFormatter;
     private ArrayList<SpinnerData> spinnerData;
     private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter = null;
+    private ScrollView scrollView;
     private RelativeLayout selectArea, constituencyLayout, consituentPopup, grievancePopup, footfallPopup, meetingPopup, volunteerPopup, greetingsPopup, videoPopup;
-    private LinearLayout grievanceLayout, footfallLayout, meetingLayout, volunteerLayout, greetingsLayout, videoLayout;
+    private LinearLayout dateLayout, grievanceLayout, footfallLayout, meetingLayout, volunteerLayout, greetingsLayout, videoLayout;
     private ImageView closeConstitutePop, closeGrievancePop, closeFootfallPop, closeMeetingPop, closeVolunteerPop, closeGreetingsPop, closeVideoPop;
     private TextView fromDate, toDate;
     private TextView area, constituentCount, grievanceCount, footfallCount, meetingCount, volunteerCount, greetingsCount, videoCount, viewMore;
@@ -98,7 +102,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private TextView meetPopupCount, perRequest, requestedmeetingCount, perComplete, completedmeetingCount;
     private TextView volPopupCount, perVol, volCount, perNonVol, nonVolCount;
     private TextView greetPopupCount, perBirth, birthCount, perFest, festCount, fest1, perFest1, festCount1, fest2, perFest2, festCount2, fest3, perFest3, festCount3;
-    private TextView vidPopupCount, off1, perVid1, vidCount1, off2, perVid2, vidCount2, off3, perVid3, vidCount3,off4, perVid4, vidCount4, off5, perVid5, vidCount5,
+    private TextView vidPopupCount, off1, perVid1, vidCount1, off2, perVid2, vidCount2, off3, perVid3, vidCount3, off4, perVid4, vidCount4, off5, perVid5, vidCount5,
             off6, perVid6, vidCount6, off7, perVid7, vidCount7, off8, perVid8, vidCount8, off9, perVid9, vidCount9;
     BarChart barChart;
     LineChart lineChart;
@@ -140,7 +144,9 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
 
         selectArea = rootView.findViewById(R.id.select_area);
 
+        scrollView = rootView.findViewById(R.id.scrolView);
         constituencyLayout = rootView.findViewById(R.id.constituent_layout);
+        dateLayout = rootView.findViewById(R.id.dateLayout);
         grievanceLayout = rootView.findViewById(R.id.grievance_layout);
         footfallLayout = rootView.findViewById(R.id.footfall_layout);
         meetingLayout = rootView.findViewById(R.id.meeting_layout);
@@ -148,6 +154,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         greetingsLayout = rootView.findViewById(R.id.greeting_layout);
         videoLayout = rootView.findViewById(R.id.video_layout);
 
+        dateLayout.setOnClickListener(this);
         fromDate.setOnClickListener(this);
         toDate.setOnClickListener(this);
         selectArea.setOnClickListener(this);
@@ -287,12 +294,19 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         volunteerCount = rootView.findViewById(R.id.overall_volunteer_count);
         greetingsCount = rootView.findViewById(R.id.overall_greeting_count);
         videoCount = rootView.findViewById(R.id.overall_video_count);
-        viewMore = rootView.findViewById(R.id.view_more);
-        viewMore.setOnClickListener(this);
+//        viewMore = rootView.findViewById(R.id.view_more);
+//        viewMore.setOnClickListener(this);
 
         lineChart = rootView.findViewById(R.id.lineChart);
 
         mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
+//        scrollView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return false;
+//            }
+//        });
 
         searchView = rootView.findViewById(R.id.search_cat_list);
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -533,6 +547,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == grievMore) {
             grievancePopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -549,6 +574,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == footMore) {
             footfallPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -572,13 +608,24 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         if (v == videoLayout) {
             getVideoWidgetData();
         }
-        if (v == viewMore) {
+//        if (v == viewMore) {
 //            Intent i = new Intent(getActivity(), GraphActivity.class);
 //            i.putExtra("paguthi", paguthiId);
 //            startActivity(i);
-        }
+//        }
         if (v == closeConstitutePop) {
             consituentPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -589,6 +636,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == closeGrievancePop) {
             grievancePopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -599,6 +657,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == closeFootfallPop) {
             footfallPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -609,6 +678,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == closeMeetingPop) {
             meetingPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -619,6 +699,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == closeVolunteerPop) {
             volunteerPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -629,6 +720,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == closeGreetingsPop) {
             greetingsPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -639,6 +741,17 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
         if (v == closeVideoPop) {
             videoPopup.setVisibility(View.GONE);
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return false;
+                }
+            });
+            enableSearchView(searchView, true);
+            selectArea.setClickable(true);
+            fromDate.setClickable(true);
+            fromDate.setFocusable(true);
+            toDate.setClickable(true);
             constituencyLayout.setClickable(true);
             grievanceLayout.setClickable(true);
             footfallLayout.setClickable(true);
@@ -648,7 +761,6 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             videoLayout.setClickable(true);
         }
     }
-
 
     @Override
     public void onAlertPositiveClicked(int tag) {
@@ -916,7 +1028,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     lineChart.getDescription().setEnabled(false);
                     lineChart.getLegend().setWordWrapEnabled(true);
                     lineChart.invalidate();
-                    
+
                 } else if (checkRes.equalsIgnoreCase("widget_consti")) {
                     JSONArray getData = response.getJSONArray("constituent_details");
                     JSONObject object = getData.getJSONObject(0);
@@ -928,7 +1040,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     for (int i = 0; i < getLength; i++) {
                         constiPopupCount.setText(getString(R.string.constituent_count) + " - " + object.getString("total"));
                         malePer = Float.parseFloat((object.getString("malepercenatge")));
-                        perMale.setText( "( " + decimal.format(malePer) + "%" + " )");
+                        perMale.setText("( " + decimal.format(malePer) + "%" + " )");
                         maleCount.setText(object.getString("malecount"));
                         femalePer = Float.parseFloat(object.getString("femalepercenatge"));
                         perFemale.setText("( " + decimal.format(femalePer) + "%" + " )");
@@ -956,6 +1068,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                         dobCount.setText(object.getString("having_dob"));
                     }
                     consituentPopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -973,6 +1097,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     onlineEnq.setText(response.getJSONObject("petition_list").getString("no_of_online"));
                     civicEnq.setText(response.getJSONObject("petition_list").getString("no_of_civic"));
                     grievancePopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -987,6 +1123,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     paguthiCount.setText(response.getJSONObject("footfall_details").getString("constituency_cnt"));
                     otherPaguthi.setText(response.getJSONObject("footfall_details").getString("other_cnt"));
                     footfallPopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -1001,6 +1149,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     perComplete.setText("( " + response.getJSONObject("meeting_details").getString("complete_count_percentage") + "%" + " )");
                     completedmeetingCount.setText(response.getJSONObject("meeting_details").getString("complete_count"));
                     meetingPopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -1015,6 +1175,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     perNonVol.setText("( " + response.getJSONObject("volunteer_details").getString("nonvolunteer_percentage") + "%" + " )");
                     nonVolCount.setText(response.getJSONObject("volunteer_details").getString("no_of_nonvolunteer"));
                     volunteerPopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -1042,6 +1214,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                         festCount2.setText(getData.getJSONObject(2).getString("festival_wish_cnt"));
                     }
                     greetingsPopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -1083,6 +1267,18 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                         vidCount9.setText(getData.getJSONObject(8).getString("video_cnt"));
                     }
                     videoPopup.setVisibility(View.VISIBLE);
+                    scrollView.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            return true;
+                        }
+                    });
+                    enableSearchView(searchView, false);
+                    selectArea.setClickable(false);
+                    fromDate.setClickable(false);
+                    fromDate.setFocusable(false);
+                    toDate.setClickable(false);
+                    toDate.setFocusable(false);
                     constituencyLayout.setClickable(false);
                     meetingLayout.setClickable(false);
                     grievanceLayout.setClickable(false);
@@ -1153,31 +1349,16 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(getActivity(), R.style.datePickerTheme, this, year, month, day);
+                mDatePicker = new DatePickerDialog(getActivity(), this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(getActivity(), R.style.datePickerTheme, this, year, month, day);
+            mDatePicker = new DatePickerDialog(getActivity(), this, year, month, day);
             mDatePicker.show();
         }
     }
-
-//    public void getCurrentDate(TextView txtdate) {
-//
-//        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.set(Calendar.YEAR, year);
-//                calendar.set(Calendar.MONTH, monthOfYear);
-//                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//                txtdate.setText(mDateFormatter.format(calendar.getTime()));
-//            }
-//        }, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-//        datePickerDialog.show();
-//    }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
@@ -1188,6 +1369,8 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         } else {
             toDate.setText(mDateFormatter.format(newDate.getTime()));
         }
+        fr = false;
+        to = false;
     }
 
     private String getserverdateformat(String dd) {
@@ -1228,11 +1411,20 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
 //        return super.dispatchTouchEvent(ev);
 //    }
 
-//    public static void hideKeyboard(Activity activity) {
+    //    public static void hideKeyboard(Activity activity) {
 //        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
 //            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
 //            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
 //        }
 //    }
-
+    private void enableSearchView(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                enableSearchView(child, enabled);
+            }
+        }
+    }
 }
