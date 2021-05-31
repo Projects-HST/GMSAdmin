@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
     private TextInputEditText edtUserName, edtPassword;
-    private Button signIn;
+    private TextView signIn;
     private TextView forgot;
     private ImageView laang;
     String IMEINo = "";
@@ -281,6 +281,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String status = data.getString("status");
                     String lastLogin = data.getString("last_login");
                     String loginCount = data.getString("login_count");
+                    String appColour = data.getString("base_colour");
 
                     PreferenceStorage.saveUserId(this, userID);
                     PreferenceStorage.saveUserRole(this, userRole);
@@ -295,6 +296,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     PreferenceStorage.saveStatus(this, status);
                     PreferenceStorage.saveLogin(this, lastLogin);
                     PreferenceStorage.saveLoginCount(this, loginCount);
+                    PreferenceStorage.saveColour(this, appColour);
 
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("page", "login");

@@ -853,4 +853,21 @@ public class PreferenceStorage {
     /*End*/
 
 
+    /*To search*/
+    public static void saveColour(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.APP_COLOUR, ser);
+        editor.apply();
+    }
+
+    public static String getColour(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.APP_COLOUR, "");
+        return ser;
+    }
+    /*End*/
 }

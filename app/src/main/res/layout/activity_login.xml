@@ -27,7 +27,7 @@
                 android:background="@drawable/shadow_oval_color"
                 android:gravity="center"
                 android:text="GMS"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="35sp"
                 android:textStyle="bold" />
 
@@ -142,18 +142,26 @@
                 android:text="@string/forgot_password"
                 android:textColor="@color/text_grey" />
 
-            <Button
-                android:id="@+id/btn_go"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_round_color"
-                android:text="@string/lets_go"
                 android:layout_below="@+id/forgot"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_round_color">
+
+                <TextView
+                    android:id="@+id/btn_go"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/new_temp"
+                    android:gravity="center"
+                    android:text="@string/lets_go"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black" />
+
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
     </ScrollView>

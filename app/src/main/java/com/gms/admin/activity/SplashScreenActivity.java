@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
@@ -22,12 +23,14 @@ public class SplashScreenActivity extends Activity {
     private static int SPLASH_TIME_OUT = 3000;
     //    AppSignatureHelper appSignatureHelper;
     SQLiteHelper database;
+    LinearLayout splashLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-
+        splashLayout = (LinearLayout) findViewById(R.id.splash_layout);
+//        splashLayout.setBackgroundColor();
         /*ArrayList<String> appCodes = new ArrayList<>();
         SmsVerification hash = new SmsVerification(getBaseContext());
         appCodes= hash.getAppSignatures();

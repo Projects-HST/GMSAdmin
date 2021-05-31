@@ -3,6 +3,7 @@ package com.gms.admin.activity;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         page = getIntent().getExtras().getString("page");

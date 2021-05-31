@@ -285,6 +285,7 @@ public class GMSConstants {
     public static String SEARCH_STATUS = "search_status";
     public static String SEARCH_TEXT = "keyword";
     public static String SEARCH_TEXT_TA = "search_txt_ta";
+    public static String APP_COLOUR = "app_colour";
 
 
 }
