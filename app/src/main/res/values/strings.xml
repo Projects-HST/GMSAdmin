@@ -45,11 +45,15 @@
     <string name="side_menu_logout">Logout</string>
     <string name="search">Search</string>
 
-
-    <string name="constituent_members">Constituent Members</string>
-    <string name="total_meetings">Total Meetings</string>
-    <string name="total_grievances">Total Grievances</string>
-    <string name="constituent_interaction">Constituent Interaction</string>
+    <string name="constituent_count">Constituent Count</string>
+    <string name="openBrace">(</string>
+    <string name="closeBrace">)</string>
+    <string name="footfall_count">Footfall Count</string>
+    <string name="volunteer_count">Volunteer Count</string>
+    <string name="total_meetings">Meeting Count</string>
+    <string name="total_grievances">Grievance Count</string>
+    <string name="total_greetings">Greetings Count</string>
+    <string name="total_videos">Video Count</string>
     <string name="people">Constituents</string>
     <string name="meetings">Meetings</string>
     <string name="grievances">Grievances</string>
@@ -57,22 +61,59 @@
     <string name="foot_fall">Foot Fall Report</string>
     <string name="grievance_graph">Grievance Progress Report</string>
     <string name="meetings_graph">Constituent Meetings Report</string>
-    <string name="view_more">View More Graphs</string>
+    <string name="view_more">View Reviews</string>
 
     <string name="graph">Graph</string>
 
-    <string name="total_male">Total Male</string>
-    <string name="total_female">Total Female</string>
-    <string name="no_od_voter">No. of Voter ID</string>
+    <string name="total_male">Male</string>
+    <string name="total_female">Female</string>
+    <string name="total_transgender">Transgender</string>
+    <string name="hv_phone_no">Having Phone no</string>
+    <string name="hv_whapp_no">Having Whatsapp</string>
+    <string name="whapp_bcast">Whatsapp Broadcast</string>
+    <string name="hv_mail_id">Having Email ID</string>
+    <string name="no_od_voter">Having Voter ID</string>
+    <string name="dob_up">DOB Updated</string>
     <string name="no_of_aadhaar">No. of Aadhaar Card</string>
+
+    <string name="unique_ct">Unique Footfall Count</string>
+    <string name="total_foot_ct">Total Footfall Count</string>
+    <string name="paguthi_1_ct">Singanallur Footfall Count</string>
+    <string name="other_paguthi">Other Footfall Count</string>
+
+    <string name="paguthi">Singanallur</string>
+    <string name="other">Others</string>
+    <string name="unique">Unique</string>
+    <string name="repeat">Repeat</string>
 
     <string name="total_requested">Meetings Requested</string>
     <string name="total_completed">Meetings Completed</string>
 
-    <string name="total_enquiry">No. of Enquiry</string>
-    <string name="total_petition">No. of Petition</string>
-    <string name="no_of_processing">No. of Processing</string>
-    <string name="no_of_completed">No. of Completed</string>
+    <string name="total_constituency">Constituency</string>
+    <string name="total_non_constituency">Non-Constituency</string>
+
+    <string name="birthDay">Birthday Wishes</string>
+    <string name="festival">Festival Wishes</string>
+    <string name="diwali">Diwali</string>
+    <string name="christmas">Christmas</string>
+    <string name="ramzan">Ramzan</string>
+
+    <string name="office_1">Singanallur office 1</string>
+    <string name="office_2">Singanallur office 2</string>
+    <string name="office_3">Singanallur office 3</string>
+
+    <string name="overall_count">Grievance Overall Count</string>
+    <string name="petition_count">Petition</string>
+    <string name="on_petition">Online Petition</string>
+    <string name="civic_petition">Civic Petition</string>
+    <string name="enquiry_count">Enquiry</string>
+
+    <string name="complete">Completed</string>
+    <string name="reject">Rejected</string>
+    <string name="pending">Pending</string>
+
+    <string name="online">Online</string>
+    <string name="civic">Civic</string>
 
     <string name="know_this">Know this Person</string>
     <string name="gms_interaction">GMS interaction</string>
@@ -239,6 +280,10 @@
     <!--Terms and Conditions Page Strings-->
     <string name="privacy_title">Privacy &amp; security</string>
     <string name="privacy_content">Privacy Policy \n\nHappy Sanz Tech built the GMS app as a Free app. This SERVICE is provided by Happy Sanz Tech at no cost and is intended for use as is. This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service. If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy. The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at GMS unless otherwise defined in this Privacy Policy.</string>
+    <string name="dash">Dashboard</string>
+    <string name="more">Know More</string>
+    <string name="end_date">To Date</string>
+    <string name="start_date">From Date</string>
 
 
 </resources>

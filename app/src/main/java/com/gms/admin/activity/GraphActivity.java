@@ -234,8 +234,6 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
 //                pieChart.getLegend().setEnabled(false);
                 pieChart.invalidate();
 
-
-
                 ArrayList<Entry> values = new ArrayList<>();
                 ArrayList year = new ArrayList();
                 for (int i = 0; i < count; i++) {

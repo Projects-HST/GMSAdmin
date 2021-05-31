@@ -7,42 +7,33 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!--End-->
-
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- End -->
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true" />
-
-    <!--Phone State Permission-->
+        android:required="true" /> <!-- Phone State Permission -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".app.AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/img_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/img_logo"
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBarLogin"
         android:usesCleartextTraffic="true">
-
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <!--        <service-->
-        <!--            android:name=".fcm.MyFirebaseMessagingService"-->
-        <!--            android:exported="false"-->
-        <!--            android:stopWithTask="false">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
-        <!--            </intent-filter>-->
-
-        <!--        </service>-->
-
+            android:required="false" /> <!-- <service -->
+        <!-- android:name=".fcm.MyFirebaseMessagingService" -->
+        <!-- android:exported="false" -->
+        <!-- android:stopWithTask="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.MESSAGING_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,125 +41,117 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin" />
-
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ForgotPasswordActivity"
             android:label="@string/forgot_password_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity android:name=".activity.FootfallActivity"
+            android:label="@string/footfall_count"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity.GrievanceActivity"
+            android:label="@string/total_grievances"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activity.GraphActivity"
             android:label="@string/graph"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultActivity"
             android:label="@string/search"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultConstituentActivity"
             android:label="@string/search"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultGrievanceActivity"
             android:label="@string/search"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultMeetingActivity"
             android:label="@string/search"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ConstituentDetailsActivity"
             android:label="@string/constituent_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualMeetingActivity"
             android:label="@string/meeting"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualMeetingDetailActivity"
             android:label="@string/meeting_detail_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualGrievanceActivity"
             android:label="@string/grievance"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualGrievanceDetailActivity"
             android:label="@string/grievance_detail_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.MessageHistoryActivity"
             android:label="@string/msg_history_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualInteractionActivity"
             android:label="@string/interaction_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualPlantDonationActivity"
             android:label="@string/plant_donation_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualDocumentsActivity"
             android:label="@string/doc_constituent"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.IndividualProfileActivity"
             android:label="@string/profile_title"
@@ -181,163 +164,139 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.GrievanceDetailActivity"
             android:label="@string/grievance_detail_title_alt"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ConstituentGrievanceProfileActivity"
             android:label="@string/profile_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.StaffDetailsActivity"
             android:label="@string/staff_detail_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportBirthdayActivity"
             android:label="@string/report_birthday_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultBirthdayActivity"
             android:label="@string/report_birthday_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportCategoryActivity"
             android:label="@string/report_category_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportLocationActivity"
             android:label="@string/report_location_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportMeetingActivity"
             android:label="@string/report_meeting_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportMeetingListActivity"
             android:label="@string/report_meeting_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultReportMeetingActivity"
             android:label="@string/search"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportStaffActivity"
             android:label="@string/report_staff_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportStaffListActivity"
             android:label="@string/report_staff_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportStatusActivity"
             android:label="@string/report_status_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportGrievanceListActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SearchResultReportGrievanceActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ReportSubCategoryActivity"
             android:label="@string/report_sub_category_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.EditProfileActivity"
             android:label="@string/edit_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.ChangePasswordActivity"
             android:label="@string/change_password"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.AboutUsActivity"
             android:label="@string/about_us_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.TermsAndConditions"
             android:label="@string/terms_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.PrivacyActivity"
             android:label="@string/privacy_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".activity.SampleClassasa"
             android:label="@string/privacy_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
-
-        <activity android:name="com.gms.admin.customview.StoryPlayer"/>
-
+        <activity android:name=".customview.StoryPlayer" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -348,7 +307,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
     </application>
 
 </manifest>

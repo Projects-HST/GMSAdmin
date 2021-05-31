@@ -50,14 +50,23 @@ public class GMSConstants {
     //MEMBER WIDGET URL
     public static final String GET_WIDGET_CONSTITUTENT = "apiandroid/widgets_members";
 
-    //MEETING WIDGET URL
-    public static final String GET_WIDGET_MEETING = "apiandroid/widgets_meetings";
-
     //GRIEVANCE WIDGET URL
     public static final String GET_WIDGET_GRIEVANCE = "apiandroid/widgets_grievances";
 
-    //INTERACTION WIDGET URL
-    public static final String GET_WIDGET_INTERACTION = "apiandroid/widgets_interactions/";
+    //FOOTFALL WIDGET URL
+    public static final String GET_WIDGET_FOOTFALL = "apiandroid/widgets_footfall/";
+
+    //MEETING WIDGET URL
+    public static final String GET_WIDGET_MEETING = "apiandroid/widgets_meetings";
+
+    //VOLUNTEER WIDGET URL
+    public static final String GET_WIDGET_VOLUNTEER = "apiandroid/widgets_volunteer/";
+
+    //GREETINGS WIDGET URL
+    public static final String GET_WIDGET_GREETINGS = "apiandroid/widgets_greetings/";
+
+    //VIDEO WIDGET URL
+    public static final String GET_WIDGET_VIDEO = "apiandroid/widgets_videos/";
 
     //DASHBOARD SEARCH URL
     public static final String GET_SEARCH_RESULT = "apiandroid/dashBoard_searchnew";

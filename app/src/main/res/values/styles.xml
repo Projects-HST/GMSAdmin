@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
@@ -54,13 +54,19 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="NumberPickerStyle">
+        <item name="android:textSize">22dp</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:colorControlNormal" tools:targetApi="Q">@color/colorPrimary</item>
+    </style>
+
     <style name="datePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/msg_by_grey</item>
-        <item name="android:textColorTertiary">@color/colorPrimary</item>
+        <item name="android:textColorTertiary">@color/text_black</item>
         <item name="android:colorBackground">@color/white</item>
     </style>
 

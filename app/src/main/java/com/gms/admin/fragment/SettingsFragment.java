@@ -59,8 +59,8 @@ public class SettingsFragment extends Fragment implements IServiceListener, Dial
         }if (v == terms) {
 
         }if (v == privacy) {
-            Intent i = new Intent (getActivity(), SampleClassasa.class);
-            startActivity(i);
+//            Intent i = new Intent (getActivity(), SampleClassasa.class);
+//            startActivity(i);
         }
     }
 

@@ -62,7 +62,6 @@
                     android:text="@string/from_date"
                     android:textColor="@color/msg_by_grey" />
 
-
             </LinearLayout>
 
             <LinearLayout
