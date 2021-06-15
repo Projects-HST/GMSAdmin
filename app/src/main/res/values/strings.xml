@@ -23,7 +23,8 @@
     <string name="select_constituency">Select Constituency</string>
     <string name="select_area">Select Paguthi</string>
     <string name="select_constituency_alert">Please select constituency before proceeding</string>
-    <string name="email_or_phone">Email / Phone number</string>
+    <string name="phone_no">Phone number</string>
+    <string name="mail">Email</string>
     <string name="password">Password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
@@ -32,7 +33,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="send">Send</string>
     <string name="save">Save</string>
-    <string name="lets_go">Let’s Go</string>
+    <string name="lets_go">Login</string>
 
     <string name="side_menu_dash">Dashboard</string>
     <string name="side_menu_constituent">Constituents</string>
@@ -102,7 +103,7 @@
     <string name="office_2">Singanallur office 2</string>
     <string name="office_3">Singanallur office 3</string>
 
-    <string name="overall_count">Grievance Overall Count</string>
+    <string name="overall_count">Overall Grievance Count</string>
     <string name="petition_count">Petition</string>
     <string name="on_petition">Online Petition</string>
     <string name="civic_petition">Civic Petition</string>
@@ -160,7 +161,7 @@
     <string name="created_on">Created On</string>
     <string name="updated_on">Updated On</string>
     <string name="description">Description</string>
-    <string name="reference">Reference Note</string>
+    <string name="reference">Reference Number</string>
     <string name="all">All</string>
     <string name="petition">Petition</string>
     <string name="enquiry">Enquiry</string>
@@ -284,6 +285,16 @@
     <string name="more">Know More</string>
     <string name="end_date">To Date</string>
     <string name="start_date">From Date</string>
+
+    <!--New Strings-->
+    <string name="constituency_id">Constituency ID</string>
+    <string name="id_content">Please enter the Constituency Id given to you for login</string>
+    <string name="start">Let’s get started</string>
+    <string name="login_txt">An OTP will be send to your mobile number entered</string>
+    <string name="use_mail">Use Mail Id</string>
+    <string name="use_phone">Use Phone Number</string>
+    <string name="constituent">Constituent</string>
+    <string name="video">Video</string>
 
 
 </resources>

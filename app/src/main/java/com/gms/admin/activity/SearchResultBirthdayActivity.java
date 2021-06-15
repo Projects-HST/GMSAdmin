@@ -147,6 +147,7 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
             jsonObject.put(GMSConstants.KEY_MONTH, PreferenceStorage.getMonth(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

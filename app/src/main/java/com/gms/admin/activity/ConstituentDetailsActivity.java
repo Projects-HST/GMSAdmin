@@ -96,17 +96,17 @@ public class ConstituentDetailsActivity extends AppCompatActivity implements Vie
     }
 
     private void getConstituentData() {
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+
+        JSONObject jsonObject = new JSONObject();
         try {
-            JSONObject jsonObject = new JSONObject();
-
             jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, user.getid());
-            String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_CONSTITUENT_DETAIL;
-            serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
-
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_CONSTITUENT_DETAIL;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
 
     @Override

@@ -9,7 +9,7 @@
         style="@style/ToolBarStyle.Event"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:minHeight="@dimen/abc_action_bar_default_height_material"
         android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
 
@@ -44,13 +44,14 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:padding="10dp"
-                        android:src="@drawable/ic_meeting_user" />
+                        android:src="@drawable/ic_profile" />
 
                     <TextView
                         android:id="@+id/constituent_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/roboto_medium"
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -69,13 +70,14 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:padding="10dp"
-                        android:src="@drawable/ic_meeting_date" />
+                        android:src="@drawable/ic_date" />
 
                     <TextView
                         android:id="@+id/meeting_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/roboto_medium"
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -101,6 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/roboto_medium"
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -119,13 +122,15 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_meeting_titile" />
+                        android:padding="5dp"
+                        android:src="@drawable/ic_meeting_detail" />
 
                     <TextView
                         android:id="@+id/meeting_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/roboto_medium"
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -142,15 +147,18 @@
                     android:text="@string/meeting_detail"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/roboto_bold" />
 
                 <TextView
                     android:id="@+id/meeting_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/grey"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -172,29 +180,31 @@
                         android:gravity="center_vertical|start"
                         android:paddingStart="20dp"
                         android:text="Status"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/black" />
 
                     <ImageView
                         android:id="@+id/img_drop"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:padding="12dp"
-                        android:src="@drawable/ic_drop_down_color" />
+                        android:src="@drawable/ic_drop_down" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <Button
+            <TextView
                 android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:gravity="center"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="40dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_round_color"
+                android:padding="10dp"
                 android:text="Update"
+                android:textColor="@color/text_black"
                 android:textAllCaps="false" />
 
         </LinearLayout>

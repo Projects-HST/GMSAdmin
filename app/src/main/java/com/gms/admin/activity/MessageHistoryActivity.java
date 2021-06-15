@@ -72,6 +72,7 @@ public class MessageHistoryActivity extends AppCompatActivity implements IServic
         id = grievance;
         try {
             jsonObject.put(GMSConstants.KEY_GRIEVANCE_ID, id);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

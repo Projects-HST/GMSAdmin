@@ -242,6 +242,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             jsonObject.put(GMSConstants.KEY_USER_ID, PreferenceStorage.getUserId(this));
             jsonObject.put(GMSConstants.KEY_OLD_PASSWORD, edtOld.getText());
             jsonObject.put(GMSConstants.KEY_NEW_PASSWORD, edtNew.getText());
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

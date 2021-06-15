@@ -26,14 +26,16 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHold
     private OnItemClickListener onItemClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView txtPetitionEnquiryNo, txtUser, txtdate, txtSeekerType, txtGrievanceName, txtGrievanceSubCategory, txtGrievanceStatus;
+        public TextView txtPetitionNo, txtUser, txtdate, txtSeekerType, txtGrievanceName, txtGrievanceSubCategory,
+                txtGrievanceStatus, txtEnquiryNo;
         public LinearLayout grievanceLayout;
 
         public MyViewHolder(View view) {
             super(view);
             grievanceLayout = (LinearLayout) view.findViewById(R.id.grievance_layout);
             grievanceLayout.setOnClickListener(this);
-            txtPetitionEnquiryNo = (TextView) view.findViewById(R.id.petition_enquiry_number);
+            txtPetitionNo = (TextView) view.findViewById(R.id.petition_number);
+            txtEnquiryNo = (TextView) view.findViewById(R.id.enquiry_number);
             txtUser = (TextView) view.findViewById(R.id.full_name);
             txtdate = (TextView) view.findViewById(R.id.grievance_date);
             txtSeekerType = (TextView) view.findViewById(R.id.seeker_type);
@@ -76,9 +78,13 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Grievance Grievance = GrievancesList.get(position);
         if (Grievance.getgrievance_type().equalsIgnoreCase("P")) {
-            holder.txtPetitionEnquiryNo.setText("Petition Number - " + Grievance.getpetition_enquiry_no());
+            holder.txtEnquiryNo.setVisibility(View.GONE);
+            holder.txtPetitionNo.setVisibility(View.VISIBLE);
+            holder.txtPetitionNo.setText("Petition Number - " + Grievance.getpetition_enquiry_no());
         } else{
-            holder.txtPetitionEnquiryNo.setText("Enquiry Number - " + Grievance.getpetition_enquiry_no());
+            holder.txtPetitionNo.setVisibility(View.GONE);
+            holder.txtEnquiryNo.setVisibility(View.VISIBLE);
+            holder.txtEnquiryNo.setText("Enquiry Number - " + Grievance.getpetition_enquiry_no());
         }
 
         holder.txtSeekerType.setText(capitalizeString(Grievance.getseeker_info()));

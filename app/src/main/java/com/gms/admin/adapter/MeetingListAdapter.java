@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.Meeting;
+import com.gms.admin.utils.GMSConstants;
+import com.gms.admin.utils.GMSValidator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,17 +74,30 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
     @Override
     public void onBindViewHolder(MeetingListAdapter.MyViewHolder holder, int position) {
         Meeting meeting = meetingArrayList.get(position);
-        holder.txtConstituentName.setText(capitalizeString(meeting.getfull_name()));
-        holder.txtPaguthi.setText(capitalizeString(meeting.getpaguthi_name()));
-        holder.txtMeetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
-        holder.txtMeetingDate.setText(getserverdateformat(meeting.getmeeting_date()));
-        holder.txtMeetingStatus.setText(capitalizeString(meeting.getmeeting_status()));
-        holder.txtCreatedBy.setText("Created by - " +capitalizeString(meeting.getcreated_by()));
+
+        if (GMSValidator.checkNullString(meeting.getfull_name())) {
+            holder.txtConstituentName.setText(capitalizeString(meeting.getfull_name()));
+        }
+        if (GMSValidator.checkNullString(meeting.getpaguthi_name())){
+            holder.txtPaguthi.setText(capitalizeString(meeting.getpaguthi_name()));
+        }
+        if (GMSValidator.checkNullString(meeting.getmeeting_title())){
+            holder.txtMeetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
+        }
+        if (GMSValidator.checkNullString(meeting.getmeeting_date())){
+            holder.txtMeetingDate.setText(getserverdateformat(meeting.getmeeting_date()));
+        }
+        if (GMSValidator.checkNullString(meeting.getmeeting_status())){
+            holder.txtMeetingStatus.setText(capitalizeString(meeting.getmeeting_status()));
+        }
+        if (GMSValidator.checkNullString(meeting.getcreated_by())){
+            holder.txtCreatedBy.setText(("Created by - " + capitalizeString(meeting.getcreated_by())));
+        }
 
         if (meeting.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
-            holder.txtMeetingStatus.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.completed_meeting));
+            holder.txtMeetingStatus.setBackground(ContextCompat.getDrawable(holder.txtMeetingStatus.getContext(), R.drawable.btn_round_completed));
         } else {
-            holder.txtMeetingStatus.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.requested));
+            holder.txtMeetingStatus.setBackground(ContextCompat.getDrawable(holder.txtMeetingStatus.getContext(), R.drawable.btn_round_pending));
         }
 
     }

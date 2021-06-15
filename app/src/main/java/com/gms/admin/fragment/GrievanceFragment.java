@@ -90,11 +90,11 @@ public class GrievanceFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(getActivity()));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
         String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_PAGUTHI;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);

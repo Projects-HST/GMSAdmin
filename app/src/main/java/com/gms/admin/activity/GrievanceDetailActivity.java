@@ -3,6 +3,8 @@ package com.gms.admin.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,15 +45,20 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
     private String grievance, constituent;
     private TextView txtConstituency, seekerType, txtPetitionEnquiry, petitionEnquiryNo, grievanceName,
             grievanceSubCat, grievanceDesc, createdOn, updatedOn, grievanceReference, grievanceStatus;
+    private RelativeLayout petitionLayout, enquiryLayout;
     private TextView history, profile;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
+    GradientDrawable drawable;
     String resjj = "";
+    int colour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grievance_detail);
+
+        colour = Color.parseColor(PreferenceStorage.getAppBaseColor(this));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
@@ -65,10 +73,13 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
 
         grievance = getIntent().getStringExtra("grievanceObj");
 
+        petitionLayout = (RelativeLayout) findViewById(R.id.petitionLayout);
+        enquiryLayout = (RelativeLayout) findViewById(R.id.enquiryLayout);
+
         txtConstituency = (TextView) findViewById(R.id.text_constituency);
         seekerType = (TextView) findViewById(R.id.seeker_type);
-        txtPetitionEnquiry = (TextView) findViewById(R.id.txt_petition_enquiry);
-        petitionEnquiryNo = (TextView) findViewById(R.id.petition_enquiry_number);
+        txtPetitionEnquiry = (TextView) findViewById(R.id.petition_number);
+        petitionEnquiryNo = (TextView) findViewById(R.id.enquiry_number);
         grievanceName = (TextView) findViewById(R.id.grievance_name);
         grievanceSubCat = (TextView) findViewById(R.id.grievance_sub_category);
         grievanceDesc = (TextView) findViewById(R.id.grievance_description);
@@ -77,9 +88,16 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
         grievanceStatus = (TextView) findViewById(R.id.grievance_status);
         grievanceReference = (TextView) findViewById(R.id.grievance_reference_note);
 
+        drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(10);
+        drawable.setColor(colour);
+
         history = findViewById(R.id.msg_history);
+        history.setBackground(drawable);
         history.setOnClickListener(this);
         profile = findViewById(R.id.view_profile);
+        profile.setBackground(drawable);
         profile.setOnClickListener(this);
 
         serviceHelper = new ServiceHelper(this);
@@ -97,6 +115,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
 
         try {
             jsonObject.put(GMSConstants.KEY_GRIEVANCE_ID, grievance);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -114,6 +133,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
             JSONObject jsonObject = new JSONObject();
 
             jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, constituent);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
             String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_CONSTITUENT_DETAIL;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
 
@@ -125,6 +145,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         if (v == history) {
+
             Intent intent = new Intent(this, MessageHistoryActivity.class);
             intent.putExtra("grievanceObj", grievance);
             startActivity(intent);
@@ -230,8 +251,12 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                     seekerType.setText(data.getString("seeker_info"));
 
                     if (data.getString("grievance_type").equalsIgnoreCase("P")) {
+                        petitionLayout.setVisibility(View.VISIBLE);
+                        enquiryLayout.setVisibility(View.GONE);
                         txtPetitionEnquiry.setText(getString(R.string.petition_num));
                     } else {
+                        enquiryLayout.setVisibility(View.VISIBLE);
+                        petitionLayout.setVisibility(View.GONE);
                         txtPetitionEnquiry.setText(getString(R.string.enquiry_num));
                         findViewById(R.id.desc_layout).setVisibility(View.GONE);
                     }

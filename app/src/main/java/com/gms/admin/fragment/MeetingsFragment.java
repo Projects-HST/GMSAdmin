@@ -242,6 +242,7 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
                 jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, PreferenceStorage.getConstituencyID(getActivity()));
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
             } catch (JSONException e) {
                 e.printStackTrace();

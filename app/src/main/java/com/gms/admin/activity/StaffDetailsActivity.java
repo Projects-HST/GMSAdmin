@@ -100,6 +100,7 @@ public class StaffDetailsActivity extends AppCompatActivity implements IServiceL
 
         try {
             jsonObject.put(GMSConstants.KEY_STAFF_ID, meetingID);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

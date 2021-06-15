@@ -41,7 +41,7 @@ import org.json.JSONObject;
 public class ReportFragment extends Fragment implements IServiceListener, DialogClickListener, View.OnClickListener {
     private View view;
     private SearchView searchView;
-    LinearLayout statusLayout, categoryLayout, subcategoryLayout, locationLayout, meetingLayout, staffLayout, birthdayLayout;
+    LinearLayout statusLayout, grievancesLayout, meetingLayout, festivalLayout, constituentLayout, videoLayout, birthdayLayout;
 
     @Nullable
     @Override
@@ -50,20 +50,20 @@ public class ReportFragment extends Fragment implements IServiceListener, Dialog
 
 
         statusLayout = view.findViewById(R.id.status_layout);
-        categoryLayout = view.findViewById(R.id.category_layout);
-        subcategoryLayout = view.findViewById(R.id.sub_category_layout);
-        locationLayout = view.findViewById(R.id.location_layout);
+        grievancesLayout = view.findViewById(R.id.grievance_layout);
         meetingLayout = view.findViewById(R.id.meeting_layout);
-        staffLayout = view.findViewById(R.id.staff_layout);
         birthdayLayout = view.findViewById(R.id.birthday_layout);
+        festivalLayout = view.findViewById(R.id.festival_wishes_layout);
+        constituentLayout = view.findViewById(R.id.constituent_layout);
+        videoLayout = view.findViewById(R.id.video_layout);
 
         statusLayout.setOnClickListener(this);
-        categoryLayout.setOnClickListener(this);
-        subcategoryLayout.setOnClickListener(this);
-        locationLayout.setOnClickListener(this);
+        grievancesLayout.setOnClickListener(this);
         meetingLayout.setOnClickListener(this);
-        staffLayout.setOnClickListener(this);
         birthdayLayout.setOnClickListener(this);
+        festivalLayout.setOnClickListener(this);
+        constituentLayout.setOnClickListener(this);
+        videoLayout.setOnClickListener(this);
 
         return view;
     }
@@ -74,23 +74,23 @@ public class ReportFragment extends Fragment implements IServiceListener, Dialog
         if (v == statusLayout) {
             Intent i = new Intent(statusLayout.getContext(), ReportStatusActivity.class);
             startActivity(i);
-        }if (v == categoryLayout) {
-            Intent i = new Intent(categoryLayout.getContext(), ReportCategoryActivity.class);
-            startActivity(i);
-        }if (v == subcategoryLayout) {
-            Intent i = new Intent(subcategoryLayout.getContext(), ReportSubCategoryActivity.class);
-            startActivity(i);
-        }if (v == locationLayout) {
-            Intent i = new Intent(locationLayout.getContext(), ReportLocationActivity.class);
+        }if (v == grievancesLayout) {
+            Intent i = new Intent(grievancesLayout.getContext(), ReportCategoryActivity.class);
             startActivity(i);
         }if (v == meetingLayout) {
-            Intent i = new Intent(meetingLayout.getContext(), ReportMeetingActivity.class);
-            startActivity(i);
-        }if (v == staffLayout) {
-            Intent i = new Intent(staffLayout.getContext(), ReportStaffActivity.class);
+            Intent i = new Intent(meetingLayout.getContext(), ReportSubCategoryActivity.class);
             startActivity(i);
         }if (v == birthdayLayout) {
-            Intent i = new Intent(birthdayLayout.getContext(), ReportBirthdayActivity.class);
+            Intent i = new Intent(birthdayLayout.getContext(), ReportLocationActivity.class);
+            startActivity(i);
+        }if (v == festivalLayout) {
+            Intent i = new Intent(festivalLayout.getContext(), ReportMeetingActivity.class);
+            startActivity(i);
+        }if (v == constituentLayout) {
+            Intent i = new Intent(constituentLayout.getContext(), ReportStaffActivity.class);
+            startActivity(i);
+        }if (v == videoLayout) {
+            Intent i = new Intent(videoLayout.getContext(), ReportBirthdayActivity.class);
             startActivity(i);
         }
     }

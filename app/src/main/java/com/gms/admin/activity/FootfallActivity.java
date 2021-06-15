@@ -93,6 +93,7 @@ public class FootfallActivity extends AppCompatActivity implements View.OnClickL
             jsonObject.put(GMSConstants.PAGUTHI_ID, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, date_1);
             jsonObject.put(GMSConstants.KEY_TO_DATE, date_2);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
         } catch (JSONException e) {
             e.printStackTrace();
         }

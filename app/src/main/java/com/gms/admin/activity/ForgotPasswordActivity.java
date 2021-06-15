@@ -102,6 +102,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                         JSONObject jsonObject = new JSONObject();
 
                         jsonObject.put(GMSConstants.KEY_USER_NAME, username);
+                        jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
                         String url = PreferenceStorage.getClientUrl(this) + GMSConstants.FORGOT_PASSWORD;
                         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
 

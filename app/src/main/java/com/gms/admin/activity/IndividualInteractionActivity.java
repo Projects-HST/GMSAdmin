@@ -82,6 +82,7 @@ public class IndividualInteractionActivity extends AppCompatActivity implements 
         id = user.getid();
         try {
             jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, id);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

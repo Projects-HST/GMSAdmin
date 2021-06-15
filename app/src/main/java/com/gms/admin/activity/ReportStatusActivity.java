@@ -253,6 +253,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(this));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

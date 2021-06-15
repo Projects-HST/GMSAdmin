@@ -21,6 +21,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.gms.admin.R;
@@ -34,6 +35,7 @@ import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -44,12 +46,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = LoginActivity.class.getName();
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
-    private TextInputEditText edtUserName, edtPassword;
-    private Button signIn;
+    private TextInputLayout tiNumber, tiPassword, tiMail;
+    private TextInputEditText edtPhone, edtMail, edtPassword;
+    private TextView signIn, useMail, usePhone;
     private TextView forgot;
     private ImageView laang;
     String IMEINo = "";
-    private RelativeLayout selectConstituency;
+    private RelativeLayout selectConstituency, layoutNumber, layoutMail, changeLayoutNumber, changeLayoutMail;
     private String whatRes = "";
     private ConstituencyList constituencyList;
     private LinearLayout layoutSpinner;
@@ -63,16 +66,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //What to do on back clicked
+                finish();
+            }
+        });
+
         serviceHelper = new ServiceHelper(this);
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
-        edtUserName = (TextInputEditText) findViewById(R.id.email_or_phone);
+        layoutNumber = (RelativeLayout) findViewById(R.id.layout_number);
+        layoutMail = (RelativeLayout) findViewById(R.id.layout_email);
+        changeLayoutNumber = (RelativeLayout) findViewById(R.id.change_ph_layout);
+        changeLayoutMail = (RelativeLayout) findViewById(R.id.change_layout);
+
+        tiNumber = (TextInputLayout) findViewById(R.id.ti_phone);
+        tiMail = (TextInputLayout) findViewById(R.id.ti_email);
+        tiPassword = (TextInputLayout) findViewById(R.id.ti_password);
+
+        edtPhone = (TextInputEditText) findViewById(R.id.phone);
+        edtMail = (TextInputEditText) findViewById(R.id.email);
         edtPassword = (TextInputEditText) findViewById(R.id.password);
+
         forgot = (TextView) findViewById(R.id.forgot);
         forgot.setOnClickListener(this);
-        signIn = findViewById(R.id.btn_go);
+        signIn = findViewById(R.id.btn_login_go);
         signIn.setOnClickListener(this);
+        useMail = findViewById(R.id.btn_email_go);
+        useMail.setOnClickListener(this);
+        usePhone = findViewById(R.id.btn_ph_go);
+        usePhone.setOnClickListener(this);
 
         contistuencyText = (TextView) findViewById(R.id.text_constituency);
         selectConstituency = (RelativeLayout) findViewById(R.id.select_constituency);
@@ -141,11 +170,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         whatRes = "login";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(GMSConstants.KEY_USER_NAME, edtUserName.getText().toString());
+            jsonObject.put(GMSConstants.KEY_USER_NAME, edtMail.getText().toString());
             jsonObject.put(GMSConstants.KEY_PASSWORD, edtPassword.getText().toString());
             jsonObject.put(GMSConstants.DEVICE_TOKEN, PreferenceStorage.getGCM(this));
             jsonObject.put(GMSConstants.MOBILE_TYPE, GMSConstants.MOBILE_TYPE_VALUE);
-
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -162,13 +191,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             getConstituencyList();
         } else if (v == constituencyCancel) {
             selectConstituency.setClickable(true);
-            edtUserName.setClickable(true);
+            edtMail.setClickable(true);
             edtPassword.setClickable(true);
             forgot.setClickable(true);
             signIn.setClickable(true);
             layoutSpinner.removeAllViews();
             findViewById(R.id.spinner_layout).setVisibility(View.GONE);
         } else if (v == constituencyOK) {
+            constituencyOK.setBackground(ContextCompat.getDrawable(this, R.drawable.default_logo));
             sendSelectedConstituency();
         } else if (v == signIn) {
             if (validateFields()) {
@@ -182,14 +212,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
             }
         }
+        else if (v == useMail){
+            layoutNumber.setVisibility(View.GONE);
+            layoutMail.setVisibility(View.VISIBLE);
+            changeLayoutMail.setVisibility(View.GONE);
+            changeLayoutNumber.setVisibility(View.VISIBLE);
+        }
+        else if (v == usePhone){
+            layoutNumber.setVisibility(View.VISIBLE);
+            layoutMail.setVisibility(View.GONE);
+            changeLayoutMail.setVisibility(View.VISIBLE);
+            changeLayoutNumber.setVisibility(View.GONE);
+        }
     }
 
     private boolean validateFields() {
-        if (!GMSValidator.checkNullString(this.edtUserName.getText().toString().trim())) {
-            edtUserName.setError(getString(R.string.error_username));
-            requestFocus(edtUserName);
+        if (!GMSValidator.checkNullString(this.edtMail.getText().toString().trim())) {
+            edtMail.setError(getString(R.string.error_username));
+            requestFocus(edtMail);
             return false;
-        }if (!GMSValidator.checkNullString(this.edtPassword.getText().toString().trim())) {
+        }
+        if (!GMSValidator.checkNullString(this.edtPassword.getText().toString().trim())) {
             edtPassword.setError(getString(R.string.error_password));
             requestFocus(edtPassword);
             return false;
@@ -259,7 +302,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         loadMembersList(constituencyCount);
                         findViewById(R.id.spinner_layout).setVisibility(View.VISIBLE);
                         selectConstituency.setClickable(false);
-                        edtUserName.setClickable(false);
+                        edtMail.setClickable(false);
                         edtPassword.setClickable(false);
                         forgot.setClickable(false);
                         signIn.setClickable(false);
@@ -280,6 +323,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String status = data.getString("status");
                     String lastLogin = data.getString("last_login");
                     String loginCount = data.getString("login_count");
+                    String appColor = data.getString("base_colour");
 
                     PreferenceStorage.saveUserId(this, userID);
                     PreferenceStorage.saveUserRole(this, userRole);
@@ -294,6 +338,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     PreferenceStorage.saveStatus(this, status);
                     PreferenceStorage.saveLogin(this, lastLogin);
                     PreferenceStorage.saveLoginCount(this, loginCount);
+                    PreferenceStorage.saveAppBaseColor(this, appColor);
 
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("page", "login");
@@ -309,7 +354,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     PreferenceStorage.saveClientUrl(this, clientURL);
 
                     selectConstituency.setClickable(true);
-                    edtUserName.setClickable(true);
+                    edtMail.setClickable(true);
                     edtPassword.setClickable(true);
                     forgot.setClickable(true);
                     signIn.setClickable(true);
@@ -346,7 +391,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 constiRadio.setElevation(20.0f);
                 constiRadio.setPadding(10, 0, 0, 0);
                 constiRadio.setTextColor(ContextCompat.getColor(this, R.color.radio_grey));
-                constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+                constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
 
                 final int finalC = c1;
 
@@ -361,10 +406,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
                 if (c1 == 0) {
                     constiRadio.setChecked(true);
-                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
                 } else {
                     constiRadio.setChecked(false);
-                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+//                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
                 }
                 layoutSpinner.addView(constiRadio);
             }
@@ -388,11 +433,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             RadioButton rad = layoutSpinner.getChildAt(position).findViewById(R.id.radio_constituency);
             if (position == pooos) {
                 rad.setChecked(true);
-                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
 
             } else {
                 rad.setChecked(false);
-                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+//                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
             }
 
         }

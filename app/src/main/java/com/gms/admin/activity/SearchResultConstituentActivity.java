@@ -139,6 +139,7 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
                 jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
             } catch (JSONException e) {
                 e.printStackTrace();

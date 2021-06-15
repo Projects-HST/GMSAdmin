@@ -220,6 +220,7 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
 //                    paguthiID = "ALL";
 //                }
                 jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, PreferenceStorage.getConstituencyID(getActivity()));
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 //                jsonObject.put(GMSConstants.KEY_OFFSET, count);
 //                jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
 

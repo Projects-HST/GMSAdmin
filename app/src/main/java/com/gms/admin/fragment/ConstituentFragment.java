@@ -89,6 +89,7 @@ public class ConstituentFragment extends Fragment implements IServiceListener, D
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(getActivity()));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
