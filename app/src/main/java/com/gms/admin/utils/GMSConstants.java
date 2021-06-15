@@ -23,6 +23,8 @@ public class GMSConstants {
 //    public static final String BUILD_URL = BASE_URL + "uat/apicustomer/";
 //    public static final String BUILD_URL = BASE_URL + "apicustomer/";
 
+    public static final String CHECK_CONSTITUENCY = "https://happysanz.in/gms/apiandroid/chk_constituency_code/";
+
 
     //CONSTITUENCY URL
     public static final String CONSTITUENCY = "list";
@@ -34,6 +36,7 @@ public class GMSConstants {
 
     //LOGIN URL
     public static final String USER_LOGIN = "apiandroid/login/";
+
 
     //GET OTP URL
     public static final String FORGOT_PASSWORD = "apiandroid/forgotPassword";
@@ -234,6 +237,7 @@ public class GMSConstants {
     public static final String KEY_MEETING_ID = "meeting_id";
     public static final String KEY_STAFF_ID = "staff_id";
     public static final String KEY_PARTY_ID = "party_id";
+    public static final String KEY_APP_BASE_COLOR = "base_colour";
     public static final String FULL_NAME = "full_name";
     public static final String KEY_NAME = "name";
     public static final String KEY_PHONE = "PHONE";
@@ -282,6 +286,8 @@ public class GMSConstants {
     public static String ALERT_DIALOG_NEG_BUTTON = "alert_dialog_neg_button";
 
     // Login Parameters
+    public static final String KEY_CONSTITUENCY_CODE = "constituency_code";
+    public static final String DYNAMIC_DATABASE = "dynamic_db";
     public static String DEVICE_TOKEN = "gcm_key";
     public static String MOBILE_TYPE = "mobile_type";
     public static String MOBILE_TYPE_VALUE = "1";

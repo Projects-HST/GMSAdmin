@@ -1,6 +1,8 @@
 package com.gms.admin.activity;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
+import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 
 import org.json.JSONArray;
@@ -44,10 +47,12 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
     private LinearLayout selectStatus;
-    private Button update;
+    private TextView update;
     private ArrayList<String> spinnerData = new ArrayList<>();
     private ArrayAdapter<String> spinnerDataArrayAdapter = null;
     String chkRes = "";
+    int colour;
+    GradientDrawable drawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,8 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
 
         meetingID = getIntent().getStringExtra("meetingObj");
 
+        colour = Color.parseColor(PreferenceStorage.getAppBaseColor(this));
+
         meetingImage = findViewById(R.id.img_drop);
         meetingTitle = (TextView) findViewById(R.id.meeting_title);
         meetingDetail = (TextView) findViewById(R.id.meeting_details);
@@ -76,7 +83,14 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
         meetingArea = (TextView) findViewById(R.id.meeting_area);
         selectStatus = (LinearLayout) findViewById(R.id.status_select);
         selectStatus.setOnClickListener(this);
-        update = (Button) findViewById(R.id.update);
+
+        drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(10);
+        drawable.setColor(colour);
+
+        update = (TextView) findViewById(R.id.update);
+        update.setBackground(drawable);
         update.setOnClickListener(this);
 
         serviceHelper = new ServiceHelper(this);
@@ -118,6 +132,7 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
 
         try {
             jsonObject.put(GMSConstants.KEY_MEETING_ID, meetingID);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -136,6 +151,7 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
             jsonObject.put(GMSConstants.KEY_USER_ID, PreferenceStorage.getUserId(this));
             jsonObject.put(GMSConstants.KEY_STATUS, meetingStatus.getText());
             jsonObject.put(GMSConstants.KEY_MEETING_ID, meetingID);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -226,12 +242,30 @@ public class MeetingDetailActivity extends AppCompatActivity implements View.OnC
                     Toast.makeText(this, "Status updated successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     JSONArray data = response.getJSONArray("meeting_details");
-                    meetinConstName.setText(capitalizeString(data.getJSONObject(0).getString("full_name")));
-                    meetingDate.setText(getserverdateformat(data.getJSONObject(0).getString("meeting_date")));
-                    meetingArea.setText(capitalizeString(data.getJSONObject(0).getString("paguthi_name")));
-                    meetingTitle.setText(capitalizeString(data.getJSONObject(0).getString("meeting_title")));
-                    meetingDetail.setText(capitalizeString(data.getJSONObject(0).getString("meeting_detail")));
-                    meetingStatus.setText(capitalizeString(data.getJSONObject(0).getString("meeting_status")));
+                    String meetConstName = data.getJSONObject(0).getString("full_name");
+                    if (GMSValidator.checkNullString(meetConstName)) {
+                        meetinConstName.setText(capitalizeString(meetConstName));
+                    }
+                    String meetDate = data.getJSONObject(0).getString("meeting_date");
+                    if (GMSValidator.checkNullString(meetDate)) {
+                        meetingDate.setText(getserverdateformat(meetDate));
+                    }
+                    String meetArea = data.getJSONObject(0).getString("paguthi_name");
+                    if (GMSValidator.checkNullString(meetArea)) {
+                        meetingArea.setText((capitalizeString(meetArea) + " (" + "Paguthi" + ") "));
+                    }
+                    String meetTitle = data.getJSONObject(0).getString("meeting_title");
+                    if (GMSValidator.checkNullString(meetTitle)) {
+                        meetingTitle.setText(capitalizeString(meetTitle));
+                    }
+                    String meetDetail = data.getJSONObject(0).getString("meeting_detail");
+                    if (GMSValidator.checkNullString(meetDetail)) {
+                        meetingDetail.setText(capitalizeString(meetDetail));
+                    }
+                    String meetStatus = data.getJSONObject(0).getString("meeting_status");
+                    if (GMSValidator.checkNullString(meetStatus)) {
+                        meetingStatus.setText(capitalizeString(meetStatus));
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

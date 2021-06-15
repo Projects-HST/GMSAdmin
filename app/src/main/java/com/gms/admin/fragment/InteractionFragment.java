@@ -71,6 +71,7 @@ public class InteractionFragment extends Fragment  implements IServiceListener, 
         id = PreferenceStorage.getConstituentID(getActivity());
         try {
             jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, id);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,6 +1,8 @@
 package com.gms.admin.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,12 +52,12 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
     private int totalCount = 0, checkrun = 0;
     private boolean isLoadingForFirstTime = true;
     private ProgressDialogHelper progressDialogHelper;
-    private int val;
+    private int val, colour;
     public LinearLayout loadMoreListView;
     private String paguthiID = "";
     GrievanceList grievanceList;
     private TextView grievCount, all, pet, enq;
-
+    GradientDrawable drawable;
     SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     int listcount = 0;
@@ -86,6 +88,14 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dynamic_grievance_list, container, false);
+
+        colour = Color.parseColor(PreferenceStorage.getAppBaseColor(getActivity()));
+
+        drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(30);
+        drawable.setColor(colour);
+
         serviceHelper = new ServiceHelper(view.getContext());
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(view.getContext());
@@ -101,6 +111,7 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
         pet = view.findViewById(R.id.petition);
         enq = view.findViewById(R.id.enquiry);
         all.setOnClickListener(this);
+        all.setBackground(drawable);
         pet.setOnClickListener(this);
         enq.setOnClickListener(this);
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -145,9 +156,11 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
 
     @Override
     public void onClick(View v) {
+
         if (v == all) {
-            all.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            all.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_oval_color));
+
+            all.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            all.setBackground(drawable);
             pet.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
             pet.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_round_outline_noclor));
             enq.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
@@ -162,8 +175,8 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
         if (v == pet) {
             all.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
             all.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_round_outline_noclor));
-            pet.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            pet.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_oval_color));
+            pet.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            pet.setBackground(drawable);
             enq.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
             enq.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_round_outline_noclor));
             subtabName = "P";
@@ -178,8 +191,8 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
             all.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_round_outline_noclor));
             pet.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
             pet.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_round_outline_noclor));
-            enq.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            enq.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.btn_oval_color));
+            enq.setTextColor(ContextCompat.getColor(getActivity(), R.color.black));
+            enq.setBackground(drawable);
             subtabName = "E";
             listcount = 0;
             swipeRefreshLayout.setRefreshing(true);
@@ -197,6 +210,7 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
                 jsonObject.put(GMSConstants.KEY_GRIEVANCE_TYPE, tab);
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
             } catch (JSONException e) {
                 e.printStackTrace();

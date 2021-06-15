@@ -195,6 +195,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_USER_ID, PreferenceStorage.getUserId(this));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -215,6 +216,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             jsonObject.put(GMSConstants.KEY_PHONE, edtNumber.getText());
             jsonObject.put(GMSConstants.KEY_USER_MAIL, edtEmail.getText());
             jsonObject.put(GMSConstants.KEY_USER_GENDER, gend);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -629,7 +631,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                     // Extra parameters if you want to pass to server
                     entity.addPart("user_id", new StringBody(PreferenceStorage.getUserId(EditProfileActivity.this)));
-//                    entity.addPart("user_type", new StringBody(PreferenceStorage.getUserType(ProfileActivity.this)));
+//                    entity.addPart("dynamic_db", new StringBody(PreferenceStorage.getDynamicDb(EditProfileActivity.this)));
 
 //                    totalSize = entity.getContentLength();
                     httppost.setEntity(entity);

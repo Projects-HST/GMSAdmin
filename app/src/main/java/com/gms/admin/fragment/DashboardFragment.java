@@ -359,6 +359,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(getActivity()));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -380,6 +381,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -397,6 +399,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -416,6 +419,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -435,6 +439,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -454,6 +459,8 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -472,6 +479,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -491,6 +499,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -510,6 +519,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -27,6 +27,22 @@ public class PreferenceStorage {
     }
     /*End*/
 
+    /*To store dynamic database */
+    public static void setDynamicDb(Context context, String dbDynamic) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.DYNAMIC_DATABASE, dbDynamic);
+        editor.apply();
+    }
+
+    public static String getDynamicDb(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(GMSConstants.DYNAMIC_DATABASE, "");
+    }
+    /*End*/
+
     /*To save mobile IMEI number */
     public static void saveIMEI(Context context, String imei) {
         SharedPreferences sharedPreferences = PreferenceManager
@@ -78,6 +94,25 @@ public class PreferenceStorage {
         return userId;
     }
     /*End*/
+
+    // AppBase Color
+    public static void saveAppBaseColor(Context context, String colour) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_APP_BASE_COLOR, colour);
+        editor.apply();
+    }
+
+    public static String getAppBaseColor(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String colour;
+        colour = sharedPreferences.getString(GMSConstants.KEY_APP_BASE_COLOR, "");
+        return colour;
+    }
+    /*End*/
+
 
     // User Type
     public static void saveStatus(Context context, String userType) {

@@ -50,7 +50,7 @@ public class SplashScreenActivity extends Activity {
                     startActivity(i);
                     finish();
                 } else {
-                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    Intent i = new Intent(getApplicationContext(), ConstituencyIdActivity.class);
                     FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SplashScreenActivity.this, new OnSuccessListener<InstanceIdResult>() {
                         @Override
                         public void onSuccess(InstanceIdResult instanceIdResult) {

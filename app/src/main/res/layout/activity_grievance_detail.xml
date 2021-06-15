@@ -10,7 +10,7 @@
         style="@style/ToolBarStyle.Event"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:minHeight="@dimen/abc_action_bar_default_height_material"
         android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
 
@@ -27,9 +27,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/shadow_round"
                 android:elevation="10dp"
@@ -70,31 +70,96 @@
                     android:orientation="horizontal"
                     android:weightSum="1">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
+                        android:layout_weight="0.5">
 
-                        <TextView
-                            android:id="@+id/txt_petition_enquiry"
+                        <RelativeLayout
+                            android:id="@+id/petitionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txt_petition"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:drawableStart="@drawable/ic_petition"
+                                android:drawablePadding="5dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/petition_num"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/petition_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_petition"
+                                android:layout_margin="10dp"
+                                android:fontFamily="@font/roboto_regular"
+                                android:textColor="@color/grey"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/enquiryLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:visibility="gone">
 
-                        <TextView
-                            android:id="@+id/petition_enquiry_number"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/msg_by_grey"
-                            android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/txt_enquiry"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:drawableStart="@drawable/ic_enquiry"
+                                android:drawablePadding="5dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/enquiry_num"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/enquiry_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_enquiry"
+                                android:fontFamily="@font/roboto_regular"
+                                android:layout_margin="10dp"
+                                android:textColor="@color/grey"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+
+
+                        <!--                        <TextView-->
+<!--                            android:id="@+id/txt_petition_enquiry"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:drawableStart="@drawable/ic_petition"-->
+<!--                            android:drawablePadding="5dp"-->
+<!--                            android:fontFamily="@font/roboto_bold"-->
+<!--                            android:text="@string/petition_num"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/petition_enquiry_number"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="10dp"-->
+<!--                            android:textColor="@color/grey"-->
+<!--                            android:textSize="14sp" />-->
+
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -108,6 +173,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_bold"
                             android:text="@string/reference"
                             android:textColor="@color/black"
                             android:textSize="14sp"
@@ -120,7 +186,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
                             android:text=""
-                            android:textColor="@color/msg_by_grey"
+                            android:textColor="@color/grey"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -138,16 +204,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="@string/seeker_type"
                         android:textColor="@color/seeker_color"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/seeker_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/grey"
                         android:textSize="14sp" />
 
                     <TextView
@@ -156,6 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -168,7 +237,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:text=""
-                        android:textColor="@color/msg_by_grey"
+                        android:textColor="@color/grey"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -194,6 +263,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:text="@string/description"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -206,7 +276,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:text=""
-                        android:textColor="@color/msg_by_grey"
+                        android:textColor="@color/grey"
                         android:textSize="14sp" />
 
 
@@ -225,6 +295,7 @@
                     android:orientation="horizontal"
                     android:weightSum="1">
 
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -236,17 +307,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
+                            android:drawableStart="@drawable/ic_calendar"
+                            android:drawablePadding="5dp"
                             android:text="@string/created_on"
+                            android:fontFamily="@font/roboto_bold"
                             android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/created_on"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:textColor="@color/msg_by_grey"
+                            android:textColor="@color/grey"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -262,17 +335,20 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
+                            android:drawableStart="@drawable/ic_calendar"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/roboto_bold"
                             android:text="@string/updated_on"
                             android:textColor="@color/black"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/updated_on"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:textColor="@color/msg_by_grey"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textColor="@color/grey"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -311,10 +387,9 @@
                         android:layout_height="40dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/btn_round_color"
                         android:gravity="center"
                         android:text="@string/msg_history_title"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/text_black" />
 
                     <TextView
                         android:id="@+id/view_profile"
@@ -322,12 +397,11 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="5dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/btn_outline_color"
-                        android:drawableStart="@drawable/ic_user_profile"
+                        android:drawableStart="@drawable/ic_meeting_user"
                         android:gravity="center"
                         android:paddingStart="10dp"
                         android:text="@string/view_profile"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/text_black" />
 
                 </LinearLayout>
 

@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -94,9 +95,12 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
+//        toolbar.setTitle(getString(R.string.app_name));
+//        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
+
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         page = getIntent().getExtras().getString("page");

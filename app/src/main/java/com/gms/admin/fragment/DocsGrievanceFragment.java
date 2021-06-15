@@ -114,6 +114,7 @@ public class DocsGrievanceFragment extends Fragment implements IServiceListener,
 //                    paguthiID = "ALL";
 //                }
                 jsonObject.put(GMSConstants.KEY_CONSTITUENT_ID, PreferenceStorage.getConstituentID(getActivity()));
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
             } catch (JSONException e) {
                 e.printStackTrace();

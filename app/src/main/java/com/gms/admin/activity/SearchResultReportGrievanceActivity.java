@@ -168,11 +168,11 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
             jsonObject.put(GMSConstants.KEY_CATEGORY, PreferenceStorage.getReportCategory(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
         String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_CATEGORY_SEARCH;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
@@ -188,11 +188,11 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
             jsonObject.put(GMSConstants.KEY_SUB_CATEGORY, PreferenceStorage.getReportSubCategory(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
         String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_SUB_CATEGORY_SEARCH;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
@@ -208,6 +208,7 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -221,7 +222,6 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
     private void getUsersList(String event, String count) {
         JSONObject jsonObject = new JSONObject();
         try {
-
             jsonObject.put(GMSConstants.SEARCH_TEXT, event);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
             jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
@@ -229,11 +229,11 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
         String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_STATUS_SEARCH;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);

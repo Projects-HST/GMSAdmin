@@ -6,164 +6,315 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/logo"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activity_toolbar"
+                style="@style/ToolBarStyle.Event"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="@color/white"
+                android:minHeight="@dimen/abc_action_bar_default_height_material"
+                android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/shadow_oval_color"
-                android:gravity="center"
-                android:text="GMS"
-                android:textColor="@color/black"
-                android:textSize="35sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/login_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/logo"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="@string/login_text"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="20sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/select_constituency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/login_txt"
-                android:layout_margin="40dp"
-                android:background="@drawable/shadow_round"
-                android:elevation="10dp">
+                    <RelativeLayout
+                        android:id="@+id/login_txt_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="15dp"
-                    android:src="@drawable/ic_location_red" />
+                        <TextView
+                            android:id="@+id/logo"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/default_logo"
+                            android:elevation="12dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:text="GMS"
+                            android:textColor="@color/black"
+                            android:textSize="35sp" />
+
+                        <TextView
+                            android:id="@+id/login_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/logo"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="@string/login_text"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/select_constituency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/login_txt_layout"
+                        android:layout_margin="40dp"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="10dp">
+
+                        <ImageView
+                            android:id="@+id/loc_img"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_location_red" />
+
+                        <TextView
+                            android:id="@+id/text_constituency"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@id/loc_img"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:text="@string/select_constituency"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentEnd="true"
+                            android:padding="18dp"
+                            android:src="@drawable/ic_dropdown_side" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/select_constituency"
+                        android:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_phone"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:hint="@string/phone_no">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:maxLines="1"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_grey" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/otp_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/ti_phone"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:text="@string/login_txt"
+                            android:textColor="@color/text_grey"
+                            android:textSize="14sp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/select_constituency"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_email"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:hint="@string/mail">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:maxLines="1"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_grey" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/ti_password"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ti_email"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginEnd="40dp"
+                            android:hint="@string/password">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:maxLines="1"
+                                android:textAllCaps="true"
+                                android:textColor="@color/text_grey" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/forgot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/ti_password"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="40dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:text="@string/forgot_password"
+                            android:textColor="@color/text_grey"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/text_constituency"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_login_go"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:maxLines="1"
-                    android:text="@string/select_constituency"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/default_logo"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/lets_go"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:padding="15dp"
-                    android:src="@drawable/ic_drop_down" />
-
-            </RelativeLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/ti_email_or_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_below="@+id/select_constituency"
-                android:layout_marginEnd="40dp"
-                android:hint="@string/email_or_phone">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/email_or_phone"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textAllCaps="true"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/text_grey" />
+                    android:layout_height="wrap_content">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <RelativeLayout
+                        android:id="@+id/change_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            <include
-                android:id="@+id/spinner_layout"
-                layout="@layout/select_constituency_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_margin="20dp"
-                android:visibility="gone" />
+                        <TextView
+                            android:id="@+id/btn_email_go"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/use_mail"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ti_password"
-                android:layout_below="@id/ti_email_or_phone"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:hint="@string/password"
-                app:endIconMode="password_toggle">
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/btn_email_go"
+                            android:layout_alignStart="@id/btn_email_go"
+                            android:layout_alignEnd="@id/btn_email_go"
+                            android:background="@color/black" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textColor="@color/text_grey" />
+                    </RelativeLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <RelativeLayout
+                        android:id="@+id/change_ph_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
 
-            <TextView
-                android:id="@+id/forgot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_below="@id/ti_password"
-                android:gravity="end"
-                android:layout_alignParentEnd="true"
-                android:padding="10dp"
-                android:text="@string/forgot_password"
-                android:textColor="@color/text_grey" />
+                        <TextView
+                            android:id="@+id/btn_ph_go"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/use_phone"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_below="@+id/forgot"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_round_color">
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/btn_ph_go"
+                            android:layout_alignStart="@id/btn_ph_go"
+                            android:layout_alignEnd="@id/btn_ph_go"
+                            android:background="@color/black" />
 
-                <TextView
-                    android:id="@+id/btn_go"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/new_temp"
-                    android:gravity="center"
-                    android:text="@string/lets_go"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black" />
+                    </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
-        </RelativeLayout>
-    </ScrollView>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <include
+            android:id="@+id/spinner_layout"
+            layout="@layout/select_constituency_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </LinearLayout>

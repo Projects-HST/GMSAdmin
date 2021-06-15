@@ -194,6 +194,7 @@ public class ReportSubCategoryActivity extends AppCompatActivity implements ISer
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_USER_ID, PreferenceStorage.getUserId(this));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
             e.printStackTrace();

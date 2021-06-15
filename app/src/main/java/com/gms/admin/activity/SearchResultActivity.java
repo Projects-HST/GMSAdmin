@@ -146,6 +146,7 @@ public class SearchResultActivity extends AppCompatActivity implements IServiceL
                 jsonObject.put(GMSConstants.SEARCH_TEXT, event);
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
             } catch (JSONException e) {
                 e.printStackTrace();

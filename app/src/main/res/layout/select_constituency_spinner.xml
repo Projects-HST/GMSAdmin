@@ -1,80 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:background="@drawable/shadow_round"
-    android:elevation="20dp"
+    android:gravity="bottom"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/dialogBox_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/select_constituency"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"/>
+        android:background="@drawable/shadow_top_round"
+        android:elevation="20dp"
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="1dp"
-        android:background="@color/line_grey" />
+        <TextView
+            android:id="@+id/dialogBox_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/select_constituency"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
-    <ScrollView
-        android:id="@+id/scrollList"
-        android:layout_width="match_parent"
-        android:layout_height="250dp">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_constituency"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shadow_round"
+            android:clickable="true"
+            android:elevation="4dp"
+            app:iconifiedByDefault="true" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/stroke_black" />
+
+        <ScrollView
+            android:id="@+id/scrollList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <LinearLayout
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
 
         <LinearLayout
-            android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-    </ScrollView>
+            <TextView
+                android:id="@+id/selection_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/btn_sel_constituency"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/alert_button_cancel"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="1dp"
-        android:background="@color/line_grey" />
+            <TextView
+                android:id="@+id/selection_done"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/alert_button_ok"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/selection_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="40dp"
-            android:text="@string/alert_button_ok"
-            android:textColor="@color/line_constituency"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/selection_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="40dp"
-            android:textAllCaps="false"
-            android:layout_toLeftOf="@+id/selection_done"
-            android:text="@string/alert_button_cancel"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp" />
-
-    </RelativeLayout>
-
+    </LinearLayout>
 
 </LinearLayout>

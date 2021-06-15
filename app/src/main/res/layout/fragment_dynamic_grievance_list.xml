@@ -17,10 +17,9 @@
         <TextView
             android:id="@+id/all"
             android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:background="@drawable/btn_oval_color"
+            android:layout_height="30dp"
             android:layout_weight="0.3"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:text="@string/all"
             android:layout_marginEnd="5dp"
@@ -29,7 +28,7 @@
         <TextView
             android:id="@+id/petition"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_marginStart="5dp"
             android:background="@drawable/btn_round_outline_noclor"
             android:layout_weight="0.3"
@@ -42,7 +41,7 @@
         <TextView
             android:id="@+id/enquiry"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:background="@drawable/btn_round_outline_noclor"
             android:layout_marginStart="5dp"
             android:layout_weight="0.3"

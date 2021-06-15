@@ -13,10 +13,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/dashboard_banner" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical">
 
@@ -62,7 +68,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/category_layout"
+                        android:id="@+id/grievance_report_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -80,7 +86,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="15dp"
-                            android:src="@drawable/ic_report_category" />
+                            android:src="@drawable/ic_grievance_report" />
 
                         <TextView
                             android:layout_width="120dp"
@@ -90,7 +96,7 @@
                             android:gravity="center"
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
-                            android:text="@string/category"
+                            android:text="@string/grievance"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -106,7 +112,7 @@
                     android:weightSum="1">
 
                     <LinearLayout
-                        android:id="@+id/sub_category_layout"
+                        android:id="@+id/meeting_report_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -123,7 +129,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="15dp"
-                            android:src="@drawable/ic_report_sub_category" />
+                            android:src="@drawable/ic_meeting_01" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -131,7 +137,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginBottom="20dp"
                             android:gravity="center"
-                            android:text="@string/sub_category"
+                            android:text="@string/meeting"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -139,7 +145,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/location_layout"
+                        android:id="@+id/birthday_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -156,7 +162,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="15dp"
-                            android:src="@drawable/ic_report_location" />
+                            android:src="@drawable/ic_report_birthday" />
 
                         <TextView
                             android:layout_width="120dp"
@@ -164,9 +170,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="20dp"
                             android:gravity="center"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:text="@string/location"
+                            android:text="@string/birthDay"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -182,7 +186,7 @@
                     android:weightSum="1">
 
                     <LinearLayout
-                        android:id="@+id/meeting_layout"
+                        android:id="@+id/festival_wishes_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -199,7 +203,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="15dp"
-                            android:src="@drawable/ic_report_meetings" />
+                            android:src="@drawable/ic_festival_wishes" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -207,7 +211,83 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginBottom="20dp"
                             android:gravity="center"
-                            android:text="@string/meeting"
+                            android:text="@string/festival"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/constituent_report_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_constituents_01" />
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/constituent"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/video_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/shadow_round"
+                        android:elevation="5dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_video_report" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="@string/video"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -232,7 +312,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="15dp"
-                            android:src="@drawable/ic_report_staff" />
+                            android:src="@drawable/ic_staff_report" />
 
                         <TextView
                             android:layout_width="120dp"
@@ -248,37 +328,6 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/birthday_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:background="@drawable/shadow_round"
-                    android:elevation="5dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="15dp"
-                        android:src="@drawable/ic_report_birthday" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/birthday"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
 
                 </LinearLayout>
 

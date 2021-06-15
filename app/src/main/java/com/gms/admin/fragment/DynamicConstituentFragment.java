@@ -175,6 +175,7 @@ public class DynamicConstituentFragment extends Fragment implements IServiceList
                 jsonObject.put(GMSConstants.PAGUTHI, paguthiID);
                 jsonObject.put(GMSConstants.KEY_OFFSET, count);
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -27,7 +27,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="8dp"
-                android:src="@drawable/ic_meeting_user" />
+                android:src="@drawable/ic_profile" />
 
             <TextView
                 android:id="@+id/constituent_name"
@@ -51,7 +51,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="8dp"
-                android:src="@drawable/ic_date_active" />
+                android:src="@drawable/ic_date" />
 
             <TextView
                 android:id="@+id/meeting_date"
@@ -90,13 +90,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:id="@+id/meeting_img"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_meeting_active" />
+                android:padding="5dp"
+                android:src="@drawable/ic_meeting_detail" />
 
             <TextView
                 android:id="@+id/meeting_title"
@@ -118,18 +120,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/meeting_status"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:gravity="center|start"
-                android:paddingStart="10dp"
+                android:layout_height="30dp"
+                android:gravity="center"
                 android:text="completed"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.3"
-                android:textColor="@color/requested"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -141,7 +143,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="completed"
                 android:layout_weight="0.7"
-                android:textColor="@color/msg_by_grey"
+                android:textColor="@color/text_black"
                 android:textSize="14sp" />
 
         </LinearLayout>

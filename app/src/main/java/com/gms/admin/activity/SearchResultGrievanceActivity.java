@@ -141,6 +141,7 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
                 jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
                 jsonObject.put(GMSConstants.KEY_GRIEVANCE_TYPE, PreferenceStorage.getGrievanceType(this));
                 jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+                jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
             } catch (JSONException e) {
                 e.printStackTrace();
