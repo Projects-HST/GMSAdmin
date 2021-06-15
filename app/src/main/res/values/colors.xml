@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2D94EB</color>
-    <color name="colorPrimaryDark">#1C88E2</color>
-    <color name="colorAccent">#1C88E2</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#C9DAF9</color>
     <color name="transparent">#FBFBFB</color>
     <color name="transparency">#00FBFBFB</color>
     <color name="white">#ffffff</color>
@@ -42,6 +42,8 @@
 
     <color name="active">#6AA84F</color>
     <color name="inactive">#CC0000</color>
+    <color name="logout">#E30C0C</color>
     <color name="radio_grey">#69696B</color>
+    <color name="new_temp">#C9DAF9</color>
 
 </resources>

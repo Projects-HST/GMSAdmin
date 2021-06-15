@@ -13,6 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+        <!--        <include-->
+<!--            android:id="@+id/dashboard_layout"-->
+<!--            layout="@layout/fragment_dashboard"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/activity_toolbar"
             style="@style/ToolBarStyle.Event"
@@ -21,13 +28,6 @@
             android:background="@color/colorPrimary"
             android:minHeight="@dimen/abc_action_bar_default_height_material"
             android:theme="@style/ThemeOverlay.MyApp.ActionBar" />
-
-
-        <!--        <include-->
-<!--            android:id="@+id/dashboard_layout"-->
-<!--            layout="@layout/fragment_dashboard"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
 
         <FrameLayout
             android:id="@+id/fragmentContainer"

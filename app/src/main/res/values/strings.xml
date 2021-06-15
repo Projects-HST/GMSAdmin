@@ -63,6 +63,8 @@
     <string name="meetings_graph">Constituent Meetings Report</string>
     <string name="view_more">View Reviews</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="graph">Graph</string>
 
     <string name="total_male">Male</string>
@@ -198,6 +200,7 @@
     <string name="change_user">Change Users</string>
     <string name="share">Share app</string>
     <string name="sign_out">Sign out</string>
+    <string name="sign_in">Sign in</string>
     <string name="sign_out_alert">Do you really want to signout?</string>
 
     <!--Constituency Page Strings-->
