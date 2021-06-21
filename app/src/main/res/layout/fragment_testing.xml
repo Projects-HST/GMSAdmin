@@ -86,7 +86,7 @@
                     android:textSize="16sp" />
 
                 <RelativeLayout
-                    android:id="@+id/constituent_layout"
+                    android:id="@+id/constituents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/dashBoard"
@@ -132,7 +132,7 @@
                     android:id="@+id/layout_one"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/constituent_layout"
+                    android:layout_below="@id/constituents"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 

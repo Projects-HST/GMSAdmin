@@ -1,27 +1,22 @@
 package com.gms.admin.fragment;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.DatePicker;
 
@@ -30,26 +25,19 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.Utils;
 import com.gms.admin.R;
 import com.gms.admin.activity.FootfallActivity;
-import com.gms.admin.activity.GraphActivity;
 import com.gms.admin.activity.GrievanceActivity;
 import com.gms.admin.activity.SearchResultActivity;
 import com.gms.admin.bean.support.SpinnerData;
@@ -82,19 +70,21 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
     private int ab = 0;
-    private String checkRes = "", paguthiId = "ALL";
+    private String checkRes = "", paguthiId = "ALL", officeId = "ALL";
     String from_date, to_date;
     boolean fr = false, to = false;
     private DatePickerDialog mDatePicker;
     private SimpleDateFormat mDateFormatter;
     private ArrayList<SpinnerData> spinnerData;
-    private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter = null;
+    private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter ;
+    private ArrayList<SpinnerData> officespinnerData;
+    private ArrayAdapter<SpinnerData> officespinnerDataArrayAdapter;
     private ScrollView scrollView;
-    private RelativeLayout selectArea, constituencyLayout, consituentPopup, grievancePopup, footfallPopup, meetingPopup, volunteerPopup, greetingsPopup, videoPopup;
+    private RelativeLayout selectArea, selectOffice, constituencyLayout, consituentPopup, grievancePopup, footfallPopup, meetingPopup, volunteerPopup, greetingsPopup, videoPopup;
     private LinearLayout dateLayout, grievanceLayout, footfallLayout, meetingLayout, volunteerLayout, greetingsLayout, videoLayout;
     private ImageView closeConstitutePop, closeGrievancePop, closeFootfallPop, closeMeetingPop, closeVolunteerPop, closeGreetingsPop, closeVideoPop;
     private TextView fromDate, toDate;
-    private TextView area, constituentCount, grievanceCount, footfallCount, meetingCount, volunteerCount, greetingsCount, videoCount, viewMore;
+    private TextView area, office, constituentCount, grievanceCount, footfallCount, meetingCount, volunteerCount, greetingsCount, videoCount, viewMore;
     private TextView constiPopupCount, perMale, maleCount, perFemale, femaleCount, perOthers, othersCount, perPhone, phoneCount,
             perWhatsApp, whatsAppCount, perBroadcast, broadcastCount, perMail, mailCount, perVoter, voterCount, perDob, dobCount;
     private TextView grievPopupCount, totGrievances, enquiryCount, petitionCount, onlinePetition, civicPetition, onlineEnq, civicEnq, grievMore;
@@ -112,6 +102,9 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     // (0.2 + 0.03) * 3 + 0.31 = 1.00 -> interval per "group"
 
     int groupCount = 12;
+    private TextView showdata, findData, clearData;
+    private RelativeLayout dataSelectionLayout;
+    private boolean submenuVisible = false;
 
     public static DashboardFragment newInstance(int position) {
         DashboardFragment frag = new DashboardFragment();
@@ -142,11 +135,22 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             to_date = PreferenceStorage.getToDate(getActivity());
         }
 
+        dataSelectionLayout = rootView.findViewById(R.id.data_layout);
         selectArea = rootView.findViewById(R.id.select_area);
+        selectOffice = rootView.findViewById(R.id.select_office);
+        showdata = rootView.findViewById(R.id.show_data);
+        findData = rootView.findViewById(R.id.find_data);
+        clearData = rootView.findViewById(R.id.clear_data);
+
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(10);
+        drawable.setColor(Color.parseColor(PreferenceStorage.getAppBaseColor(getActivity())));
+
+        findData.setBackground(drawable);
 
         scrollView = rootView.findViewById(R.id.scrolView);
-        constituencyLayout = rootView.findViewById(R.id.constituent_layout);
-        dateLayout = rootView.findViewById(R.id.dateLayout);
+        constituencyLayout = rootView.findViewById(R.id.constituents);
         grievanceLayout = rootView.findViewById(R.id.grievance_layout);
         footfallLayout = rootView.findViewById(R.id.footfall_layout);
         meetingLayout = rootView.findViewById(R.id.meeting_layout);
@@ -154,10 +158,14 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         greetingsLayout = rootView.findViewById(R.id.greeting_layout);
         videoLayout = rootView.findViewById(R.id.video_layout);
 
-        dateLayout.setOnClickListener(this);
         fromDate.setOnClickListener(this);
         toDate.setOnClickListener(this);
         selectArea.setOnClickListener(this);
+        selectOffice.setOnClickListener(this);
+        showdata.setOnClickListener(this);
+        findData.setOnClickListener(this);
+        clearData.setOnClickListener(this);
+
         constituencyLayout.setOnClickListener(this);
         grievanceLayout.setOnClickListener(this);
         footfallLayout.setOnClickListener(this);
@@ -287,6 +295,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         vidCount9 = rootView.findViewById(R.id.office_count_9);
 
         area = rootView.findViewById(R.id.text_area);
+        office = rootView.findViewById(R.id.text_office);
         constituentCount = rootView.findViewById(R.id.overall_constituent_count);
         grievanceCount = rootView.findViewById(R.id.overall_grievance_count);
         footfallCount = rootView.findViewById(R.id.overall_footfall_count);
@@ -308,37 +317,37 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
 //            }
 //        });
 
-        searchView = rootView.findViewById(R.id.search_cat_list);
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchView.setIconified(false);
-            }
-        });
-        searchView.setQueryHint("Search for constituent");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-//                if (categoryArrayList.contains(query)) {
-//                    preferenceAdatper.getFilter().filter(query);
-//                } else {
-//                    Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
+//        searchView = rootView.findViewById(R.id.search_cat_list);
+//        searchView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                searchView.setIconified(false);
+//            }
+//        });
+//        searchView.setQueryHint("Search for constituent");
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+////                if (categoryArrayList.contains(query)) {
+////                    preferenceAdatper.getFilter().filter(query);
+////                } else {
+////                    Toast.makeText(getActivity(), "No Match found", Toast.LENGTH_LONG).show();
+////                }
+//                if (query != null) {
+//                    makeSearch(query);
 //                }
-                if (query != null) {
-                    makeSearch(query);
-                }
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //    adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                //    adapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
 
         serviceHelper = new ServiceHelper(getActivity());
         serviceHelper.setServiceListener(this);
@@ -370,6 +379,22 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
 
+    private void getOffice() {
+        checkRes = "office";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(getActivity()));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+//        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_OFFICE;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
     private void getDashboard() {
         checkRes = "dashboard";
         from_date = fromDate.getText().toString().trim();
@@ -379,6 +404,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -397,6 +423,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -417,6 +444,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -437,6 +465,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -457,6 +486,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -477,6 +507,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -497,6 +528,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -517,6 +549,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, paguthiId);
+            jsonObject.put(GMSConstants.OFFICE_ID, officeId);
             jsonObject.put(GMSConstants.KEY_FROM_DATE, from_date);
             jsonObject.put(GMSConstants.KEY_TO_DATE, to_date);
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(getActivity()));
@@ -546,8 +579,29 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             to_date = toDate.getText().toString();
             PreferenceStorage.saveToDate(getActivity(), to_date);
         }
+        if (v == showdata) {
+            showSelectorData();
+        }
+        if (v == findData) {
+            getDashboard();
+        }
+        if (v == clearData) {
+            fromDate.setText("");
+            fromDate.setHint(R.string.from_date);
+            from_date = "";
+            toDate.setText("");
+            toDate.setHint(R.string.to_date);
+            to_date = "";
+            paguthiId = "ALL";
+            officeId = "ALL";
+            area.setText("ALL");
+            office.setText("ALL");
+        }
         if (v == selectArea) {
             showSpinnerData();
+        }
+        if (v == selectOffice) {
+            showOfficeSpinnerData();
         }
         if (v == constituencyLayout) {
             getConstiWidgetData();
@@ -565,6 +619,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -577,6 +632,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             videoLayout.setClickable(true);
             Intent griIntent = new Intent(getActivity(), GrievanceActivity.class);
             griIntent.putExtra("paguthi", paguthiId);
+            griIntent.putExtra("office", officeId);
             startActivity(griIntent);
         }
         if (v == footfallLayout) {
@@ -592,6 +648,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -633,6 +690,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -654,6 +712,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -675,6 +734,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -696,6 +756,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -717,6 +778,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -738,6 +800,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -759,6 +822,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             });
             enableSearchView(searchView, true);
             selectArea.setClickable(true);
+            selectOffice.setClickable(true);
             fromDate.setClickable(true);
             fromDate.setFocusable(true);
             toDate.setClickable(true);
@@ -847,6 +911,34 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                             View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
                             TextView gendername = (TextView) view.findViewById(R.id.data_name);
                             gendername.setText(spinnerData.get(position).getName());
+
+                            // ... Fill in other views ...
+                            return view;
+                        }
+                    };
+                    getOffice();
+                }
+                if (checkRes.equalsIgnoreCase("office")) {
+                    JSONArray getData = response.getJSONArray("list_details");
+                    int getLength = getData.length();
+                    String id = "";
+                    String name = "";
+                    officespinnerData = new ArrayList<>();
+                    officespinnerData.add(new SpinnerData("ALL", "All"));
+
+                    for (int i = 0; i < getLength; i++) {
+                        id = getData.getJSONObject(i).getString("id");
+                        name = capitalizeString(getData.getJSONObject(i).getString("office_name"));
+                        officespinnerData.add(new SpinnerData(id, name));
+                    }
+                    //fill data in spinner
+                    officespinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(getActivity(), R.layout.spinner_data_layout, R.id.data_name, officespinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            Log.d(TAG, "getview called" + position);
+                            View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
+                            TextView gendername = (TextView) view.findViewById(R.id.data_name);
+                            gendername.setText(officespinnerData.get(position).getName());
 
                             // ... Fill in other views ...
                             return view;
@@ -1086,6 +1178,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1115,6 +1208,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1141,6 +1235,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1167,6 +1262,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1193,6 +1289,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1232,6 +1329,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1285,6 +1383,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     });
                     enableSearchView(searchView, false);
                     selectArea.setClickable(false);
+                    selectOffice.setClickable(false);
                     fromDate.setClickable(false);
                     fromDate.setFocusable(false);
                     toDate.setClickable(false);
@@ -1303,6 +1402,16 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
         }
     }
 
+    private void showSelectorData() {
+        if (!submenuVisible) {
+            dataSelectionLayout.setVisibility(View.VISIBLE);
+            showdata.setText("-");
+        } else {
+            dataSelectionLayout.setVisibility(View.GONE);
+            showdata.setText("+");
+        }
+        submenuVisible = !submenuVisible;
+    }
     private void showSpinnerData() {
         Log.d(TAG, "Show timing lists");
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
@@ -1318,7 +1427,28 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                         SpinnerData spinnerDatas = spinnerData.get(which);
                         area.setText(spinnerDatas.getName());
                         paguthiId = spinnerDatas.getId();
-                        getDashboard();
+//                        getDashboard();
+                    }
+                });
+        builderSingle.show();
+    }
+
+    private void showOfficeSpinnerData() {
+        Log.d(TAG, "Show timing lists");
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
+        View view = getLayoutInflater().inflate(R.layout.spinner_header_layout, null);
+        TextView header = (TextView) view.findViewById(R.id.spinner_header);
+        header.setText(getString(R.string.select_office));
+        builderSingle.setCustomTitle(view);
+
+        builderSingle.setAdapter(officespinnerDataArrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SpinnerData spinnerDatas = officespinnerData.get(which);
+                        office.setText(spinnerDatas.getName());
+                        officeId = spinnerDatas.getId();
+//                        getDashboard();
                     }
                 });
         builderSingle.show();
@@ -1359,13 +1489,13 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+                mDatePicker = new DatePickerDialog(getActivity(), R.style.datePickerTheme, this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(getActivity(), this, year, month, day);
+            mDatePicker = new DatePickerDialog(getActivity(), R.style.datePickerTheme,this, year, month, day);
             mDatePicker.show();
         }
     }

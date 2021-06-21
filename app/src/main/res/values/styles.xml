@@ -61,9 +61,9 @@
     </style>
 
     <style name="datePickerTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/msg_by_grey</item>
         <item name="android:textColorTertiary">@color/text_black</item>

@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:windowLightStatusBar="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:windowLightStatusBar="true">
 
     <RelativeLayout
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:tag="content"
         android:orientation="vertical">
 
 
@@ -37,16 +39,12 @@
 
     </RelativeLayout>
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/menu_color"
-        app:itemTextColor="@color/menu_color"
-        app:menu="@menu/activity_main_drawer" />
+        app:headerLayout="@layout/side_view_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

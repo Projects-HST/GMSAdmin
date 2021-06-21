@@ -29,11 +29,13 @@ import androidx.core.content.ContextCompat;
 import com.gms.admin.R;
 import com.gms.admin.activity.EditProfileActivity;
 import com.gms.admin.activity.LoginActivity;
+import com.gms.admin.activity.MainActivity;
+import com.gms.admin.activity.SplashScreenActivity;
 import com.gms.admin.utils.PreferenceStorage;
 import com.squareup.picasso.Picasso;
 
 
-public class SideMenuView extends RelativeLayout implements View.OnClickListener{
+public class SideMenuView extends RelativeLayout implements View.OnClickListener {
     private static final String TAG_FOOTER = "footer";
     private static final String TAG_HEADER = "header";
     private ViewGroup vg;
@@ -347,8 +349,8 @@ public class SideMenuView extends RelativeLayout implements View.OnClickListener
      * Holds the views in this menu
      */
     private class MenuViewHolder {
-        private LinearLayout mMenuOptions;
-        private RelativeLayout vHome, vYourSPV, vGallery, vNamakaga, vParty, vBlog, vRateUs, vSignOut, vSettings, vProfile, vUserGuide, vBecomOrg;
+        private LinearLayout mMenuOptions, vConstituentLayout;
+        private RelativeLayout vHome, vConstituents, vConstituent, vMeetings, vGrievance, vUsers, vReport, vSettings, vLogout;
         private ImageView mMenuBackground, vUserImage, vNotification;
         private ViewGroup mMenuHeader;
         private ViewGroup mMenuFooter;
@@ -359,7 +361,7 @@ public class SideMenuView extends RelativeLayout implements View.OnClickListener
             this.mMenuOptions = (LinearLayout) rootView.findViewById(R.id.side_view_menu_options_layout);
             this.mMenuBackground = (ImageView) rootView.findViewById(R.id.side_view_menu_background);
 
-            int colors[] = { 0xC9DAF9, 0xfffff };
+            int[] colors = {0x2D94EB, 0xfffff};
 
             GradientDrawable gradientDrawable = new GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM, colors);
@@ -372,7 +374,7 @@ public class SideMenuView extends RelativeLayout implements View.OnClickListener
             profileName = (TextView) rootView.findViewById(R.id.full_name);
             area = (TextView) rootView.findViewById(R.id.area);
             if (!PreferenceStorage.getUserId(context).isEmpty()) {
-                if(PreferenceStorage.getAdminName(context).equals("")){
+                if (PreferenceStorage.getAdminName(context).equals("")) {
                     profileName.setText(getResources().getString(R.string.sign_in));
                     area.setText(PreferenceStorage.getUserConstituencyName(context));
                 } else {
@@ -382,7 +384,7 @@ public class SideMenuView extends RelativeLayout implements View.OnClickListener
                 profileName.setText(getResources().getString(R.string.sign_in));
                 area.setText(PreferenceStorage.getUserConstituencyName(context));
             }
-            if (PreferenceStorage.getUserId(context).isEmpty()){
+            if (PreferenceStorage.getUserId(context).isEmpty()) {
                 profileName.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -390,8 +392,7 @@ public class SideMenuView extends RelativeLayout implements View.OnClickListener
                         context.startActivity(loginInt);
                     }
                 });
-            }
-            else {
+            } else {
                 profileName.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -405,153 +406,101 @@ public class SideMenuView extends RelativeLayout implements View.OnClickListener
             if (((url != null) && !(url.isEmpty()))) {
                 Picasso.get().load(url).placeholder(R.drawable.ic_profile).error(R.drawable.ic_profile).into(vUserImage);
             }
-//            this.vHome = (RelativeLayout) rootView.findViewById(R.id.home_img);
-//            this.vHome.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (!PreferenceStorage.getUserId(context).isEmpty()) {
-////                        Intent homeIntent = new Intent(context, BookingHistoryActivity.class);
-////                        context.startActivity(homeIntent);
-//                    } else {
-////                        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
-////                        alertDialogBuilder.setTitle("Login");
-////                        alertDialogBuilder.setMessage("Log in to Access");
-////                        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-////                            @Override
-////                            public void onClick(DialogInterface arg0, int arg1) {
-////                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-////                                sharedPreferences.edit().clear().apply();
-////                                Intent homeIntent = new Intent(context, SplashScreenActivity.class);
-////                                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////                                context.startActivity(homeIntent);
-////                            }
-////                        });
-////                        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-////                            @Override
-////                            public void onClick(DialogInterface dialog, int which) {
-////                                dialog.dismiss();
-////                            }
-////                        });
-////                        alertDialogBuilder.show();
-//                    }
-//                }
-//            });
-//            this.vYourSPV = (RelativeLayout) rootView.findViewById(R.id.your_spv_img);
-//            this.vYourSPV.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent homeIntent = new Intent(context, YourSpvActivity.class);
-//                    context.startActivity(homeIntent);
-//                }
-//            });
-//            this.vGallery = (RelativeLayout) rootView.findViewById(R.id.gallery_img);
-//            this.vGallery.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent homeIntent = new Intent(context, GalleryActivity.class);
-//                    homeIntent.putExtra("page", "side");
-//                    context.startActivity(homeIntent);
-//                }
-//            });
-//            this.vNamakaga = (RelativeLayout) rootView.findViewById(R.id.namakaaga_img);
-//            this.vNamakaga.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent homeIntent = new Intent(context, NamakaagaInitiativesActivity.class);
-//                    context.startActivity(homeIntent);
-//                }
-//            });
-//            this.vParty = (RelativeLayout) rootView.findViewById(R.id.party_img);
-//            this.vParty.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-////                    Intent i = new Intent(android.content.Intent.ACTION_SEND);
-////                    i.setType("text/plain");
-////                    i.putExtra(android.content.Intent.EXTRA_SUBJECT, "Share");
-////                    i.putExtra(android.content.Intent.EXTRA_TEXT, "Hi! Get Heyla app and win exciting rewards. https://goo.gl/JTmdEX");
-////                    context.startActivity(Intent.createChooser(i, "Share via"));
-//                }
-//            });
-//            this.vBlog = (RelativeLayout) rootView.findViewById(R.id.blod_img);
-//            this.vBlog.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-////                    Intent homeIntent = new Intent(context, BlogViewActivity.class);
-////                    homeIntent.putExtra("pageval", "blog");
-////                    context.startActivity(homeIntent);
-//                }
-//            });
-//            this.vSettings = (RelativeLayout) rootView.findViewById(R.id.settings_img);
-//            this.vSettings.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent homeIntent = new Intent(context, SettingsActivity.class);
-//                    context.startActivity(homeIntent);
-//                }
-//            });
-//            this.vSignOut = (RelativeLayout) rootView.findViewById(R.id.sign_out_img);
-//            this.vSignOut.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
-//                    alertDialogBuilder.setTitle("Signout");
-//                    alertDialogBuilder.setMessage("Do you really want to signout?");
-//                    alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface arg0, int arg1) {
-//                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-//                            sharedPreferences.edit().clear().apply();
-////        TwitterUtil.getInstance().resetTwitterRequestToken();
-//
-//                            Intent homeIntent = new Intent(context, SplashScreenActivity.class);
-//                            homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            context.startActivity(homeIntent);
-//                        }
-//                    });
-//                    alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.dismiss();
-//                        }
-//                    });
-//                    alertDialogBuilder.show();
-//                }
-//            });
-//            this.vProfile = (RelativeLayout) rootView.findViewById(R.id.sign_in_layout);
-//            this.vProfile.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-////                    if (PreferenceStorage.getUserType(context).equalsIgnoreCase("1")) {
-////                        PreferenceStorage.saveCheckFirstTimeProfile(context, "reuse");
-////                        Intent homeIntent = new Intent(context, ProfileActivity.class);
-////                        context.startActivity(homeIntent);
-////                    } else {
-////                        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
-////                        alertDialogBuilder.setTitle("Login");
-////                        alertDialogBuilder.setMessage("Log in to Access");
-////                        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-////                            @Override
-////                            public void onClick(DialogInterface arg0, int arg1) {
-////                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-////                                sharedPreferences.edit().clear().apply();
-//////        TwitterUtil.getInstance().resetTwitterRequestToken();
-////
-////                                Intent homeIntent = new Intent(context, SplashScreenActivity.class);
-////                                homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////                                context.startActivity(homeIntent);
-////
-////                            }
-////                        });
-////                        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-////                            @Override
-////                            public void onClick(DialogInterface dialog, int which) {
-////                                dialog.dismiss();
-////                            }
-////                        });
-////                        alertDialogBuilder.show();
-////                    }
-//                }
-//            });
+            this.vHome = (RelativeLayout) rootView.findViewById(R.id.home_img);
+            this.vHome.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(0);
+                }
+            });
+            this.vConstituentLayout = (LinearLayout) rootView.findViewById(R.id.sub_layout);
+            this.vConstituent = (RelativeLayout) rootView.findViewById(R.id.constituents);
+            this.vConstituent.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (vConstituentLayout.getVisibility() == VISIBLE) {
+                        vConstituentLayout.setVisibility(GONE);
+                    } else {
+                        vConstituentLayout.setVisibility(VISIBLE);
+                    }
+                }
+            });
+            this.vConstituents = (RelativeLayout) rootView.findViewById(R.id.constituent);
+            this.vConstituents.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(1);
+
+                }
+            });
+            this.vMeetings = (RelativeLayout) rootView.findViewById(R.id.meetings);
+            this.vMeetings.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(2);
+
+                }
+            });
+            this.vGrievance = (RelativeLayout) rootView.findViewById(R.id.grievance_layout);
+            this.vGrievance.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(3);
+
+                }
+            });
+            this.vUsers = (RelativeLayout) rootView.findViewById(R.id.users_layout);
+            this.vUsers.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(4);
+
+                }
+            });
+            this.vReport = (RelativeLayout) rootView.findViewById(R.id.report_layout);
+            this.vReport.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(5);
+
+                }
+            });
+            this.vSettings = (RelativeLayout) rootView.findViewById(R.id.settings_layout);
+            this.vSettings.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) context).changePage(6);
+
+                }
+            });
+            this.vLogout = (RelativeLayout) rootView.findViewById(R.id.sign_out_img);
+            this.vLogout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
+                    alertDialogBuilder.setTitle("Signout");
+                    alertDialogBuilder.setMessage("Do you really want to signout?");
+                    alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                            sharedPreferences.edit().clear().apply();
+//        TwitterUtil.getInstance().resetTwitterRequestToken();
+
+                            Intent homeIntent = new Intent(context, SplashScreenActivity.class);
+                            homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(homeIntent);
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialogBuilder.show();
+                }
+            });
         }
     }
 

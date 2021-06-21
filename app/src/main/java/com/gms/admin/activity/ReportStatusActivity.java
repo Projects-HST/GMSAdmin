@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -64,7 +67,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
     private SimpleDateFormat mDateFormatter;
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
-    private Button search;
+    private TextView search;
     private String A = "ALL", P = "PROCESSING", C = "COMPLETED";
 
     @Override
@@ -96,6 +99,13 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         selectPaguthi.setOnClickListener(this);
         selectStatus.setOnClickListener(this);
         search.setOnClickListener(this);
+
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(10);
+        drawable.setColor(Color.parseColor(PreferenceStorage.getAppBaseColor(this)));
+
+        search.setBackground(drawable);
 
         mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
