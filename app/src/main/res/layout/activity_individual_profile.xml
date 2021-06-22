@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_effect"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -33,29 +33,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/roboto_bold" />
 
             <TextView
-                android:id="@+id/serial_number"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:drawableStart="@drawable/ic_location"
-                android:drawablePadding="10dp"
-                android:textColor="@color/white"
+                android:drawableStart="@drawable/ic_location_red"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
-
 
         </LinearLayout>
 
@@ -66,11 +68,11 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="center"
-        android:background="@color/tab_color"
+        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
-        app:tabIndicatorColor="@color/white"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white" />
+        app:tabIndicatorColor="@color/black"
+        app:tabSelectedTextColor="@color/text_black"
+        app:tabTextColor="@color/text_grey" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

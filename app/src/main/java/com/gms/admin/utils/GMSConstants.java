@@ -29,14 +29,17 @@ public class GMSConstants {
     //CONSTITUENCY URL
     public static final String CONSTITUENCY = "list";
 
-
     //CONSTITUENCY URL
     public static final String SELECTED_CONSTITUENCY = "details";
 
+    //MOBILE LOGIN URL
+    public static final String MOBILE_LOGIN = "apiandroid/mobile_login";
+
+    //MOBILE VERIFY URL
+    public static final String MOBILE_VERIFY = "apiandroid/mobile_verify";
 
     //LOGIN URL
     public static final String USER_LOGIN = "apiandroid/login/";
-
 
     //GET OTP URL
     public static final String FORGOT_PASSWORD = "apiandroid/forgotPassword";
@@ -220,7 +223,6 @@ public class GMSConstants {
     public static final String KEY_LANGUAGE = "language";
 
     //    USER DATA
-
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_USER_ROLE = "user_role";
     public static final String KEY_USER_NAME = "user_name";
@@ -288,6 +290,8 @@ public class GMSConstants {
     // Login Parameters
     public static final String KEY_CONSTITUENCY_CODE = "constituency_code";
     public static final String DYNAMIC_DATABASE = "dynamic_db";
+    public static String KEY_OTP = "otp";
+    public static String KEY_DEVICE_ID = "device_id";
     public static String DEVICE_TOKEN = "gcm_key";
     public static String MOBILE_TYPE = "mobile_type";
     public static String MOBILE_TYPE_VALUE = "1";

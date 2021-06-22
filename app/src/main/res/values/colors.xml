@@ -22,11 +22,13 @@
     <color name="line_constituent_count">#CCCCCC</color>
     <color name="line_staff_list">#CCCCCC</color>
     <color name="grey">#76767A</color>
+    <color name="red">#F70A0A</color>
     <color name="stroke_black">#BBBBBB</color>
 
 
     <color name="status_bg">#F3F3F3</color>
     <color name="pending">#0095BE</color>
+    <color name="schedule">#F8C22D</color>
     <color name="requested">#FF7400</color>
     <color name="completed_meeting">#43BF57</color>
     <color name="completed_grievance">#36D66B</color>

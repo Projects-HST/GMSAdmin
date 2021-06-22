@@ -14,11 +14,19 @@
     <string name="error_entry">Entry Invalid</string>
     <string name="empty_entry">Field cannot be empty</string>
     <string name="mismatch_entry">Password mismatch</string>
-    <string name="error_username">Username cannot be empty</string>
-    <string name="error_password">Password cannot be empty</string>
+    <string name="error_email">Enter a valid Email address</string>
+    <string name="error_number">Mobile number is required to send OTP</string>
+    <string name="error_number_min">Mobile number must be 10 digits</string>
+    <string name="error_password">Enter a valid password</string>
+    <string name="error_password_min">Password must be at least 6 digits</string>
     <string name="drawer_open">Drawer open</string>
     <string name="drawer_close">Drawer close</string>
-
+    <string name="constituency_id">Constituency ID</string>
+    <string name="id_content">Please enter the Constituency Id given to you for login</string>
+    <string name="start">Let’s get started</string>
+    <string name="login_txt">An OTP will be send to your mobile number entered</string>
+    <string name="use_mail">Use Mail Id</string>
+    <string name="use_phone">Use Phone Number</string>
     <string name="login_text">Login to your Account</string>
     <string name="select_constituency">Select Constituency</string>
     <string name="select_area">Select Paguthi</string>
@@ -26,6 +34,12 @@
     <string name="phone_no">Phone number</string>
     <string name="mail">Email</string>
     <string name="password">Password</string>
+    <string name="verification_title">OTP</string>
+    <string name="verification_heading">Verification Code</string>
+    <string name="verify">Verify</string>
+    <string name="verification_content">We\'ve sent a 4 digit code to your phone number. Please enter the verification code.</string>
+    <string name="not_received">Didn\'t receive OTP?</string>
+    <string name="resend">Resend</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -109,6 +123,8 @@
     <string name="civic_petition">Civic Petition</string>
     <string name="enquiry_count">Enquiry</string>
 
+    <string name="requested">Requested</string>
+    <string name="schedule">Scheduled</string>
     <string name="complete">Completed</string>
     <string name="reject">Rejected</string>
     <string name="pending">Pending</string>
@@ -136,7 +152,7 @@
     <string name="grievance">Grievance</string>
     <string name="interaction">Interaction</string>
     <string name="plant">Plants</string>
-    <string name="doc">View Documents</string>
+    <string name="doc">Documents</string>
     <string name="view_profile">View Profile</string>
 
 
@@ -162,6 +178,10 @@
     <string name="updated_on">Updated On</string>
     <string name="description">Description</string>
     <string name="reference">Reference Number</string>
+    <string name="user">Super Admin</string>
+    <string name="created">Created By</string>
+    <string name="req_date">Requested On</string>
+    <string name="meet_date">Meeting Date</string>
     <string name="all">All</string>
     <string name="petition">Petition</string>
     <string name="enquiry">Enquiry</string>
@@ -219,6 +239,9 @@
     <string name="location">Location</string>
     <string name="birthday">Birthday Letter</string>
     <string name="staff">Staff</string>
+    <string name="constituent">Constituent</string>
+    <string name="video">Video</string>
+
 
     <!--Report Status Page Strings-->
     <string name="report_status_title">Status Report</string>
@@ -287,14 +310,7 @@
     <string name="start_date">From Date</string>
 
     <!--New Strings-->
-    <string name="constituency_id">Constituency ID</string>
-    <string name="id_content">Please enter the Constituency Id given to you for login</string>
-    <string name="start">Let’s get started</string>
-    <string name="login_txt">An OTP will be send to your mobile number entered</string>
-    <string name="use_mail">Use Mail Id</string>
-    <string name="use_phone">Use Phone Number</string>
-    <string name="constituent">Constituent</string>
-    <string name="video">Video</string>
+
 
 
 </resources>

@@ -55,7 +55,7 @@ public class StaffDetailsActivity extends AppCompatActivity implements IServiceL
     String chkRes = "";
     public TextView txtstaffName, txtstaffMail, txtPaguthi, txtStatus;
     private ImageView userImage, staffStatus;
-    private EditText txtRole, txtGEnder, txtnumber, txtAddress;
+    private TextView txtRole, txtGEnder, txtnumber, txtAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +82,10 @@ public class StaffDetailsActivity extends AppCompatActivity implements IServiceL
         txtStatus = (TextView) findViewById(R.id.staff_status);
         userImage = (ImageView) findViewById(R.id.staff_image);
         staffStatus = (ImageView) findViewById(R.id.staff_status_img);
-        txtRole = (EditText) findViewById(R.id.txt_role);
-        txtGEnder = (EditText) findViewById(R.id.txt_gender);
-        txtnumber = (EditText) findViewById(R.id.txt_number);
-        txtAddress = (EditText) findViewById(R.id.txt_address);
+        txtRole = (TextView) findViewById(R.id.txt_role);
+        txtGEnder = (TextView) findViewById(R.id.txt_gender);
+        txtnumber = (TextView) findViewById(R.id.txt_number);
+        txtAddress = (TextView) findViewById(R.id.txt_address);
 
 
         serviceHelper = new ServiceHelper(this);

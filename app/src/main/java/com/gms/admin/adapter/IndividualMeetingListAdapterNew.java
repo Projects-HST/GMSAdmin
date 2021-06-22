@@ -9,20 +9,13 @@ import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.IndividualMeeting;
-import com.gms.admin.bean.support.Meeting;
-import com.gms.admin.bean.support.Staff;
-import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,23 +66,21 @@ public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<Indivi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView txtMeetingTitle, txtStatusTitle, txtMeetingDate, txtMeetingStatus;
+        public TextView txtMeetingTitle, txtConstituencyName, txtMeetingDate, txtScheduleDate;
         private ImageView meetingImage, meetingDateImage;
-        private LinearLayout disableLayout;
-        private FrameLayout meeting;
+        private LinearLayout meetingListLayout, scheduledLayout;
+        private FrameLayout request;
 
         public MyViewHolder(View view) {
             super(view);
-            disableLayout = (LinearLayout) view.findViewById(R.id.complete_layout);
-            meeting = (FrameLayout) view.findViewById(R.id.meeting_lay_click);
-            meeting.setOnClickListener(this);
+            meetingListLayout = (LinearLayout) view.findViewById(R.id.req_layout);
+            scheduledLayout = (LinearLayout) view.findViewById(R.id.sch_layout);
+            request = (FrameLayout) view.findViewById(R.id.meeting_lay_click);
+            request.setOnClickListener(this);
             txtMeetingTitle = (TextView) view.findViewById(R.id.meeting_title);
-            txtStatusTitle = (TextView) view.findViewById(R.id.status_title);
-            txtMeetingDate = (TextView) view.findViewById(R.id.meeting_date);
-            txtMeetingStatus = (TextView) view.findViewById(R.id.meeting_status);
-            meetingImage = (ImageView) view.findViewById(R.id.meeting_img);
-            meetingDateImage = (ImageView) view.findViewById(R.id.meeting_date_img);
-
+            txtConstituencyName = (TextView) view.findViewById(R.id.constituency_name);
+            txtMeetingDate = (TextView) view.findViewById(R.id.req_meeting_date);
+            txtScheduleDate = (TextView) view.findViewById(R.id.schedule_date);
 
         }
 
@@ -105,9 +96,10 @@ public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<Indivi
     }
 
 
-    public IndividualMeetingListAdapterNew(ArrayList<IndividualMeeting> meetingArrayList, IndividualMeetingListAdapterNew.OnItemClickListener onItemClickListener) {
+    public IndividualMeetingListAdapterNew(ArrayList<IndividualMeeting> meetingArrayList, Context ctx, IndividualMeetingListAdapterNew.OnItemClickListener onItemClickListener) {
         Collections.reverse(meetingArrayList);
         this.meetingArrayList = meetingArrayList;
+        this.context = ctx;
         this.meetingArrayListFiltered = meetingArrayList;
         this.og = meetingArrayList;
         this.onItemClickListener = onItemClickListener;
@@ -129,33 +121,28 @@ public class IndividualMeetingListAdapterNew extends RecyclerView.Adapter<Indivi
     @Override
     public void onBindViewHolder(IndividualMeetingListAdapterNew.MyViewHolder holder, int position) {
         IndividualMeeting meeting = meetingArrayList.get(position);
-        holder.txtMeetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
-        holder.txtMeetingDate.setText(getserverdateformat(meeting.getmeeting_date()));
-        holder.txtMeetingStatus.setText(capitalizeString(meeting.getmeeting_status()));
 
         if (meeting.getmeeting_status().equalsIgnoreCase("REQUESTED")) {
-            holder.txtStatusTitle.setText("Upcoming");
-            holder.txtMeetingTitle.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.black));
-            holder.txtMeetingStatus.setBackgroundColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.requested));
-            holder.meetingImage.setImageResource(R.drawable.ic_meeting_active);
-            holder.meetingDateImage.setImageResource(R.drawable.ic_date_active);
-            holder.disableLayout.setVisibility(View.GONE);
-        } else if (meeting.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
-            holder.txtStatusTitle.setText("Earlier");
-            holder.txtMeetingTitle.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.text_grey));
-            holder.txtMeetingStatus.setBackgroundColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.completed_meeting));
-            holder.meetingImage.setImageResource(R.drawable.ic_meeting_inactive);
-            holder.meetingDateImage.setImageResource(R.drawable.ic_date_inactive);
-            holder.disableLayout.setVisibility(View.VISIBLE);
+            holder.scheduledLayout.setVisibility(View.GONE);
+            holder.txtMeetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
+            holder.txtConstituencyName.setText(capitalizeString(PreferenceStorage.getConstituencyName(context) + " ( " + "Paguthi" + " )"));
+            holder.txtMeetingDate.setText(("Requested On" + " : " + meeting.getcreated_at()));
+        }
+        else {
+            holder.scheduledLayout.setVisibility(View.VISIBLE);
+            holder.txtMeetingTitle.setText(capitalizeString(meeting.getmeeting_title()));
+            holder.txtConstituencyName.setText(capitalizeString(PreferenceStorage.getConstituencyName(context) + " ( " + "Paguthi" + " )"));
+            holder.txtMeetingDate.setText(("Requested On" + " : " + meeting.getcreated_at()));
+            holder.txtScheduleDate.setText(("Meeting Date" + " : " + meeting.getmeeting_date()));
         }
         if (position != 0) {
             if (checkdatapos(position)) {
-                holder.txtStatusTitle.setVisibility(View.GONE);
+//                holder.txtStatusTitle.setVisibility(View.GONE);
             } else {
-                holder.txtStatusTitle.setVisibility(View.VISIBLE);
+//                holder.txtStatusTitle.setVisibility(View.VISIBLE);
             }
         } else {
-            holder.txtStatusTitle.setVisibility(View.VISIBLE);
+//            holder.txtStatusTitle.setVisibility(View.VISIBLE);
         }
     }
 

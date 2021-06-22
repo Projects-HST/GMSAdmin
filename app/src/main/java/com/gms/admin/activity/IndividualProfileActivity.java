@@ -2,42 +2,25 @@ package com.gms.admin.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ProfileFragmentAdapter;
-import com.gms.admin.helper.ProgressDialogHelper;
-import com.gms.admin.interfaces.DialogClickListener;
-import com.gms.admin.servicehelpers.ServiceHelper;
-import com.gms.admin.serviceinterfaces.IServiceListener;
-import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class IndividualProfileActivity extends AppCompatActivity {
     private static final String TAG = IndividualProfileActivity.class.getName();
@@ -48,7 +31,6 @@ public class IndividualProfileActivity extends AppCompatActivity {
     private TabLayout.TabLayoutOnPageChangeListener tabatab;
     private TextView userName, txtSerialNo;
     private ImageView profilePic;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +50,7 @@ public class IndividualProfileActivity extends AppCompatActivity {
         });
 
         userName = (TextView) findViewById(R.id.user_name);
-        txtSerialNo = (TextView) findViewById(R.id.serial_number);
+        txtSerialNo = (TextView) findViewById(R.id.location);
         profilePic = (ImageView) findViewById(R.id.profile_img);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);

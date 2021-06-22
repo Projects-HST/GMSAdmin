@@ -35,6 +35,10 @@ public class IndividualMeeting implements Serializable {
     @Expose
     private String meeting_status;
 
+    @SerializedName("created_user")
+    @Expose
+    private String created_user;
+
     /**
      * @return The id
      */
@@ -133,4 +137,12 @@ public class IndividualMeeting implements Serializable {
         this.meeting_status = meeting_status;
     }
 
+
+    public String getCreated_user() {
+        return created_user;
+    }
+
+    public void setCreated_user(String created_user) {
+        this.created_user = created_user;
+    }
 }

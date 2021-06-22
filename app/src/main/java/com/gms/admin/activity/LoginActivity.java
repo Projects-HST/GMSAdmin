@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ImageView laang;
     String IMEINo = "";
     private RelativeLayout selectConstituency, layoutNumber, layoutMail, changeLayoutNumber, changeLayoutMail;
-    private String whatRes = "";
+    private String whatRes = "" , loginMethod = "number";
     private ConstituencyList constituencyList;
     private LinearLayout layoutSpinner;
     private String feebackAns = "";
@@ -165,26 +164,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
 
-
-    private void sendLogin() {
-        whatRes = "login";
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put(GMSConstants.KEY_USER_NAME, edtMail.getText().toString());
-            jsonObject.put(GMSConstants.KEY_PASSWORD, edtPassword.getText().toString());
-            jsonObject.put(GMSConstants.DEVICE_TOKEN, PreferenceStorage.getGCM(this));
-            jsonObject.put(GMSConstants.MOBILE_TYPE, GMSConstants.MOBILE_TYPE_VALUE);
-            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.USER_LOGIN;
-        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
-    }
-
-
     @Override
     public void onClick(View v) {
         if (v == selectConstituency) {
@@ -201,8 +180,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             constituencyOK.setBackground(ContextCompat.getDrawable(this, R.drawable.default_logo));
             sendSelectedConstituency();
         } else if (v == signIn) {
-            if (validateFields()) {
-                sendLogin();
+            if (loginMethod.equalsIgnoreCase("number")) {
+                if (validateFields()) {
+                    PreferenceStorage.saveMobileNo(this, edtPhone.getText().toString());
+                    sendMobileLogin();
+                }
+            }else {
+                if (validateEmailFields()){
+                    sendEmailLogin();
+                }
             }
         } else if (v == forgot) {
             if (contistuencyText.getText().toString().equalsIgnoreCase(getString(R.string.select_constituency))) {
@@ -213,12 +199,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         else if (v == useMail){
+            loginMethod = "email";
             layoutNumber.setVisibility(View.GONE);
             layoutMail.setVisibility(View.VISIBLE);
             changeLayoutMail.setVisibility(View.GONE);
             changeLayoutNumber.setVisibility(View.VISIBLE);
         }
         else if (v == usePhone){
+            loginMethod = "number";
             layoutNumber.setVisibility(View.VISIBLE);
             layoutMail.setVisibility(View.GONE);
             changeLayoutMail.setVisibility(View.VISIBLE);
@@ -226,14 +214,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private boolean validateFields() {
+    private boolean validateFields(){
+        if (!GMSValidator.checkNullString(this.edtPhone.getText().toString().trim())) {
+            tiNumber.setError(getString(R.string.error_number));
+            requestFocus(edtPhone);
+            return false;
+        }
+        if (!GMSValidator.checkMobileNumLength(this.edtPhone.getText().toString().trim())) {
+            tiNumber.setError(getString(R.string.error_number_min));
+            requestFocus(edtPhone);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean validateEmailFields() {
+        if (!GMSValidator.isEmailValid(this.edtMail.getText().toString().trim())) {
+            tiMail.setError(getString(R.string.error_email));
+            requestFocus(edtMail);
+            return false;
+        }
         if (!GMSValidator.checkNullString(this.edtMail.getText().toString().trim())) {
-            edtMail.setError(getString(R.string.error_username));
+            tiMail.setError(getString(R.string.error_email));
             requestFocus(edtMail);
             return false;
         }
         if (!GMSValidator.checkNullString(this.edtPassword.getText().toString().trim())) {
-            edtPassword.setError(getString(R.string.error_password));
+            tiPassword.setError(getString(R.string.error_password));
+            requestFocus(edtPassword);
+            return false;
+        }
+        if (!GMSValidator.checkStringMinLength(6, this.edtPassword.getText().toString().trim())) {
+            tiPassword.setError(getString(R.string.error_password_min));
             requestFocus(edtPassword);
             return false;
         }
@@ -249,6 +262,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+    private void sendMobileLogin(){
+        whatRes = "number";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_MOBILE_NUMBER, edtPhone.getText().toString());
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.MOBILE_LOGIN;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void sendEmailLogin() {
+        whatRes = "email";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_USER_NAME, edtMail.getText().toString());
+            jsonObject.put(GMSConstants.KEY_PASSWORD, edtPassword.getText().toString());
+            jsonObject.put(GMSConstants.DEVICE_TOKEN, PreferenceStorage.getGCM(this));
+            jsonObject.put(GMSConstants.MOBILE_TYPE, GMSConstants.MOBILE_TYPE_VALUE);
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.USER_LOGIN;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
 
     @Override
@@ -302,12 +346,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         loadMembersList(constituencyCount);
                         findViewById(R.id.spinner_layout).setVisibility(View.VISIBLE);
                         selectConstituency.setClickable(false);
+                        edtPhone.setClickable(false);
                         edtMail.setClickable(false);
                         edtPassword.setClickable(false);
                         forgot.setClickable(false);
                         signIn.setClickable(false);
                     }
-                } else if (whatRes.equalsIgnoreCase("login")) {
+                }else if (whatRes.equalsIgnoreCase("number")){
+                    Intent i = new Intent(this, NumberVerificationActivity.class);
+                    startActivity(i);
+                }
+                else if (whatRes.equalsIgnoreCase("email")) {
                     JSONObject data = response.getJSONObject("userData");
 
                     String userID = data.getString("user_id");
@@ -409,7 +458,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
                 } else {
                     constiRadio.setChecked(false);
-//                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+                    constiRadio.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
                 }
                 layoutSpinner.addView(constiRadio);
             }
@@ -437,7 +486,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             } else {
                 rad.setChecked(false);
-//                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+                rad.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
             }
 
         }

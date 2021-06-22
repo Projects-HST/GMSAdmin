@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -22,264 +24,81 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradient_effect"
-                android:padding="20dp">
+            <com.gms.admin.customview.CircleImageView
+                android:id="@+id/user_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_user"
+                android:elevation="12dp" />
 
-                <com.gms.admin.customview.CircleImageView
-                    android:id="@+id/user_image"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_alignParentTop="true"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_profile" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/user_image"
-                    android:layout_marginStart="10dp"
-                    android:layout_toRightOf="@+id/user_image"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ABCDEFG"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/user_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_phone"
-                        android:drawablePadding="10dp"
-                        android:text="ABCDEFG"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/user_paguthi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_location"
-                        android:drawablePadding="10dp"
-                        android:text="ABCDEFG"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lay_one"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/user_image"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/ward_no"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/ward_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/serial_no"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/serial_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/lay_one"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/voter_id"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/voter_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/aadhaar_no"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/aadhaar_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="-40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="-50dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shadow_round"
                 android:elevation="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="75dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
                     <LinearLayout
-                        android:id="@+id/meeting_layout"
-                        android:layout_width="match_parent"
+                        android:id="@+id/user_phone"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="40dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/shadow_round"
-                        android:elevation="5dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="15dp"
-                            android:src="@drawable/ic_meetings" />
+                        android:background="@drawable/shadow_dark_round"
+                        android:gravity="center">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:id="@+id/userMobile"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center"
-                            android:text="@string/meeting"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:drawableStart="@drawable/ic_phone"
+                            android:drawablePadding="5dp"
+                            android:padding="5dp"
+                            android:text="9865074231"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/grievance_layout"
-                        android:layout_width="match_parent"
+                        android:id="@+id/user_location"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_weight="0.5"
-                        android:background="@drawable/shadow_round"
-                        android:elevation="5dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="15dp"
-                            android:src="@drawable/ic_grievance" />
+                        android:background="@drawable/shadow_dark_round"
+                        android:gravity="center">
 
                         <TextView
-                            android:layout_width="120dp"
+                            android:id="@+id/userLocation"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:text="@string/grievance"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:drawableStart="@drawable/ic_location"
+                            android:drawablePadding="5dp"
+                            android:padding="5dp"
+                            android:text="Paguthi"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -288,76 +107,239 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
-                    <LinearLayout
-                        android:id="@+id/interaction_layout"
+                    <TextView
+                        android:id="@+id/userWard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="5dp"
+                        android:text="@string/ward_no"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/userWardNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end|center"
+                        android:padding="5dp"
+                        android:text="@string/ward"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.75dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line_grey" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/user_serial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="5dp"
+                        android:text="@string/serial_no"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/user_serial_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end|center"
+                        android:padding="5dp"
+                        android:text="@string/serial"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.75dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line_grey" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/user_voterId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="5dp"
+                        android:text="@string/voter_id"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/user_voter_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end|center"
+                        android:padding="5dp"
+                        android:text="@string/voterid"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.75dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line_grey" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/user_aadhaar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/roboto_bold"
+                        android:padding="5dp"
+                        android:text="@string/aadhaar_no"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/user_aadhaar_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="end|center"
+                        android:padding="5dp"
+                        android:text="@string/aadhaar"
+                        android:textColor="@color/text_grey"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/meeting_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0.33"
+                    android:background="@drawable/shadow_round"
+                    android:elevation="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_meetings" />
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginBottom="10dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/shadow_round"
-                        android:elevation="5dp"
-                        android:orientation="vertical">
+                        android:gravity="center"
+                        android:text="@string/meeting"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/roboto_medium" />
 
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="15dp"
-                            android:src="@drawable/ic_interaction" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center"
-                            android:text="@string/interaction"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/grievance_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0.33"
+                    android:background="@drawable/shadow_round"
+                    android:elevation="5dp"
+                    android:orientation="vertical">
 
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_grievance" />
 
-                    <LinearLayout
-                        android:id="@+id/plant_donation_layout"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/shadow_round"
-                        android:elevation="5dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="15dp"
-                            android:src="@drawable/ic_plant" />
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:text="@string/plant"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/grievance"
+                        android:textColor="@color/text_black"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/roboto_medium" />
 
                 </LinearLayout>
 
@@ -365,14 +347,14 @@
                     android:id="@+id/document_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_weight="0.34"
                     android:background="@drawable/shadow_round"
                     android:elevation="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -382,14 +364,15 @@
                         android:src="@drawable/ic_folder" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center"
                         android:text="@string/doc"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_black"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/roboto_medium" />
 
                 </LinearLayout>
 
@@ -404,7 +387,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
         android:elevation="5dp"
         android:gravity="center"
         android:orientation="horizontal">
@@ -414,7 +396,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:padding="15dp"
-            android:src="@drawable/ic_user" />
+            android:src="@drawable/ic_user_black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -422,7 +404,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="@string/view_profile"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
