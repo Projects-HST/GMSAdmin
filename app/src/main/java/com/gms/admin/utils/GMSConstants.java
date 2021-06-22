@@ -50,6 +50,9 @@ public class GMSConstants {
     //PAGUTHI LIST URL
     public static final String GET_PAGUTHI = "apiandroid/listPaguthi";
 
+    //OFFICE LIST URL
+    public static final String GET_OFFICE = "apiandroid/list_office";
+
     //DASHBOARD URL
     public static final String GET_DASHBOARD_DETAIL = "apiandroid/dashBoard";
 
@@ -268,6 +271,7 @@ public class GMSConstants {
     public static final String KEY_FATHER_OR_HUSBAND = "father_husband_name";
     public static final String KEY_RELIGION = "religion_name";
     public static final String PAGUTHI_ID = "paguthi_id";
+    public static final String OFFICE_ID = "office_id";
     public static final String PAGUTHI = "paguthi";
     public static final String KEY_WARD = "ward_name";
     public static final String KEY_BOOTH = "booth_name";
@@ -304,6 +308,7 @@ public class GMSConstants {
     public static String SEARCH_STATUS = "search_status";
     public static String SEARCH_TEXT = "keyword";
     public static String SEARCH_TEXT_TA = "search_txt_ta";
+    public static String APP_COLOUR = "app_colour";
 
 
 }

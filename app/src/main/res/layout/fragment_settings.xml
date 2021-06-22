@@ -95,20 +95,6 @@
             android:text="GMS"
             android:textColor="@color/white" />
 
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="@string/app_version"
-            android:textColor="@color/msg_by_grey" />
-
     </RelativeLayout>
 
 </LinearLayout>

@@ -13,17 +13,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +50,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements IServiceListener, DialogClickListener {
+public class MainActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener {
 
     Toolbar toolbar;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     NavigationView navigationView;
     private boolean submenuVisible = false;
     String page;
+    private LinearLayout vConstituentLayout;
+    private RelativeLayout vHome, vConstituents, vConstituent, vMeetings, vGrievance, vUsers, vReport, vSettings, vLogout;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
 
     public static void hideKeyboard(Activity activity) {
         if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
-            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
     }
@@ -95,12 +97,9 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
-//        toolbar.setTitle(getString(R.string.app_name));
-//        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
-
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         page = getIntent().getExtras().getString("page");
@@ -115,10 +114,11 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
     }
+
     private void initializeIDs() {
 
         navigationView = findViewById(R.id.nav_view);
-        profilePic = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        profilePic = navigationView.getHeaderView(0).findViewById(R.id.profile_img);
         name = navigationView.getHeaderView(0).findViewById(R.id.full_name);
         name.setText(PreferenceStorage.getAdminName(this));
         area = navigationView.getHeaderView(0).findViewById(R.id.area);
@@ -130,57 +130,79 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
             profilePic.setImageResource(R.drawable.ic_profile);
         }
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//
+//            // This method will trigger on item Click of navigation menu
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                        switch (menuItem.getItemId()) {
+//
+//                            case R.id.nav_dash:
+//                                changePage(0);
+//                                break;
+//                            case R.id.nav_constituents:
+//                                showItems();
+//                                break;
+//                            case R.id.nav_constituent_sub_one:
+//                                changePage(1);
+//                                break;
+//                            case R.id.nav_constituent_sub_two:
+//                                changePage(2);
+//                                break;
+//                            case R.id.nav_grievance:
+//                                changePage(3);
+//                                break;
+//                            case R.id.nav_staffs:
+//                                changePage(4);
+//                                break;
+//                            case R.id.nav_report:
+//                                changePage(5);
+//                                break;
+//                            case R.id.nav_settings:
+//                                changePage(6);
+//                                break;
+//                            case R.id.nav_logout:
+//                                logout();
+//                                break;
+//                        }
+//                        return true;
+//                    }
+//                });
+//        if (page.equalsIgnoreCase("settings")) {
+//            changePage(6);
+//            navigationView.getMenu().getItem(7).setChecked(true);
+//        } else {
+//            changePage(0);
+//            navigationView.getMenu().getItem(0).setChecked(true);
+//        }
+//
+//        if (PreferenceStorage.getUserRole(this).equalsIgnoreCase("1")) {
+//            navigationView.getMenu().getItem(5).setVisible(true);
+//        } else {
+//            navigationView.getMenu().getItem(5).setVisible(false);
+//        }
+        vHome = navigationView.getHeaderView(0).findViewById(R.id.home_img);
+        vConstituentLayout = navigationView.getHeaderView(0).findViewById(R.id.sub_layout);
+        vConstituents = navigationView.getHeaderView(0).findViewById(R.id.constituents);
+        vConstituent = navigationView.getHeaderView(0).findViewById(R.id.constituent);
+        vMeetings = navigationView.getHeaderView(0).findViewById(R.id.meetings);
+        vGrievance = navigationView.getHeaderView(0).findViewById(R.id.grievance_layout);
+        vUsers = navigationView.getHeaderView(0).findViewById(R.id.users_layout);
+        vReport = navigationView.getHeaderView(0).findViewById(R.id.report_layout);
+        vSettings = navigationView.getHeaderView(0).findViewById(R.id.settings_layout);
+        vLogout = navigationView.getHeaderView(0).findViewById(R.id.sign_out_img);
 
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId()) {
+        vHome.setOnClickListener(this);
+        vConstituents.setOnClickListener(this);
+        vConstituent.setOnClickListener(this);
+        vMeetings.setOnClickListener(this);
+        vGrievance.setOnClickListener(this);
+        vUsers.setOnClickListener(this);
+        vReport.setOnClickListener(this);
+        vSettings.setOnClickListener(this);
+        vLogout.setOnClickListener(this);
 
-                            case R.id.nav_dash:
-                                changePage(0);
-                                break;
-                            case R.id.nav_constituents:
-                                showItems();
-                                break;
-                            case R.id.nav_constituent_sub_one:
-                                changePage(1);
-                                break;
-                            case R.id.nav_constituent_sub_two:
-                                changePage(2);
-                                break;
-                            case R.id.nav_grievance:
-                                changePage(3);
-                                break;
-                            case R.id.nav_staffs:
-                                changePage(4);
-                                break;
-                            case R.id.nav_report:
-                                changePage(5);
-                                break;
-                            case R.id.nav_settings:
-                                changePage(6);
-                                break;
-                            case R.id.nav_logout:
-                                logout();
-                                break;
-                        }
-                        return true;
-                    }
-                });
-        if (page.equalsIgnoreCase("settings")) {
-            changePage(6);
-            navigationView.getMenu().getItem(7).setChecked(true);
-        } else {
-            changePage(0);
-            navigationView.getMenu().getItem(0).setChecked(true);
-        }
-
-        if (PreferenceStorage.getUserRole(this).equalsIgnoreCase("1")) {
-            navigationView.getMenu().getItem(5).setVisible(true);
-        } else {
-            navigationView.getMenu().getItem(5).setVisible(false);
-        }
+        changePage(0);
 
         callGetSubCategoryService();
 
@@ -248,11 +270,9 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
 
     private void showItems() {
         if (!submenuVisible) {
-            navigationView.getMenu().findItem(R.id.nav_constituent_sub_one).setVisible(true);
-            navigationView.getMenu().findItem(R.id.nav_constituent_sub_two).setVisible(true);
+            vConstituentLayout.setVisibility(View.VISIBLE);
         } else {
-            navigationView.getMenu().findItem(R.id.nav_constituent_sub_one).setVisible(false);
-            navigationView.getMenu().findItem(R.id.nav_constituent_sub_two).setVisible(false);
+            vConstituentLayout.setVisibility(View.GONE);
         }
         submenuVisible = !submenuVisible;
     }
@@ -377,8 +397,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
                         try {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                             finish();
-                        }
-                        catch (android.content.ActivityNotFoundException anfe) {
+                        } catch (android.content.ActivityNotFoundException anfe) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                         }
                     }
@@ -404,5 +423,36 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     @Override
     public void onAlertNegativeClicked(int tag) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == vHome) {
+            changePage(0);
+        }
+        else if (view == vConstituents) {
+            showItems();
+        }
+        else if (view == vConstituent) {
+            changePage(1);
+        }
+        else if (view == vMeetings) {
+            changePage(2);
+        }
+        else  if (view == vGrievance) {
+            changePage(3);
+        }
+        else if (view == vUsers) {
+            changePage(4);
+        }
+        else if (view == vReport) {
+            changePage(5);
+        }
+        else if (view == vSettings) {
+            changePage(6);
+        }
+        else if (view == vHome) {
+            logout();
+        }
     }
 }
