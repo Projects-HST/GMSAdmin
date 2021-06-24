@@ -528,6 +528,24 @@ public class PreferenceStorage {
     /*End*/
 
     /*To store mobile number*/
+    public static void saveOfficeID(Context context, String type) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.OFFICE_ID, type);
+        editor.apply();
+    }
+
+    public static String getOfficeID(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String mobileNo;
+        mobileNo = sharedPreferences.getString(GMSConstants.OFFICE_ID, "");
+        return mobileNo;
+    }
+    /*End*/
+
+    /*To store mobile number*/
     public static void saveWard(Context context, String type) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);

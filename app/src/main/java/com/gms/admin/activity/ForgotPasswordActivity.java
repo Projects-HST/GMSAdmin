@@ -41,27 +41,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
-
-        edtEmailOrMobileNo = (TextInputEditText) findViewById(R.id.email_or_phone);
-        btnSubmit = (Button) findViewById(R.id.signin);
-        btnSubmit.setOnClickListener(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //What to do on back clicked
-                finish();
-            }
-        });
-
-        serviceHelper = new ServiceHelper(this);
-        serviceHelper.setServiceListener(this);
-        progressDialogHelper = new ProgressDialogHelper(this);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -52,12 +54,14 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
     private SimpleDateFormat mDateFormatter;
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
-    private Button search;
+    private TextView search, clearData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_staff);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
@@ -74,6 +78,13 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
         dateTo = findViewById(R.id.to_date);
 
         search = findViewById(R.id.search);
+        clearData = findViewById(R.id.clear_data);
+        clearData.setOnClickListener(this);
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(10);
+        drawable.setColor(Color.parseColor(PreferenceStorage.getAppBaseColor(this)));
+        search.setBackground(drawable);
 
         dateFrom.setOnClickListener(this);
         dateTo.setOnClickListener(this);
@@ -99,6 +110,14 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
             if (validateFields()) {
                 sendSearch();
             }
+        }
+        if (v == clearData) {
+            dateFrom.setText("");
+            dateFrom.setHint(R.string.from_date);
+
+            dateTo.setText("");
+            dateTo.setHint(R.string.to_date);
+
         }
     }
 

@@ -48,6 +48,7 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.PreferenceStorage;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,6 +106,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     private TextView showdata, findData, clearData;
     private RelativeLayout dataSelectionLayout;
     private boolean submenuVisible = false;
+    private TabLayout tabLayout;
 
     public static DashboardFragment newInstance(int position) {
         DashboardFragment frag = new DashboardFragment();
@@ -124,7 +126,46 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
 
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.dash)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.foot_fall)));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    rootView.findViewById(R.id.graph_layout).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.layer_one).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.layout_two).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.layout_three).setVisibility(View.VISIBLE);
+                } else if (tab.getPosition() == 1) {
+                    rootView.findViewById(R.id.graph_layout).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.layer_one).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.layout_two).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.layout_three).setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    rootView.findViewById(R.id.graph_layout).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.layer_one).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.layout_two).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.layout_three).setVisibility(View.VISIBLE);
+                } else if (tab.getPosition() == 1) {
+                    rootView.findViewById(R.id.graph_layout).setVisibility(View.VISIBLE);
+                    rootView.findViewById(R.id.layer_one).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.layout_two).setVisibility(View.GONE);
+                    rootView.findViewById(R.id.layout_three).setVisibility(View.GONE);
+                }
+            }
+        });
         fromDate = rootView.findViewById(R.id.from_date);
         toDate = rootView.findViewById(R.id.to_date);
 

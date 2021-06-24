@@ -6,13 +6,21 @@
     android:layout_height="match_parent"
     android:background="@color/bg_new"
     android:orientation="vertical">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/dashboard_banner" />
+
+    <ScrollView
+        android:id="@+id/scrolView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_layout"
+        android:scrollbars="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,44 +29,44 @@
         <RelativeLayout
             android:id="@+id/sho_hide_data_layout"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_alignParentTop="true"
             android:background="@color/white"
-            android:layout_height="60dp"
             android:elevation="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/choose_data"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:gravity="center"
+                android:text="@string/choose_data"
+                android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/show_data"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:text="+"
                 android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:textColor="@color/black"/>
+                android:text="+"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/data_layout"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/sho_hide_data_layout"
             android:background="@color/bg_new"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/dateLayout1"
@@ -184,8 +192,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
                 android:layout_below="@+id/select_office"
+                android:layout_marginHorizontal="10dp"
                 android:elevation="10dp"
                 android:orientation="horizontal">
 
@@ -193,29 +201,28 @@
                     android:id="@+id/find_data"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="40dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="0.5"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:text="Find"
-                    android:textColor="@color/black"
-                    android:padding="10dp" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/clear_data"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="40dp"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/btn_outline_grey"
+                    android:layout_marginEnd="40dp"
                     android:layout_weight="0.5"
+                    android:background="@drawable/btn_outline_grey"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:text="Clear"
-                    android:textColor="@color/black"
-                    android:padding="10dp" />
+                    android:textColor="@color/black" />
 
             </LinearLayout>
-
 
 
         </RelativeLayout>
@@ -313,23 +320,27 @@
 
         </RelativeLayout>
 
-        <ScrollView
-            android:id="@+id/scrolView"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/data_layout"
-            android:scrollbars="vertical">
+            app:tabIndicatorColor="@color/black"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/black">
+
+        </com.google.android.material.tabs.TabLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:layout_below="@+id/tab_layout">
 
                 <RelativeLayout
                     android:id="@+id/layer_one"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -340,7 +351,8 @@
                         android:fontFamily="@font/roboto_medium"
                         android:text="@string/dash"
                         android:textColor="@color/title_black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/constituents"
@@ -707,7 +719,8 @@
                     android:layout_marginTop="30dp"
                     android:text="@string/foot_fall"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/graph_layout"
@@ -748,8 +761,8 @@
 
             </RelativeLayout>
 
-        </ScrollView>
-
     </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>

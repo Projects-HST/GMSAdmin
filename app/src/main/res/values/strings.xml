@@ -61,7 +61,7 @@
     <string name="meetings">Meetings</string>
     <string name="grievances">Grievances</string>
     <string name="questions">Questions</string>
-    <string name="foot_fall">Foot Fall Report</string>
+    <string name="foot_fall">Foot Fall Graph</string>
     <string name="grievance_graph">Grievance Progress Report</string>
     <string name="meetings_graph">Constituent Meetings Report</string>
     <string name="view_more">View Reviews</string>
@@ -243,6 +243,18 @@
     <!--Report Location Page Strings-->
     <string name="report_location_title">Location Report</string>
     <string name="select_location">Select Location</string>
+
+    <!--Report Grievance Page Strings-->
+    <string name="report_grievance_title">Grievance Report</string>
+
+    <!--Report Festival Page Strings-->
+    <string name="report_festival_title">Festival Report</string>
+
+    <!--Report Video Page Strings-->
+    <string name="report_video_title">Video Report</string>
+
+    <!--Report Constituent Page Strings-->
+    <string name="report_constituent_title">Constituent Report</string>
 
     <!--Report Meeting Page Strings-->
     <string name="report_meeting_title">Meeting Report</string>

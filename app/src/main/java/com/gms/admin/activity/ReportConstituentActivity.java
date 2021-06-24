@@ -9,27 +9,21 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -45,21 +39,17 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.PreferenceStorage;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class ReportBirthdayActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportBirthdayListAdapter.OnItemClickListener, DatePickerDialog.OnDateSetListener {
+public class ReportConstituentActivity  extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener{
     private static final String TAG = ReportStatusActivity.class.getName();
     private String checkRes = "", monthId = "0";
     private String paguthiId = "0", officeId = "0";
@@ -87,9 +77,11 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     private int totalCount = 0, checkrun = 0;
     private MenuItem searchItem ;
     private ReportBirthdayListAdapter mAdapter ;
-    private TextView dateFrom, dateTo, status,office, paguthi;
+    private TextView office, paguthi;
     private LinearLayout selectOffice,selectPaguthi, selectStatus;
     private TextView search, clearData;
+    private CheckBox whatsappCheck, phoneCheck, emailCheck, dobCheck, voterCheck;
+    private String whatsappString = "0", phoneString = "0", emailString = "0", dobString = "0", voterString = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,14 +101,16 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         });
         toolbar.setTitle(getString(R.string.report_birthday_title));
 
-        dateFrom = findViewById(R.id.from_date);
-        dateTo = findViewById(R.id.to_date);
-        status = findViewById(R.id.report_month);
         paguthi = findViewById(R.id.report_paguthi);
         selectStatus = findViewById(R.id.status_month);
         selectPaguthi = findViewById(R.id.paguthi_select);
-
+        whatsappCheck = findViewById(R.id.whatsapp_no);
+        phoneCheck = findViewById(R.id.phone_no);
+        emailCheck = findViewById(R.id.email_id);
+        dobCheck = findViewById(R.id.date_of_birth);
+        voterCheck = findViewById(R.id.voter_id);
         office = findViewById(R.id.text_office);
+
         selectOffice = findViewById(R.id.select_office);
         search = findViewById(R.id.search);
         clearData = findViewById(R.id.clear_data);
@@ -130,8 +124,6 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         selectOffice.setOnClickListener(this);
 
         selectStatus.setOnClickListener(this);
-        dateFrom.setOnClickListener(this);
-        dateTo.setOnClickListener(this);
         selectPaguthi.setOnClickListener(this);
 
         mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -139,68 +131,12 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         serviceHelper = new ServiceHelper(this);
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
-
-        spinnerData = new ArrayList<>();
-        spinnerData.add(new SpinnerData("01", "January"));
-        spinnerData.add(new SpinnerData("02", "February"));
-        spinnerData.add(new SpinnerData("03", "March"));
-        spinnerData.add(new SpinnerData("04", "April"));
-        spinnerData.add(new SpinnerData("05", "May"));
-        spinnerData.add(new SpinnerData("06", "June"));
-        spinnerData.add(new SpinnerData("07", "July"));
-        spinnerData.add(new SpinnerData("08", "August"));
-        spinnerData.add(new SpinnerData("09", "September"));
-        spinnerData.add(new SpinnerData("10", "October"));
-        spinnerData.add(new SpinnerData("11", "November"));
-        spinnerData.add(new SpinnerData("12", "December"));
-
-        //fill data in spinner
-        spinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, spinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG, "getview called" + position);
-                View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
-                TextView gendername = (TextView) view.findViewById(R.id.data_name);
-                gendername.setText(spinnerData.get(position).getName());
-
-                // ... Fill in other views ...
-                return view;
-            }
-        };
-
-    }
-
-    private void getCategoryList(String count) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            jsonObject.put(GMSConstants.KEY_MONTH, monthId);
-            jsonObject.put(GMSConstants.KEY_OFFSET, count);
-            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
-            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_BIRTHDAY;
-        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+        getFestival();
     }
 
     @Override
     public void onClick(View v) {
 
-        if (v == dateFrom) {
-            fr = true;
-            t = false;
-            showBirthdayDate();
-        }
-        if (v == dateTo) {
-            fr = false;
-            t = true;
-            showBirthdayDate();
-        }
         if (v == selectStatus) {
             showSpinnerData();
         }
@@ -216,55 +152,10 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
             }
         }
         if (v == clearData) {
-            dateFrom.setText("");
-            dateFrom.setHint(R.string.from_date);
-
-            dateTo.setText("");
-            dateTo.setHint(R.string.to_date);
-
             paguthiId = "0";
             officeId = "0";
             paguthi.setText("Select Paguthi");
             office.setText("Select Office");
-        }
-    }
-
-    private void showBirthdayDate() {
-        Log.d(TAG, "Show the birthday date");
-        Calendar newCalendar = Calendar.getInstance();
-        String currentdate = "";
-        if (fr) {
-            currentdate = dateFrom.getText().toString();
-        } else {
-            currentdate = dateTo.getText().toString();
-        }
-        Log.d(TAG, "current date is" + currentdate);
-        int month = newCalendar.get(Calendar.MONTH);
-        int day = newCalendar.get(Calendar.DAY_OF_MONTH);
-        int year = newCalendar.get(Calendar.YEAR);
-        if ((currentdate != null) && !(currentdate.isEmpty())) {
-            //extract the date/month and year
-            try {
-                Date startDate = mDateFormatter.parse(currentdate);
-                Calendar newDate = Calendar.getInstance();
-
-                newDate.setTime(startDate);
-                month = newDate.get(Calendar.MONTH);
-                day = newDate.get(Calendar.DAY_OF_MONTH);
-                year = newDate.get(Calendar.YEAR);
-                Log.d(TAG, "month" + month + "day" + day + "year" + year);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } finally {
-                mDatePicker = new DatePickerDialog(this, this, year, month, day);
-                mDatePicker.show();
-            }
-        } else {
-            Log.d(TAG, "show default date");
-
-            mDatePicker = new DatePickerDialog(this, this, year, month, day);
-            mDatePicker.show();
         }
     }
 
@@ -346,14 +237,6 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
 
     private boolean validateFields() {
 
-        if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
-            return false;
-        }
-        if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
-            return false;
-        }
         if (paguthiId.equalsIgnoreCase("0")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
             return false;
@@ -362,36 +245,11 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
             AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
             return false;
         }
-        if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {
+        if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
             return false;
         }
-        if (!checkTime()) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
-            return false;
-        }
         return true;
-    }
-
-    private boolean checkTime() {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String dateString1 = dateFrom.getText().toString();
-            String dateString2 = dateTo.getText().toString();
-            Date date1 = null;
-            Date date2 = null;
-            date1 = sdf.parse(dateString1);
-            date2 = sdf.parse(dateString2);
-            if (date2.before(date1)) {
-                return false;
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.i(TAG, "parce exception");
-        }
-        return true;
-
     }
 
     private void getFestival() {
@@ -442,14 +300,36 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     }
 
     private void sendSearch() {
-        PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
-        PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
+        checBox();
         PreferenceStorage.saveReportStatus(this, monthId);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
-        intt.putExtra("page", "birthday");
+        intt.putExtra("page", "constituent");
+        intt.putExtra("wh", whatsappString);
+        intt.putExtra("ph", phoneString);
+        intt.putExtra("email", emailString);
+        intt.putExtra("dob", dobString);
+        intt.putExtra("vote", voterString);
         startActivity(intt);
+    }
+
+    private void checBox() {
+        if (whatsappCheck.isChecked()) {
+            whatsappString = "1";
+        }
+        if (phoneCheck.isChecked()) {
+            phoneString = "1";
+        }
+        if (emailCheck.isChecked()) {
+            emailString = "1";
+        }
+        if (dobCheck.isChecked()) {
+            dobString = "1";
+        }
+        if (voterCheck.isChecked()) {
+            voterString = "1";
+        }
     }
 
     private String getserverdateformat(String dd) {
@@ -579,6 +459,33 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                             return view;
                         }
                     };
+                }if (checkRes.equalsIgnoreCase("festival")) {
+                    JSONArray getData = response.getJSONArray("festivals");
+                    int getLength = getData.length();
+                    String id = "";
+                    String name = "";
+                    spinnerData = new ArrayList<>();
+                    spinnerData.add(new SpinnerData("ALL", "All"));
+
+                    for (int i = 0; i < getLength; i++) {
+                        id = getData.getJSONObject(i).getString("id");
+                        name = capitalizeString(getData.getJSONObject(i).getString("festival_name"));
+                        spinnerData.add(new SpinnerData(id, name));
+                    }
+                    //fill data in spinner
+                    spinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, spinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            Log.d(TAG, "getview called" + position);
+                            View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
+                            TextView gendername = (TextView) view.findViewById(R.id.data_name);
+                            gendername.setText(spinnerData.get(position).getName());
+
+                            // ... Fill in other views ...
+                            return view;
+                        }
+                    };
+                    getPaguthi();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -617,20 +524,4 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         }
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-        if (fr) {
-            dateFrom.setText(mDateFormatter.format(date.getTime()));
-        } else {
-            dateTo.setText(mDateFormatter.format(date.getTime()));
-        }
-        fr = false;
-        t = false;
-    }
 }

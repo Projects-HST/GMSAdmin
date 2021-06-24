@@ -32,6 +32,7 @@ public class ConstituencyIdActivity extends AppCompatActivity implements IServic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constituency_id);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         constituency_code = (TextInputEditText)findViewById(R.id.txt_code);
         next = (TextView)findViewById(R.id.next);

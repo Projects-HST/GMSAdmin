@@ -57,6 +57,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grievance_detail);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         colour = Color.parseColor(PreferenceStorage.getAppBaseColor(this));
 

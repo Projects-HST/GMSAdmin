@@ -195,6 +195,24 @@
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".activity.ReportConstituentActivity"
+            android:label="@string/report_birthday_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.ReportVideoActivity"
+            android:label="@string/report_birthday_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activity.ReportFestivalActivity"
+            android:label="@string/report_birthday_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".activity.SearchResultBirthdayActivity"
             android:label="@string/report_birthday_title"
             android:screenOrientation="portrait"

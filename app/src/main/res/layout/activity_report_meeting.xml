@@ -91,17 +91,99 @@
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/search"
+            <LinearLayout
+                android:id="@+id/paguthi_select"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
-                android:background="@drawable/btn_round_color"
-                android:text="@string/search"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="30dp"
-                android:textColor="@color/white" />
+                android:background="@drawable/btn_outline_grey"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/report_paguthi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="20dp"
+                    android:text="@string/select_paguthi"
+                    android:textColor="@color/msg_by_grey" />
+
+                <ImageView
+                    android:id="@+id/img_drop"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_drop_down" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/select_office"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/select_area"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_outline_grey">
+
+                <TextView
+                    android:id="@+id/text_office"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:maxLines="1"
+                    android:text="@string/select_office"
+                    android:textColor="@color/text_grey"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_drop_down" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_below="@+id/select_office"
+                android:elevation="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Search"
+                    android:textColor="@color/black"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:id="@+id/clear_data"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/btn_outline_grey"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Clear"
+                    android:textColor="@color/black"
+                    android:padding="10dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
