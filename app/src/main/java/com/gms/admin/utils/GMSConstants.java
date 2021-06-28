@@ -144,13 +144,25 @@ public class GMSConstants {
     public static final String GET_STAFF_DETAILS = "apiandroid/staffDetails";
 
     //VERSION CHECK URL
-    public static final String GET_REPORT_STATUS = "apiandroid/reportStatusnew";
+    public static final String GET_REPORT_STATUS = "apiandroid/reportStatus";
 
     //VERSION CHECK URL
     public static final String GET_REPORT_STATUS_SEARCH = "apiandroid/reportStatussearch";
 
     //VERSION CHECK URL
-    public static final String GET_REPORT_CATEGORY = "apiandroid/reportCategorynew/";
+    public static final String GET_REPORT_GRIEVANCE = "apiandroid/reportGrievances/";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_CONSTITUENT = "apiandroid/reportConstituent/";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_VIDEO = "apiandroid/reportVideo/";
+
+    //VERSION CHECK URL
+    public static final String GET_FESTIVAL = "apiandroid/getFestivals/";
+
+    //VERSION CHECK URL
+    public static final String GET_REPORT_FESTIVAL = "apiandroid/reportFestival/";
 
     //VERSION CHECK URL
     public static final String GET_REPORT_CATEGORY_SEARCH = "apiandroid/reportCategorysearch/";
@@ -160,6 +172,9 @@ public class GMSConstants {
 
     //VERSION CHECK URL
     public static final String GET_SUB_CATEGORY_LIST = "apiandroid/activeSubcategory";
+
+    //VERSION CHECK URL
+    public static final String GET_GRIEVANCE_SUB_CATEGORY_LIST = "apiandroid/grivancesSubcategory";
 
     //VERSION CHECK URL
     public static final String GET_REPORT_SUB_CATEGORY = "apiandroid/reportsubCategorynew";
@@ -174,7 +189,7 @@ public class GMSConstants {
     public static final String GET_REPORT_LOCATION_SEARCH = "apiandroid/reportLocationsearch";
 
     //VERSION CHECK URL
-    public static final String GET_REPORT_MEETING = "apiandroid/reportMeetingsnew";
+    public static final String GET_REPORT_MEETING = "apiandroid/reportMeetings";
 
     //VERSION CHECK URL
     public static final String GET_REPORT_MEETING_SEARCH = "apiandroid/reportMeetingssearch";
@@ -183,7 +198,7 @@ public class GMSConstants {
     public static final String GET_REPORT_STAFF = "apiandroid/reportStaff/";
 
     //VERSION CHECK URL
-    public static final String GET_REPORT_BIRTHDAY = "apiandroid/reportBirthdaynew";
+    public static final String GET_REPORT_BIRTHDAY = "apiandroid/reportBirthday";
 
     //VERSION CHECK URL
     public static final String GET_REPORT_BIRTHDAY_SEARCH = "apiandroid/reportBirthdaysearch";
@@ -253,6 +268,7 @@ public class GMSConstants {
     public static final String KEY_CONST_PROFILE_PIC = "const_profile_pic";
     public static final String KEY_USER_MAIL = "email";
     public static final String KEY_ADMIN_MAIL = "email";
+    public static final String KEY_MAIL_ID = "email_id";
     public static final String KEY_USER_MAIL_STATUS = "email_verify_status";
     public static final String KEY_USER_TYPE = "user_type";
     public static final String KEY_FROM_DATE = "from_date";
@@ -263,7 +279,11 @@ public class GMSConstants {
     public static final String KEY_GRIEVANCE_TYPE = "grievance_type";
     public static final String KEY_OFFSET = "offset";
     public static final String KEY_CATEGORY = "category";
+    public static final String KEY_FESTIVAL = "festival";
+    public static final String KEY_CATEGORY_ID = "category_id";
+    public static final String KEY_GRIEVANCE_TYPE_ID = "grievance_type_id";
     public static final String KEY_SUB_CATEGORY = "sub_category";
+    public static final String KEY_SUB_CATEGORY_ID = "sub_category_id";
     public static final String KEY_MONTH = "select_month";
     public static final String KEY_ROWCOUNT = "rowcount";
     public static final String KEY_PINCODE = "pin_code";
@@ -272,6 +292,7 @@ public class GMSConstants {
     public static final String KEY_RELIGION = "religion_name";
     public static final String PAGUTHI_ID = "paguthi_id";
     public static final String OFFICE_ID = "office_id";
+    public static final String OFFICE = "office";
     public static final String PAGUTHI = "paguthi";
     public static final String KEY_WARD = "ward_name";
     public static final String KEY_BOOTH = "booth_name";

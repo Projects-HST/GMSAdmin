@@ -9,27 +9,21 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -45,7 +39,6 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.PreferenceStorage;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +52,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class ReportBirthdayActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportBirthdayListAdapter.OnItemClickListener, DatePickerDialog.OnDateSetListener {
+public class ReportFestivalActivity  extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportBirthdayListAdapter.OnItemClickListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = ReportStatusActivity.class.getName();
     private String checkRes = "", monthId = "0";
     private String paguthiId = "0", officeId = "0";
@@ -139,44 +132,13 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         serviceHelper = new ServiceHelper(this);
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
-
-        spinnerData = new ArrayList<>();
-        spinnerData.add(new SpinnerData("01", "January"));
-        spinnerData.add(new SpinnerData("02", "February"));
-        spinnerData.add(new SpinnerData("03", "March"));
-        spinnerData.add(new SpinnerData("04", "April"));
-        spinnerData.add(new SpinnerData("05", "May"));
-        spinnerData.add(new SpinnerData("06", "June"));
-        spinnerData.add(new SpinnerData("07", "July"));
-        spinnerData.add(new SpinnerData("08", "August"));
-        spinnerData.add(new SpinnerData("09", "September"));
-        spinnerData.add(new SpinnerData("10", "October"));
-        spinnerData.add(new SpinnerData("11", "November"));
-        spinnerData.add(new SpinnerData("12", "December"));
-
-        //fill data in spinner
-        spinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, spinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                Log.d(TAG, "getview called" + position);
-                View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
-                TextView gendername = (TextView) view.findViewById(R.id.data_name);
-                gendername.setText(spinnerData.get(position).getName());
-
-                // ... Fill in other views ...
-                return view;
-            }
-        };
-
+        getFestival();
     }
 
-    private void getCategoryList(String count) {
+    private void getFestivalList() {
         JSONObject jsonObject = new JSONObject();
         try {
 
-            jsonObject.put(GMSConstants.KEY_MONTH, monthId);
-            jsonObject.put(GMSConstants.KEY_OFFSET, count);
-            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
 
         } catch (JSONException e) {
@@ -184,7 +146,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         }
 
         progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_BIRTHDAY;
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_FESTIVAL;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
 
@@ -448,7 +410,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
-        intt.putExtra("page", "birthday");
+        intt.putExtra("page", "festival");
         startActivity(intt);
     }
 
@@ -579,6 +541,33 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                             return view;
                         }
                     };
+                }if (checkRes.equalsIgnoreCase("festival")) {
+                    JSONArray getData = response.getJSONArray("festivals");
+                    int getLength = getData.length();
+                    String id = "";
+                    String name = "";
+                    spinnerData = new ArrayList<>();
+                    spinnerData.add(new SpinnerData("ALL", "All"));
+
+                    for (int i = 0; i < getLength; i++) {
+                        id = getData.getJSONObject(i).getString("id");
+                        name = capitalizeString(getData.getJSONObject(i).getString("festival_name"));
+                        spinnerData.add(new SpinnerData(id, name));
+                    }
+                    //fill data in spinner
+                    spinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, spinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            Log.d(TAG, "getview called" + position);
+                            View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
+                            TextView gendername = (TextView) view.findViewById(R.id.data_name);
+                            gendername.setText(spinnerData.get(position).getName());
+
+                            // ... Fill in other views ...
+                            return view;
+                        }
+                    };
+                    getPaguthi();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         page = getIntent().getExtras().getString("page");
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         initializeNavigationDrawer();
         initializeService();
         initializeIDs();

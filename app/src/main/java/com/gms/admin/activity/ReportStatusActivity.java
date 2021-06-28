@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,16 +26,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.gms.admin.R;
-import com.gms.admin.adapter.ConstituentListAdapter;
 import com.gms.admin.bean.support.SpinnerData;
-import com.gms.admin.fragment.DashboardFragment;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 
 import org.json.JSONArray;
@@ -54,26 +49,29 @@ import java.util.Locale;
 
 public class ReportStatusActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = ReportStatusActivity.class.getName();
-    private String checkRes = "", paguthiId = "0";
+    private String checkRes = "", paguthiId = "0", officeId = "0";
     private SearchView searchView;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
-    private ArrayList<SpinnerData> spinnerData;
-    private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter = null;
+    private ArrayList<SpinnerData> paguthispinnerData;
+    private ArrayAdapter<SpinnerData> paguthispinnerDataArrayAdapter = null;
+    private ArrayList<SpinnerData> officespinnerData;
+    private ArrayAdapter<SpinnerData> officespinnerDataArrayAdapter;
     private ArrayList<String> statusSpinnerData = new ArrayList<>();
     private ArrayAdapter<String> statusSpinnerDataArrayAdapter = null;
-    private TextView dateFrom, dateTo, status, paguthi;
-    private LinearLayout selectPaguthi, selectStatus;
+    private TextView dateFrom, dateTo, status,office, paguthi;
+    private LinearLayout selectOffice,selectPaguthi, selectStatus;
     private SimpleDateFormat mDateFormatter;
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
-    private TextView search;
+    private TextView search, clearData;
     private String A = "ALL", P = "PROCESSING", C = "COMPLETED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_status);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);
@@ -92,20 +90,24 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         paguthi = findViewById(R.id.report_paguthi);
         selectStatus = findViewById(R.id.status_select);
         selectPaguthi = findViewById(R.id.paguthi_select);
+
+        office = findViewById(R.id.text_office);
+        selectOffice = findViewById(R.id.select_office);
         search = findViewById(R.id.search);
-
-        dateFrom.setOnClickListener(this);
-        dateTo.setOnClickListener(this);
-        selectPaguthi.setOnClickListener(this);
-        selectStatus.setOnClickListener(this);
-        search.setOnClickListener(this);
-
+        clearData = findViewById(R.id.clear_data);
+        clearData.setOnClickListener(this);
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setCornerRadius(10);
         drawable.setColor(Color.parseColor(PreferenceStorage.getAppBaseColor(this)));
-
         search.setBackground(drawable);
+        search.setOnClickListener(this);
+        selectOffice.setOnClickListener(this);
+
+        selectStatus.setOnClickListener(this);
+        dateFrom.setOnClickListener(this);
+        dateTo.setOnClickListener(this);
+        selectPaguthi.setOnClickListener(this);
 
         mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
@@ -153,10 +155,25 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         if (v == selectPaguthi) {
             showSpinnerData();
         }
+        if (v == selectOffice) {
+            showOfficeSpinnerData();
+        }
         if (v == search) {
             if (validateFields()) {
                 sendSearch();
             }
+        }
+        if (v == clearData) {
+            dateFrom.setText("");
+            dateFrom.setHint(R.string.from_date);
+
+            dateTo.setText("");
+            dateTo.setHint(R.string.to_date);
+
+            paguthiId = "0";
+            officeId = "0";
+            paguthi.setText("Select Paguthi");
+            office.setText("Select Office");
         }
     }
 
@@ -168,11 +185,11 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         header.setText("Select Paguthi");
         builderSingle.setCustomTitle(view);
 
-        builderSingle.setAdapter(spinnerDataArrayAdapter,
+        builderSingle.setAdapter(paguthispinnerDataArrayAdapter,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SpinnerData spinnerDatas = spinnerData.get(which);
+                        SpinnerData spinnerDatas = paguthispinnerData.get(which);
                         paguthi.setText(spinnerDatas.getName());
                         paguthiId = spinnerDatas.getId();
 //                        rotate(90.0f, 0.0f);
@@ -185,6 +202,27 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
 //                rotate(90.0f, 0.0f);
             }
         });
+    }
+
+    private void showOfficeSpinnerData() {
+        Log.d(TAG, "Show timing lists");
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.spinner_header_layout, null);
+        TextView header = (TextView) view.findViewById(R.id.spinner_header);
+        header.setText(getString(R.string.select_office));
+        builderSingle.setCustomTitle(view);
+
+        builderSingle.setAdapter(officespinnerDataArrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SpinnerData spinnerDatas = officespinnerData.get(which);
+                        office.setText(spinnerDatas.getName());
+                        officeId = spinnerDatas.getId();
+//                        getDashboard();
+                    }
+                });
+        builderSingle.show();
     }
 
     private void showStatusData() {
@@ -227,10 +265,15 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
             AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
             return false;
         }
+        if (officeId.equalsIgnoreCase("0")) {
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
+            return false;
+        }
         if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
             return false;
-        } if (!checkTime()) {
+        }
+        if (!checkTime()) {
             AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
             return false;
         }
@@ -274,6 +317,22 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
 
+    private void getOffice() {
+        checkRes = "office";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_CONSTITUENCY_ID, PreferenceStorage.getConstituencyID(this));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_OFFICE;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
     private void sendSearch() {
         PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
         PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
@@ -297,6 +356,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
         }
         PreferenceStorage.saveReportStatus(this, stat);
         PreferenceStorage.savePaguthiID(this, paguthiId);
+        PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
         intt.putExtra("page", "status");
         startActivity(intt);
@@ -330,13 +390,13 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this,this, year, month, day);
+                mDatePicker = new DatePickerDialog(this, this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(this,this, year, month, day);
+            mDatePicker = new DatePickerDialog(this, this, year, month, day);
             mDatePicker.show();
         }
     }
@@ -382,7 +442,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
             if (!found && Character.isLetter(chars[i])) {
                 chars[i] = Character.toUpperCase(chars[i]);
                 found = true;
-            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+            } else if (Character.isWhitespace(chars[i]) || chars[i] == '.' || chars[i] == '\'') { // You can add other chars here
                 found = false;
             }
         }
@@ -400,23 +460,50 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
                     int getLength = getData.length();
                     String id = "";
                     String name = "";
-                    spinnerData = new ArrayList<>();
-                    spinnerData.add(new SpinnerData("ALL", "All"));
+                    paguthispinnerData = new ArrayList<>();
+                    paguthispinnerData.add(new SpinnerData("ALL", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
                         name = capitalizeString(getData.getJSONObject(i).getString("paguthi_name"));
-                        spinnerData.add(new SpinnerData(id, name));
+                        paguthispinnerData.add(new SpinnerData(id, name));
                     }
 
                     //fill data in spinner
-                    spinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, spinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                    paguthispinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, paguthispinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
                         @Override
                         public View getView(int position, View convertView, ViewGroup parent) {
                             Log.d(TAG, "getview called" + position);
                             View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
                             TextView gendername = (TextView) view.findViewById(R.id.data_name);
-                            gendername.setText(spinnerData.get(position).getName());
+                            gendername.setText(paguthispinnerData.get(position).getName());
+
+                            // ... Fill in other views ...
+                            return view;
+                        }
+                    };
+                    getOffice();
+                }if (checkRes.equalsIgnoreCase("office")) {
+                    JSONArray getData = response.getJSONArray("list_details");
+                    int getLength = getData.length();
+                    String id = "";
+                    String name = "";
+                    officespinnerData = new ArrayList<>();
+                    officespinnerData.add(new SpinnerData("ALL", "All"));
+
+                    for (int i = 0; i < getLength; i++) {
+                        id = getData.getJSONObject(i).getString("id");
+                        name = capitalizeString(getData.getJSONObject(i).getString("office_name"));
+                        officespinnerData.add(new SpinnerData(id, name));
+                    }
+                    //fill data in spinner
+                    officespinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, officespinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            Log.d(TAG, "getview called" + position);
+                            View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
+                            TextView gendername = (TextView) view.findViewById(R.id.data_name);
+                            gendername.setText(officespinnerData.get(position).getName());
 
                             // ... Fill in other views ...
                             return view;

@@ -71,6 +71,7 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 //        getSupportActionBar().hide();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
         setSupportActionBar(toolbar);

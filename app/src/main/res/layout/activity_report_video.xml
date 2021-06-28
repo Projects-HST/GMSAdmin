@@ -25,7 +25,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
@@ -33,94 +32,18 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/ic_report_birthday" />
+                    android:src="@drawable/ic_video_report" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/birthday"
+                    android:text="@string/video"
+                    android:layout_gravity="center_horizontal"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/black" />
 
-                <LinearLayout
-                    android:id="@+id/from_date_select"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/btn_outline_grey"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/from_date"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.3"
-                        android:drawableStart="@drawable/ic_calendar"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="20dp"
-                        android:text="@string/from_date"
-                        android:textColor="@color/msg_by_grey" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/to_date_select"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/btn_outline_grey"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/to_date"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.3"
-                        android:drawableStart="@drawable/ic_calendar"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="20dp"
-                        android:text="@string/to_date"
-                        android:textColor="@color/msg_by_grey" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/status_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/btn_outline_grey"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/report_month"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.3"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="20dp"
-                        android:text="@string/select_month"
-                        android:textColor="@color/msg_by_grey" />
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="12dp"
-                        android:src="@drawable/ic_drop_down" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/paguthi_select"
@@ -129,6 +52,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/btn_outline_grey"
                     android:orientation="horizontal">
 
@@ -185,6 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/select_office"
                     android:elevation="10dp"
                     android:orientation="horizontal">

@@ -33,7 +33,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/ic_report_birthday" />
+                    android:src="@drawable/ic_festival_wishes" />
 
                 <TextView
                     android:layout_width="wrap_content"

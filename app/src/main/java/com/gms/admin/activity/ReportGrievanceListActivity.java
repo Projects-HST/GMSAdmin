@@ -80,6 +80,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_grievance_list);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
 
@@ -120,18 +121,30 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
             }
         });
 
-        if (page.equalsIgnoreCase("category")) {
-            toolbar.setTitle(getString(R.string.report_category_title));
-            getCategoryList(String.valueOf(listcount));
-        } else if (page.equalsIgnoreCase("status")) {
+        if (page.equalsIgnoreCase("status")) {
             toolbar.setTitle(getString(R.string.report_status_title));
-            getUsersList(String.valueOf(listcount));
-        } else if (page.equalsIgnoreCase("sub_category")) {
-            toolbar.setTitle(getString(R.string.report_sub_category_title));
-            getSubCategoryList(String.valueOf(listcount));
-        } else if (page.equalsIgnoreCase("location")) {
-            toolbar.setTitle(getString(R.string.report_location_title));
-            getLocationList(String.valueOf(listcount));
+            getReportStatusList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("grievance")) {
+            toolbar.setTitle(getString(R.string.report_grievance_title));
+            getReportGrievanceList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("meeting")) {
+            toolbar.setTitle(getString(R.string.report_meeting_title));
+            getMeetingReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("birthday")) {
+            toolbar.setTitle(getString(R.string.report_birthday_title));
+            getBirthdayReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("festival")) {
+            toolbar.setTitle(getString(R.string.report_festival_title));
+            getFestivalReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("constituent")) {
+            toolbar.setTitle(getString(R.string.report_constituent_title));
+            getContituentReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("video")) {
+            toolbar.setTitle(getString(R.string.report_video_title));
+            getReportVideoList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("staff")) {
+            toolbar.setTitle(getString(R.string.report_staff_title));
+            getReportStaffList(String.valueOf(listcount));
         }
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
@@ -176,85 +189,34 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
 
     private void loadmore() {
         listcount = listcount + 50;
-        if (page.equalsIgnoreCase("category")) {
-            getCategoryList(String.valueOf(listcount));
-        } else if (page.equalsIgnoreCase("status")) {
-            getUsersList(String.valueOf(listcount));
-        } else if (page.equalsIgnoreCase("sub_category")) {
-            getSubCategoryList(String.valueOf(listcount));
-        } else if (page.equalsIgnoreCase("location")) {
-            getLocationList(String.valueOf(listcount));
+        if (page.equalsIgnoreCase("status")) {
+            getReportStatusList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("grievance")) {
+            getReportGrievanceList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("meeting")) {
+            getMeetingReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("birthday")) {
+            getBirthdayReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("festival")) {
+            getFestivalReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("constituent")) {
+            getContituentReportList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("video")) {
+            getReportVideoList(String.valueOf(listcount));
+        } else if (page.equalsIgnoreCase("staff")) {
+            getReportStaffList(String.valueOf(listcount));
         }
     }
 
-    private void getCategoryList(String count) {
+    private void getReportStatusList(String count) {
         JSONObject jsonObject = new JSONObject();
         try {
-
-            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
-            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
-            jsonObject.put(GMSConstants.KEY_CATEGORY, PreferenceStorage.getReportCategory(this));
-            jsonObject.put(GMSConstants.KEY_OFFSET, count);
-            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
-            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_CATEGORY;
-        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
-    }
-
-    private void getSubCategoryList(String count) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
-            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
-            jsonObject.put(GMSConstants.KEY_SUB_CATEGORY, PreferenceStorage.getReportSubCategory(this));
-            jsonObject.put(GMSConstants.KEY_OFFSET, count);
-            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
-            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_SUB_CATEGORY;
-        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
-    }
-
-    private void getLocationList(String count) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-
-            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
-            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
-            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
-            jsonObject.put(GMSConstants.KEY_OFFSET, count);
-            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
-            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
-        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_LOCATION;
-        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
-    }
-
-    private void getUsersList(String count) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
             jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
             jsonObject.put(GMSConstants.KEY_STATUS, PreferenceStorage.getReportStatus(this));
+
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
@@ -267,6 +229,153 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_STATUS;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
     }
+
+    private void getReportGrievanceList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_GRIEVANCE_TYPE_ID, PreferenceStorage.getReportCategory(this));
+            jsonObject.put(GMSConstants.KEY_SUB_CATEGORY_ID, PreferenceStorage.getReportSubCategory(this));
+            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_GRIEVANCE;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void getMeetingReportList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_MEETING;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void getBirthdayReportList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_MONTH, PreferenceStorage.getReportStatus(this));
+            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_BIRTHDAY;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void getFestivalReportList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_FESTIVAL, PreferenceStorage.getReportStatus(this));
+            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_FESTIVAL;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void getContituentReportList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
+            jsonObject.put(GMSConstants.KEY_WHATSAPP_NO, getIntent().getStringExtra("wh"));
+            jsonObject.put(GMSConstants.KEY_MOBILE_NUMBER, getIntent().getStringExtra("ph"));
+            jsonObject.put(GMSConstants.KEY_MAIL_ID, getIntent().getStringExtra("email"));
+            jsonObject.put(GMSConstants.KEY_DOB, getIntent().getStringExtra("dob"));
+            jsonObject.put(GMSConstants.KEY_VOTER_ID, getIntent().getStringExtra("vote"));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_CONSTITUENT;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void getReportVideoList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
+            jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_VIDEO;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
+    private void getReportStaffList(String count) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+
+            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_OFFSET, count);
+            jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_STAFF;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
 
     @Override
     public void onAlertPositiveClicked(int tag) {
