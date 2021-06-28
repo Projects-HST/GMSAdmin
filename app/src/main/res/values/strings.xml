@@ -308,6 +308,11 @@
     <string name="more">Know More</string>
     <string name="end_date">To Date</string>
     <string name="start_date">From Date</string>
+    <string name="select_office">Select Office</string>
+    <string name="choose_data">Choose the Data</string>
+    <string name="sign_in">Sign In</string>
+    <string name="support"><![CDATA[Help & Support]]></string>
+    <string name="account">Account Settings</string>
 
     <!--New Strings-->
 

@@ -1,100 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/acc_settings"
-        android:textColor="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/ic_meeting_user"
-        android:drawablePadding="15dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/edit_profile"
-        android:textColor="@color/msg_by_grey" />
-
-    <TextView
-        android:id="@+id/change_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:drawableStart="@drawable/ic_change_password"
-        android:drawablePadding="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/change_password"
-        android:textColor="@color/msg_by_grey" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/gen_settings"
-        android:textColor="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/about"
-        android:textColor="@color/msg_by_grey" />
-
-    <TextView
-        android:id="@+id/terms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/terms"
-        android:textColor="@color/msg_by_grey" />
-
-    <TextView
-        android:id="@+id/priv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/privacy"
-        android:textColor="@color/msg_by_grey" />
+    tools:context=".fragment.SettingsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp">
 
         <TextView
-            android:id="@+id/logo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/version"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_round_color"
+            android:id="@+id/accountSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:id="@+id/accountLayout"
+            android:layout_below="@id/accountSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="GMS"
-            android:textColor="@color/white" />
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/imgView_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_profile" />
+
+            <TextView
+                android:id="@+id/editProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@id/imgView_1"
+                android:text="@string/change_user"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/profileClick"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/imgView_1"
+                android:layout_alignBottom="@id/imgView_1"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_dropdown_side" />
+
+            <View
+                android:id="@+id/div_1"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/imgView_1"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/grey" />
+
+
+            <ImageView
+                android:id="@+id/imgView_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/div_1"
+                android:src="@drawable/ic_change_password_img" />
+
+            <TextView
+                android:id="@+id/changePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/div_1"
+                android:layout_toEndOf="@id/imgView_1"
+                android:text="@string/change_password"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/passwordClick"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/imgView_2"
+                android:layout_alignBottom="@id/imgView_2"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_dropdown_side" />
+
+            <View
+                android:id="@+id/div_2"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/profileClick"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/grey" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/generalSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accountLayout"
+            android:text="@string/general"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RelativeLayout
+            android:id="@+id/generalLayout"
+            android:layout_below="@id/generalSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/imgView_3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_about" />
+
+            <TextView
+                android:id="@+id/aboutUs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/imgView_3"
+                android:gravity="center"
+                android:text="@string/about"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/abtClick"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/imgView_3"
+                android:layout_alignBottom="@id/imgView_3"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_dropdown_side" />
+
+            <View
+                android:id="@+id/div_3"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/imgView_3"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/grey" />
+
+            <ImageView
+                android:id="@+id/imgView_4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/div_3"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_terms_condition" />
+
+            <TextView
+                android:id="@+id/terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/div_3"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/imgView_3"
+                android:gravity="center"
+                android:text="@string/terms"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/termsClick"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/imgView_4"
+                android:layout_alignBottom="@id/imgView_4"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_dropdown_side" />
+
+            <View
+                android:id="@+id/div_4"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/imgView_4"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/grey" />
+
+
+            <ImageView
+                android:id="@+id/imgView_5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/div_4"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_privacy" />
+
+            <TextView
+                android:id="@+id/privacySecurity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/div_4"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/imgView_3"
+                android:gravity="center"
+                android:text="@string/privacy"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/privacyClick"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/imgView_5"
+                android:layout_alignBottom="@id/imgView_5"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_dropdown_side" />
+
+            <View
+                android:id="@+id/div_5"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/imgView_5"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/grey" />
+
+            <ImageView
+                android:id="@+id/imgView_6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/div_5"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_support" />
+
+            <TextView
+                android:id="@+id/helpSupport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/div_5"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/imgView_4"
+                android:gravity="center"
+                android:text="@string/support"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/helpClick"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/imgView_6"
+                android:layout_alignBottom="@id/imgView_6"
+                android:layout_alignParentEnd="true"
+                android:padding="5dp"
+                android:src="@drawable/ic_dropdown_side" />
+
+            <View
+                android:id="@+id/div_6"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/imgView_6"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/grey" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/logout"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/div_5"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:paddingVertical="10dp"-->
+<!--                android:drawableStart="@drawable/ic_logout"-->
+<!--                android:drawablePadding="5dp"-->
+<!--                android:gravity="center"-->
+<!--                android:fontFamily="@font/medium"-->
+<!--                android:text="@string/sign_out"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/lite_red"-->
+<!--                android:textSize="16sp" />-->
+
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</LinearLayout>
+</FrameLayout>

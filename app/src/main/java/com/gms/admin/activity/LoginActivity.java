@@ -240,6 +240,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             requestFocus(edtMail);
             return false;
         }
+        if (!GMSValidator.checkNullString(this.edtPhone.getText().toString().trim())) {
+            tiNumber.setError(getString(R.string.error_number));
+            requestFocus(edtPhone);
+            return false;
+        }
+        if (!GMSValidator.checkMobileNumLength(this.edtPhone.getText().toString().trim())) {
+            tiNumber.setError(getString(R.string.error_number_min));
+            requestFocus(edtPhone);
+            return false;
+        }
         if (!GMSValidator.checkNullString(this.edtPassword.getText().toString().trim())) {
             tiPassword.setError(getString(R.string.error_password));
             requestFocus(edtPassword);

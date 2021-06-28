@@ -70,14 +70,14 @@ public class IndividualGrievanceDetailActivity extends AppCompatActivity impleme
 
         if (grievance.getgrievance_type().equalsIgnoreCase("P")) {
             txtEnquiry.setVisibility(View.GONE);
-            petitionEnquiryNo.setText(grievance.getpetition_enquiry_no());
+            txtPetition.setText(getString(R.string.petition_num));
         } else {
             txtPetition.setVisibility(View.GONE);
             txtEnquiry.setVisibility(View.VISIBLE);
-            petitionEnquiryNo.setText(grievance.getpetition_enquiry_no());
+            txtEnquiry.setText(getString(R.string.enquiry_num));
 //            findViewById(R.id.desc_layout).setVisibility(View.GONE);
         }
-//        petitionEnquiryNo.setText(grievance.getpetition_enquiry_no());
+        petitionEnquiryNo.setText(grievance.getpetition_enquiry_no());
         grievanceName.setText(capitalizeString(grievance.getgrievance_name()));
         grievanceSubCat.setText(capitalizeString(grievance.getSub_category_name()));
         grievanceDesc.setText(capitalizeString(grievance.getdescription()));

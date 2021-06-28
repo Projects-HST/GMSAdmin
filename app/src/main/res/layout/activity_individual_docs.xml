@@ -57,9 +57,9 @@
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/white"
-        app:tabTextColor="@color/white" />
+        app:tabSelectedTextColor="@color/text_black"
+        app:tabIndicatorColor="@color/black"
+        app:tabTextColor="@color/text_grey" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
