@@ -390,13 +390,13 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this, this, year, month, day);
+                mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(this, this, year, month, day);
+            mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
             mDatePicker.show();
         }
     }
