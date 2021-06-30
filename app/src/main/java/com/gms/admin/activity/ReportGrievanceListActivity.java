@@ -235,6 +235,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
             jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_SEEKER_ID, PreferenceStorage.getReportSeeker(this));
             jsonObject.put(GMSConstants.KEY_GRIEVANCE_TYPE_ID, PreferenceStorage.getReportCategory(this));
             jsonObject.put(GMSConstants.KEY_SUB_CATEGORY_ID, PreferenceStorage.getReportSubCategory(this));
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
@@ -257,6 +258,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
             jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_STATUS, PreferenceStorage.getReportStatus(this));
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
             jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);

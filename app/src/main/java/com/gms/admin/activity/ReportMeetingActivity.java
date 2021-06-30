@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,12 +50,12 @@ import java.util.Locale;
 
 public class ReportMeetingActivity extends AppCompatActivity implements DialogClickListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, IServiceListener {
     private static final String TAG = ReportStatusActivity.class.getName();
-    private TextView dateFrom, dateTo,office, paguthi;
+    private TextView dateFrom, dateTo,office,status, paguthi;
     private SimpleDateFormat mDateFormatter;
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
     private TextView search, clearData;
-    private LinearLayout selectOffice,selectPaguthi;
+    private LinearLayout selectOffice,selectPaguthi, selectStatus;
     private ArrayList<SpinnerData> paguthispinnerData;
     private ArrayAdapter<SpinnerData> paguthispinnerDataArrayAdapter = null;
     private ArrayList<SpinnerData> officespinnerData;
@@ -63,6 +64,9 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
 
+    private ArrayList<String> statusSpinnerData = new ArrayList<>();
+    private ArrayAdapter<String> statusSpinnerDataArrayAdapter = null;
+    private String A = "ALL", P = "PROCESSING", C = "COMPLETED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,9 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);
+
+        selectStatus = findViewById(R.id.status_select);
+        status = findViewById(R.id.report_status);
 
         selectPaguthi = findViewById(R.id.paguthi_select);
         paguthi = findViewById(R.id.report_paguthi);
@@ -113,6 +120,24 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
+
+        statusSpinnerData.add("All");
+        statusSpinnerData.add("Processing");
+        statusSpinnerData.add("Completed");
+
+        statusSpinnerDataArrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_data_layout, R.id.data_name, statusSpinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                Log.d(TAG, "getview called" + position);
+                View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
+                TextView gendername = (TextView) view.findViewById(R.id.data_name);
+                gendername.setText(statusSpinnerData.get(position));
+
+                // ... Fill in other views ...
+                return view;
+            }
+        };
+        getPaguthi();
     }
 
 
@@ -122,6 +147,9 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
             fr = true;
             t = false;
             showBirthdayDate();
+        }
+        if (v == selectStatus) {
+            showStatusData();
         }
         if (v == dateTo) {
             fr = false;
@@ -152,7 +180,31 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
             office.setText("Select Office");
         }
     }
+    private void showStatusData() {
+        Log.d(TAG, "Show Spinner Data");
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.spinner_header_layout, null);
+        TextView header = (TextView) view.findViewById(R.id.spinner_header);
+        header.setText("Select Status");
+        builderSingle.setCustomTitle(view);
 
+        builderSingle.setAdapter(statusSpinnerDataArrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = statusSpinnerData.get(which);
+                        status.setText(strName);
+//                        rotate(90.0f, 0.0f);
+                    }
+                });
+        builderSingle.show();
+        builderSingle.setOnDismissListener(new AlertDialog.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+//                rotate(90.0f, 0.0f);
+            }
+        });
+    }
     private void showSpinnerData() {
         Log.d(TAG, "Show Spinner Data");
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
@@ -273,6 +325,25 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
     private void sendSearch() {
         PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
         PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
+        String stat = "";
+        if (!status.getText().toString().isEmpty()) {
+            String ca = status.getText().toString();
+            switch (ca) {
+                case "All":
+                    stat = A;
+                    break;
+                case "Processing":
+                    stat = P;
+                    break;
+                case "Completed":
+                    stat = C;
+                    break;
+                default:
+                    Toast.makeText(this, "---INVALID---", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+        PreferenceStorage.saveReportStatus(this, stat);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportMeetingListActivity.class);

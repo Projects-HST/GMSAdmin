@@ -168,6 +168,9 @@ public class GMSConstants {
     public static final String GET_REPORT_CATEGORY_SEARCH = "apiandroid/reportCategorysearch/";
 
     //VERSION CHECK URL
+    public static final String GET_SEEKER_LIST = "apiandroid/activeSeeker/";
+
+    //VERSION CHECK URL
     public static final String GET_CATEGORY_LIST = "apiandroid/activeCategory/";
 
     //VERSION CHECK URL
@@ -279,6 +282,8 @@ public class GMSConstants {
     public static final String KEY_GRIEVANCE_TYPE = "grievance_type";
     public static final String KEY_OFFSET = "offset";
     public static final String KEY_CATEGORY = "category";
+    public static final String KEY_SEEKER = "seeker";
+    public static final String KEY_SEEKER_ID = "seeker_type_id";
     public static final String KEY_FESTIVAL = "festival";
     public static final String KEY_CATEGORY_ID = "category_id";
     public static final String KEY_GRIEVANCE_TYPE_ID = "grievance_type_id";

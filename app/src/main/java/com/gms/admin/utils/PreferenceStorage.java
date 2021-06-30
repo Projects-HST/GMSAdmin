@@ -852,6 +852,24 @@ public class PreferenceStorage {
     /*End*/
 
     /*To search*/
+    public static void saveReportSeeker(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_SEEKER, ser);
+        editor.apply();
+    }
+
+    public static String getReportSeeker(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_SEEKER, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
     public static void saveReportCategory(Context context, String ser) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);

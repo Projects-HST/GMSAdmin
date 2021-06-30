@@ -225,7 +225,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ReportCategoryActivity"
-            android:label="@string/report_category_title"
+            android:label="@string/report_grievance_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
