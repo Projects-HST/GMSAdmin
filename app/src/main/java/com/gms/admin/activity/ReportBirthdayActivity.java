@@ -85,10 +85,10 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     private BirthdayList birthdayList;
     private ArrayList<Birthday> birthdayArrayList = new ArrayList<>();
     private int totalCount = 0, checkrun = 0;
-    private MenuItem searchItem ;
-    private ReportBirthdayListAdapter mAdapter ;
-    private TextView dateFrom, dateTo, status,office, paguthi;
-    private LinearLayout selectOffice,selectPaguthi, selectStatus;
+    private MenuItem searchItem;
+    private ReportBirthdayListAdapter mAdapter;
+    private TextView dateFrom, dateTo, status, office, paguthi;
+    private LinearLayout selectOffice, selectPaguthi, selectStatus;
     private TextView search, clearData;
 
     @Override
@@ -257,13 +257,14 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this, this, year, month, day);
+                mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
                 mDatePicker.show();
             }
         } else {
             Log.d(TAG, "show default date");
 
-            mDatePicker = new DatePickerDialog(this, this, year, month, day);
+            mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
+
             mDatePicker.show();
         }
     }
@@ -553,7 +554,8 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                         }
                     };
                     getOffice();
-                }if (checkRes.equalsIgnoreCase("office")) {
+                }
+                if (checkRes.equalsIgnoreCase("office")) {
                     JSONArray getData = response.getJSONArray("list_details");
                     int getLength = getData.length();
                     String id = "";
