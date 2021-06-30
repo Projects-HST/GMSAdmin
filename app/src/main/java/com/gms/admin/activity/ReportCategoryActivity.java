@@ -86,6 +86,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                 finish();
             }
         });
+        toolbar.setTitle(getString(R.string.report_grievance_title));
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);

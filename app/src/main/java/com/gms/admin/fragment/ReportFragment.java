@@ -15,11 +15,14 @@ import androidx.fragment.app.Fragment;
 import com.gms.admin.R;
 import com.gms.admin.activity.ReportBirthdayActivity;
 import com.gms.admin.activity.ReportCategoryActivity;
+import com.gms.admin.activity.ReportConstituentActivity;
+import com.gms.admin.activity.ReportFestivalActivity;
 import com.gms.admin.activity.ReportLocationActivity;
 import com.gms.admin.activity.ReportMeetingActivity;
 import com.gms.admin.activity.ReportStaffActivity;
 import com.gms.admin.activity.ReportStatusActivity;
 import com.gms.admin.activity.ReportSubCategoryActivity;
+import com.gms.admin.activity.ReportVideoActivity;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 
@@ -73,16 +76,16 @@ public class ReportFragment extends Fragment implements IServiceListener, Dialog
             Intent i = new Intent(birthdayLayout.getContext(), ReportBirthdayActivity.class);
             startActivity(i);
         }if (v == festivalLayout) {
-            Intent i = new Intent(festivalLayout.getContext(), ReportMeetingActivity.class);
+            Intent i = new Intent(festivalLayout.getContext(), ReportFestivalActivity.class);
             startActivity(i);
         }if (v == constituentLayout) {
-            Intent i = new Intent(constituentLayout.getContext(), ReportStaffActivity.class);
+            Intent i = new Intent(constituentLayout.getContext(), ReportConstituentActivity.class);
             startActivity(i);
         }if (v == videoLayout) {
-            Intent i = new Intent(videoLayout.getContext(), ReportBirthdayActivity.class);
+            Intent i = new Intent(videoLayout.getContext(), ReportVideoActivity.class);
             startActivity(i);
         }if (v == staffLayout) {
-            Intent i = new Intent(videoLayout.getContext(), ReportBirthdayActivity.class);
+            Intent i = new Intent(videoLayout.getContext(), ReportStaffActivity.class);
             startActivity(i);
         }
     }

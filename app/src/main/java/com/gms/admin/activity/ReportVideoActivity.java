@@ -84,7 +84,7 @@ public class ReportVideoActivity extends AppCompatActivity implements IServiceLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_birthday);
+        setContentView(R.layout.activity_report_video);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_toolbar);
@@ -97,7 +97,7 @@ public class ReportVideoActivity extends AppCompatActivity implements IServiceLi
                 finish();
             }
         });
-        toolbar.setTitle(getString(R.string.report_birthday_title));
+        toolbar.setTitle(getString(R.string.report_video_title));
 
         paguthi = findViewById(R.id.report_paguthi);
         selectPaguthi = findViewById(R.id.paguthi_select);

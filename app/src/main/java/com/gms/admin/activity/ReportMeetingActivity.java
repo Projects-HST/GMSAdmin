@@ -80,6 +80,7 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
                 finish();
             }
         });
+        toolbar.setTitle(getString(R.string.report_meeting_title));
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);

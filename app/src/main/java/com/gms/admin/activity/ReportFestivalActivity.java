@@ -100,7 +100,7 @@ public class ReportFestivalActivity  extends AppCompatActivity implements IServi
                 finish();
             }
         });
-        toolbar.setTitle(getString(R.string.report_birthday_title));
+        toolbar.setTitle(getString(R.string.report_festival_title));
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);
