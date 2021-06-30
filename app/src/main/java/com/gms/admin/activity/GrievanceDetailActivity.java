@@ -11,8 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,16 +18,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.gms.admin.R;
-import com.gms.admin.bean.support.Grievance;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,9 +38,9 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
     private static final String TAG = IndividualGrievanceDetailActivity.class.getName();
 
     private String grievance, constituent;
-    private TextView txtConstituency, seekerType, txtPetitionEnquiry, petitionEnquiryNo, grievanceName,
+    private TextView txtConstituency, seekerType, txtPetition, txtEnquiry, petitionEnquiryNo, grievanceName,
             grievanceSubCat, grievanceDesc, createdOn, updatedOn, grievanceReference, grievanceStatus;
-    private RelativeLayout petitionLayout, enquiryLayout;
+//    private RelativeLayout petitionLayout, enquiryLayout;
     private TextView history, profile;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
@@ -74,13 +69,14 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
 
         grievance = getIntent().getStringExtra("grievanceObj");
 
-        petitionLayout = (RelativeLayout) findViewById(R.id.petitionLayout);
-        enquiryLayout = (RelativeLayout) findViewById(R.id.enquiryLayout);
+//        petitionLayout = (RelativeLayout) findViewById(R.id.petitionLayout);
+//        enquiryLayout = (RelativeLayout) findViewById(R.id.enquiryLayout);
 
         txtConstituency = (TextView) findViewById(R.id.text_constituency);
         seekerType = (TextView) findViewById(R.id.seeker_type);
-        txtPetitionEnquiry = (TextView) findViewById(R.id.petition_number);
-        petitionEnquiryNo = (TextView) findViewById(R.id.enquiry_number);
+        txtPetition = (TextView) findViewById(R.id.petition_number);
+        txtEnquiry = (TextView) findViewById(R.id.enquiry_number);
+        petitionEnquiryNo = (TextView) findViewById(R.id.txt_petition_enquiry_number);
         grievanceName = (TextView) findViewById(R.id.grievance_name);
         grievanceSubCat = (TextView) findViewById(R.id.grievance_sub_category);
         grievanceDesc = (TextView) findViewById(R.id.grievance_description);
@@ -244,7 +240,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                     PreferenceStorage.saveCOnstituentProfilePic(this, profilePicture);
 
                     PreferenceStorage.saveConstituencyName(this, constituency);
-                    Intent intent = new Intent(this, ConstituentGrievanceProfileActivity.class);
+                    Intent intent = new Intent(this, IndividualProfileActivity.class);
                     startActivity(intent);
                 } else {
                     JSONArray arraydata = response.getJSONArray("grievance_details");
@@ -252,13 +248,11 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
                     seekerType.setText(data.getString("seeker_info"));
 
                     if (data.getString("grievance_type").equalsIgnoreCase("P")) {
-                        petitionLayout.setVisibility(View.VISIBLE);
-                        enquiryLayout.setVisibility(View.GONE);
-                        txtPetitionEnquiry.setText(getString(R.string.petition_num));
+                        txtPetition.setVisibility(View.VISIBLE);
+                        txtEnquiry.setVisibility(View.GONE);
                     } else {
-                        enquiryLayout.setVisibility(View.VISIBLE);
-                        petitionLayout.setVisibility(View.GONE);
-                        txtPetitionEnquiry.setText(getString(R.string.enquiry_num));
+                        txtEnquiry.setVisibility(View.VISIBLE);
+                        txtPetition.setVisibility(View.GONE);
                         findViewById(R.id.desc_layout).setVisibility(View.GONE);
                     }
                     txtConstituency.setText(capitalizeString(data.getString("paguthi_name")));

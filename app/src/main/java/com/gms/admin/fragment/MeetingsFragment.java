@@ -1,10 +1,8 @@
 package com.gms.admin.fragment;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,32 +11,23 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
-import com.gms.admin.activity.ConstituentDetailsActivity;
 import com.gms.admin.activity.MeetingDetailActivity;
-import com.gms.admin.activity.SearchResultActivity;
 import com.gms.admin.activity.SearchResultMeetingActivity;
-import com.gms.admin.adapter.ConstituentListAdapter;
 import com.gms.admin.adapter.MeetingListAdapter;
-import com.gms.admin.bean.support.ConstituentUserList;
 import com.gms.admin.bean.support.Meeting;
 import com.gms.admin.bean.support.MeetingList;
 import com.gms.admin.bean.support.Paguthi;
-import com.gms.admin.bean.support.User;
-import com.gms.admin.customview.CircleImageView;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -46,13 +35,9 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.CommonUtils;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -221,6 +206,10 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
             }
             Gson gson = new Gson();
             meetingList = gson.fromJson(response.toString(), MeetingList.class);
+//            if (meetingList.getMeetingArrayList() != null && meetingList.getMeetingArrayList().size() > 0){
+//                meetingList.getMeetingArrayList().clear();
+//                meetingArrayList.addAll(meetingList.getMeetingArrayList());
+//            }
             meetingArrayList.addAll(meetingList.getMeetingArrayList());
             mAdapter = new MeetingListAdapter(meetingArrayList, this);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

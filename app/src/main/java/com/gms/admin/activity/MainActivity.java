@@ -1,12 +1,5 @@
 package com.gms.admin.activity;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,6 +19,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.gms.admin.R;
 import com.gms.admin.fragment.ConstituentFragment;
@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
         else if (view == vSettings) {
             changePage(6);
         }
-        else if (view == vHome) {
+        else if (view == vLogout) {
             logout();
         }
     }
