@@ -74,8 +74,8 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
 
         txtConstituency = (TextView) findViewById(R.id.text_constituency);
         seekerType = (TextView) findViewById(R.id.seeker_type);
-        txtPetition = (TextView) findViewById(R.id.petition_number);
-        txtEnquiry = (TextView) findViewById(R.id.enquiry_number);
+        txtPetition = (TextView) findViewById(R.id.txt_petition);
+        txtEnquiry = (TextView) findViewById(R.id.txt_enquiry);
         petitionEnquiryNo = (TextView) findViewById(R.id.txt_petition_enquiry_number);
         grievanceName = (TextView) findViewById(R.id.grievance_name);
         grievanceSubCat = (TextView) findViewById(R.id.grievance_sub_category);
@@ -101,9 +101,7 @@ public class GrievanceDetailActivity extends AppCompatActivity implements View.O
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
-
         getGrievanceDetail();
-
     }
 
     private void getGrievanceDetail() {

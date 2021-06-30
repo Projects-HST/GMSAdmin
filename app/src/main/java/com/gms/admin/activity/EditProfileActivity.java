@@ -12,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -81,12 +82,11 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
     private TextInputEditText edtName, edtNumber, edtAddress, edtEmail;
-    private RadioButton male, female;
+    private RadioButton male, female, trans;
     private LinearLayout saveProfile;
     private ImageView profilePic;
     String gend = "";
     String rees = "";
-
 
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 12;
@@ -134,11 +134,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         edtAddress = (TextInputEditText) findViewById(R.id.address);
         male = (RadioButton) findViewById(R.id.male);
         female = (RadioButton) findViewById(R.id.female);
+        trans = (RadioButton) findViewById(R.id.trans);
         saveProfile = (LinearLayout) findViewById(R.id.save_profile);
+        saveProfile.setBackgroundColor(Color.parseColor(PreferenceStorage.getAppBaseColor(this)));
 
         profilePic.setOnClickListener(this);
         male.setOnClickListener(this);
         female.setOnClickListener(this);
+        trans.setOnClickListener(this);
         saveProfile.setOnClickListener(this);
 
         if (!PreferenceStorage.getUserRole(this).equalsIgnoreCase("1")) {
@@ -156,6 +159,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             male.setFocusable(false);
             female.setClickable(false);
             female.setFocusable(false);
+            trans.setClickable(false);
+            trans.setFocusable(false);
             saveProfile.setClickable(false);
             saveProfile.setFocusable(false);
             saveProfile.setVisibility(View.GONE);
@@ -249,17 +254,30 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         }
         if (v == male) {
             male.setChecked(true);
-            male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+            male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
             female.setChecked(false);
             female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+            trans.setChecked(false);
+            trans.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
             gend = "M";
         }
         if (v == female) {
             female.setChecked(true);
-            female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+            female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
             male.setChecked(false);
             male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+            trans.setChecked(false);
+            trans.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
             gend = "F";
+        }
+        if (v == trans) {
+            trans.setChecked(true);
+            trans.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
+            female.setChecked(false);
+            female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+            male.setChecked(false);
+            male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+            gend = "T";
         }
         if (v == saveProfile) {
             if (validateFields()) {
@@ -346,19 +364,30 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     edtEmail.setText(data.getString("email_id"));
                     edtAddress.setText(data.getString("address"));
 
-
                     if (data.getString("gender").equalsIgnoreCase("M")) {
                         male.setChecked(true);
-                        male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+                        male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
                         female.setChecked(false);
                         female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+                        trans.setChecked(false);
+                        trans.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
                         gend = "M";
                     } else if (data.getString("gender").equalsIgnoreCase("F")) {
                         female.setChecked(true);
-                        female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.colorPrimary));
+                        female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
                         male.setChecked(false);
                         male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+                        trans.setChecked(false);
+                        trans.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
                         gend = "F";
+                    } else if (data.getString("gender").equalsIgnoreCase("T")) {
+                        trans.setChecked(true);
+                        trans.setButtonTintList(ContextCompat.getColorStateList(this, R.color.black));
+                        male.setChecked(false);
+                        male.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+                        female.setChecked(false);
+                        female.setButtonTintList(ContextCompat.getColorStateList(this, R.color.radio_grey));
+                        gend = "T";
                     }
                     if (!data.getString("picture_url").isEmpty()) {
                         Picasso.get().load(PreferenceStorage.getProfilePic(this)).into(profilePic);
