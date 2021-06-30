@@ -83,6 +83,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
                 finish();
             }
         });
+        toolbar.setTitle(getString(R.string.report_status_title));
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);

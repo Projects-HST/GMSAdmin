@@ -73,6 +73,7 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
                 finish();
             }
         });
+        toolbar.setTitle(getString(R.string.report_staff_title));
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);
