@@ -1,9 +1,9 @@
 package com.gms.admin.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +23,10 @@ public class IndividualGrievanceDetailActivity extends AppCompatActivity impleme
     private static final String TAG = IndividualGrievanceDetailActivity.class.getName();
 
     private Grievance grievance;
-    private TextView txtConstituency, seekerType, txtPetitionEnquiry, petitionEnquiryNo, grievanceName,
+    private TextView txtConstituency, seekerType, txtPetition, txtEnquiry, petitionEnquiryNo, grievanceName,
             grievanceSubCat, grievanceDesc, grievanceReference, grievanceStatus, createdOn, updatedOn;
-    private LinearLayout history;
+    private TextView history;
+    int colour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,12 @@ public class IndividualGrievanceDetailActivity extends AppCompatActivity impleme
 
         grievance = (Grievance) getIntent().getSerializableExtra("serviceObj");
 
+        colour = Color.parseColor(PreferenceStorage.getAppBaseColor(this));
+
         txtConstituency = (TextView) findViewById(R.id.text_constituency);
         seekerType = (TextView) findViewById(R.id.seeker_type);
-        txtPetitionEnquiry = (TextView) findViewById(R.id.txt_petition_enquiry);
+        txtPetition = (TextView) findViewById(R.id.txt_petition);
+        txtEnquiry = (TextView) findViewById(R.id.txt_enquiry);
         petitionEnquiryNo = (TextView) findViewById(R.id.petition_enquiry_number);
         grievanceName = (TextView) findViewById(R.id.grievance_name);
         grievanceSubCat = (TextView) findViewById(R.id.grievance_sub_category);
@@ -59,16 +63,20 @@ public class IndividualGrievanceDetailActivity extends AppCompatActivity impleme
         updatedOn = (TextView) findViewById(R.id.updated_on);
 
         history = findViewById(R.id.view_message_history);
+        history.setBackgroundColor(colour);
         history.setOnClickListener(this);
 
         txtConstituency.setText(capitalizeString(PreferenceStorage.getConstituencyName(this)));
         seekerType.setText(capitalizeString(grievance.getseeker_info()));
 
         if (grievance.getgrievance_type().equalsIgnoreCase("P")) {
-            txtPetitionEnquiry.setText(getString(R.string.petition_num));
+            txtEnquiry.setVisibility(View.GONE);
+            txtPetition.setText(getString(R.string.petition_num));
         } else {
-            txtPetitionEnquiry.setText(getString(R.string.enquiry_num));
-            findViewById(R.id.desc_layout).setVisibility(View.GONE);
+            txtPetition.setVisibility(View.GONE);
+            txtEnquiry.setVisibility(View.VISIBLE);
+            txtEnquiry.setText(getString(R.string.enquiry_num));
+//            findViewById(R.id.desc_layout).setVisibility(View.GONE);
         }
         petitionEnquiryNo.setText(grievance.getpetition_enquiry_no());
         grievanceName.setText(capitalizeString(grievance.getgrievance_name()));

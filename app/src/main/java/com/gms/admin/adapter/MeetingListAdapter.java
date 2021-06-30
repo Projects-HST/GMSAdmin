@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.Meeting;
-import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
 
 import java.text.SimpleDateFormat;
@@ -93,7 +92,6 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
         if (GMSValidator.checkNullString(meeting.getcreated_by())){
             holder.txtCreatedBy.setText(("Created by - " + capitalizeString(meeting.getcreated_by())));
         }
-
         if (meeting.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
             holder.txtMeetingStatus.setBackground(ContextCompat.getDrawable(holder.txtMeetingStatus.getContext(), R.drawable.btn_round_completed));
         } else {

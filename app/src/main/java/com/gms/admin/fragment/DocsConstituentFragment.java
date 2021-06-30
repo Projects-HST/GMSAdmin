@@ -207,7 +207,8 @@ public class DocsConstituentFragment extends Fragment implements IServiceListene
                 sentAt.setText(sdf.format(testDate));
 
                 TextView download = new TextView(getActivity());
-                download.setTextColor(ContextCompat.getColor(getActivity(), R.color.msg_by_grey));
+                download.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.shadow_dark_round));
+                download.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
                 download.setLayoutParams(sentDateParams);
                 download.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_download, 0, 0, 0);
                 download.setCompoundDrawablePadding(20);

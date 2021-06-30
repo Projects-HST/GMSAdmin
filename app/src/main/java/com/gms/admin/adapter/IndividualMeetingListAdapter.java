@@ -114,9 +114,9 @@ public class IndividualMeetingListAdapter extends BaseAdapter implements Filtera
             convertView = inflater.inflate(R.layout.list_item_individual_meeting, parent, false);
         }
         holder = new ViewHolder();
-        holder.disableLayout = (LinearLayout) convertView.findViewById(R.id.complete_layout);
+//        holder.disableLayout = (LinearLayout) convertView.findViewById(R.id.complete_layout);
         holder.txtMeetingTitle = (TextView) convertView.findViewById(R.id.meeting_title);
-        holder.txtStatusTitle = (TextView) convertView.findViewById(R.id.status_title);
+//        holder.txtStatusTitle = (TextView) convertView.findViewById(R.id.status_title);
         holder.txtMeetingDate = (TextView) convertView.findViewById(R.id.meeting_date);
         holder.txtMeetingStatus = (TextView) convertView.findViewById(R.id.meeting_status);
         holder.meetingImage = (ImageView) convertView.findViewById(R.id.meeting_img);
@@ -127,21 +127,21 @@ public class IndividualMeetingListAdapter extends BaseAdapter implements Filtera
         holder.txtMeetingStatus.setText(meetings.get(position).getmeeting_status());
 
         if (meetings.get(position).getmeeting_status().equalsIgnoreCase("REQUESTED")) {
-            holder.txtStatusTitle.setText("Upcoming");
+//            holder.txtStatusTitle.setText("Upcoming");
             holder.txtMeetingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.requested));
             holder.meetingImage.setImageResource(R.drawable.ic_meeting_active);
             holder.meetingDateImage.setImageResource(R.drawable.ic_date_active);
         } else if (meetings.get(position).getmeeting_status().equalsIgnoreCase("COMPLETED")){
-            holder.txtStatusTitle.setText("Earlier");
+//            holder.txtStatusTitle.setText("Earlier");
             holder.txtMeetingTitle.setTextColor(ContextCompat.getColor(context, R.color.text_grey));
             holder.txtMeetingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.completed_meeting));
             holder.meetingImage.setImageResource(R.drawable.ic_meeting_inactive);
             holder.meetingDateImage.setImageResource(R.drawable.ic_date_inactive);
-            holder.disableLayout.setVisibility(View.VISIBLE);
+//            holder.disableLayout.setVisibility(View.VISIBLE);
         }
         if (position!=0) {
             if (meetings.get(position).getmeeting_status().equalsIgnoreCase((meetings.get(position-1).getmeeting_status()))) {
-                holder.txtStatusTitle.setVisibility(View.GONE);
+//                holder.txtStatusTitle.setVisibility(View.GONE);
             }
         }
 

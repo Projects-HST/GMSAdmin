@@ -14,13 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.Grievance;
-import com.gms.admin.bean.support.Grievance;
-import com.gms.admin.bean.support.IndividualMeeting;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class GrievanceListAdapter extends RecyclerView.Adapter<GrievanceListAdapter.MyViewHolder> implements Filterable {
 
@@ -66,14 +63,16 @@ public class GrievanceListAdapter extends RecyclerView.Adapter<GrievanceListAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView txtPetitionEnquiryNo, txtUser, txtdate, txtSeekerType, txtGrievanceName, txtGrievanceSubCategory, txtGrievanceStatus;
+        public TextView txtPetitionEnquiryNo, txtUser, txtdate, txtPetitionNo, txtEnquiryNo,
+                txtSeekerType, txtGrievanceName, txtGrievanceSubCategory, txtGrievanceStatus;
         public LinearLayout grievanceLayout;
 
         public MyViewHolder(View view) {
             super(view);
             grievanceLayout = (LinearLayout) view.findViewById(R.id.grievance_layout);
             grievanceLayout.setOnClickListener(this);
-            txtPetitionEnquiryNo = (TextView) view.findViewById(R.id.petition_enquiry_number);
+            txtPetitionNo = (TextView) view.findViewById(R.id.petition_number);
+            txtEnquiryNo = (TextView) view.findViewById(R.id.enquiry_number);
             txtUser = (TextView) view.findViewById(R.id.full_name);
             txtUser.setVisibility(View.GONE);
             txtdate = (TextView) view.findViewById(R.id.grievance_date);
@@ -119,11 +118,15 @@ public class GrievanceListAdapter extends RecyclerView.Adapter<GrievanceListAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Grievance grievance = grievancesList.get(position);
         if (grievance.getgrievance_type().equalsIgnoreCase("P")) {
-            holder.txtPetitionEnquiryNo.setText("Petition Number - " + grievance.getpetition_enquiry_no());
+            holder.txtEnquiryNo.setVisibility(View.GONE);
+            holder.txtPetitionNo.setVisibility(View.VISIBLE);
+            holder.txtPetitionNo.setText("Petition Number - " + grievance.getpetition_enquiry_no());
         } else{
-            holder.txtPetitionEnquiryNo.setText("Enquiry Number - " + grievance.getpetition_enquiry_no());
+            holder.txtPetitionNo.setVisibility(View.GONE);
+            holder.txtEnquiryNo.setVisibility(View.VISIBLE);
+            holder.txtEnquiryNo.setText("Enquiry Number - " + grievance.getpetition_enquiry_no());
         }
-
+        
         holder.txtSeekerType.setText(capitalizeString(grievance.getseeker_info()));
         holder.txtdate.setText(getserverdateformat(grievance.getgrievance_date()));
         holder.txtGrievanceName.setText(capitalizeString(grievance.getgrievance_name()));

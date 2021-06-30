@@ -632,7 +632,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                     // Extra parameters if you want to pass to server
                     entity.addPart("user_id", new StringBody(PreferenceStorage.getUserId(EditProfileActivity.this)));
-//                    entity.addPart("dynamic_db", new StringBody(PreferenceStorage.getDynamicDb(EditProfileActivity.this)));
+                    entity.addPart("dynamic_db", new StringBody(PreferenceStorage.getDynamicDb(EditProfileActivity.this)));
 
 //                    totalSize = entity.getContentLength();
                     httppost.setEntity(entity);

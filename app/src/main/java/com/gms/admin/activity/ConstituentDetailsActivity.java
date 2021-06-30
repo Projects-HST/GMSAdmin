@@ -3,6 +3,7 @@ package com.gms.admin.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,12 +38,13 @@ import java.util.Date;
 public class ConstituentDetailsActivity extends AppCompatActivity implements View.OnClickListener, IServiceListener, DialogClickListener {
 
     private static final String TAG = ConstituentDetailsActivity.class.getName();
-    private TextView fullName, phoneNumber, paguthi, serialNumber, wardNumber, aadharNumber, voterID;
-    private LinearLayout meetingLay, grievanceLay, interactionLay, plantsLay, documentLay, profileLay;
+    private TextView location, phoneNumber, serialNumber, wardNumber, aadhaarNumber, voterID;
+    private LinearLayout meetingLay, grievanceLay, documentLay, profileLay;
     private ProgressDialogHelper progressDialogHelper;
     private ServiceHelper serviceHelper;
     private User user;
     private ImageView userProfile;
+    private int colour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,30 +63,28 @@ public class ConstituentDetailsActivity extends AppCompatActivity implements Vie
             }
         });
 
+        colour = Color.parseColor(PreferenceStorage.getAppBaseColor(this));
+
         user = (User) getIntent().getSerializableExtra("userObj");
         PreferenceStorage.saveConstituentID(this, user.getid());
 
         userProfile = findViewById(R.id.user_image);
 
-        fullName = findViewById(R.id.user_name);
-        phoneNumber = findViewById(R.id.user_phone);
-        paguthi = findViewById(R.id.user_paguthi);
-        serialNumber = findViewById(R.id.serial_num);
-        wardNumber = findViewById(R.id.ward_num);
-        aadharNumber = findViewById(R.id.aadhaar_num);
-        voterID = findViewById(R.id.voter_id);
+        location = findViewById(R.id.userLocation);
+        phoneNumber = findViewById(R.id.userMobile);
+        serialNumber = findViewById(R.id.user_serial_no);
+        wardNumber = findViewById(R.id.userWardNo);
+        aadhaarNumber = findViewById(R.id.user_aadhaar_no);
+        voterID = findViewById(R.id.user_voter_no);
 
         meetingLay = findViewById(R.id.meeting_layout);
         grievanceLay = findViewById(R.id.grievance_layout);
-        interactionLay = findViewById(R.id.interaction_layout);
-        plantsLay = findViewById(R.id.plant_donation_layout);
         documentLay = findViewById(R.id.document_layout);
         profileLay = findViewById(R.id.view_profile);
+        profileLay.setBackgroundColor(colour);
 
         meetingLay.setOnClickListener(this);
         grievanceLay.setOnClickListener(this);
-        interactionLay.setOnClickListener(this);
-        plantsLay.setOnClickListener(this);
         documentLay.setOnClickListener(this);
         profileLay.setOnClickListener(this);
 
@@ -112,20 +112,12 @@ public class ConstituentDetailsActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        if (v == plantsLay) {
-            Intent i = new Intent(this, IndividualPlantDonationActivity.class);
-            i.putExtra("userObj", user);
-            startActivity(i);
-        }if (v == meetingLay) {
+        if (v == meetingLay) {
             Intent i = new Intent(this, IndividualMeetingActivity.class);
             i.putExtra("userObj", user);
             startActivity(i);
         }if (v == grievanceLay) {
             Intent i = new Intent(this, IndividualGrievanceActivity.class);
-            i.putExtra("userObj", user);
-            startActivity(i);
-        }if (v == interactionLay) {
-            Intent i = new Intent(this, IndividualInteractionActivity.class);
             i.putExtra("userObj", user);
             startActivity(i);
         }if (v == documentLay) {
@@ -257,12 +249,11 @@ public class ConstituentDetailsActivity extends AppCompatActivity implements Vie
                 PreferenceStorage.saveCOnstituentProfilePic(this, profilePicture);
 
                 PreferenceStorage.saveConstituencyName(this, constituency);
-                fullName.setText(name);
                 phoneNumber.setText(number);
-                paguthi.setText(constituency);
+                location.setText(constituency);
                 wardNumber.setText(ward);
                 serialNumber.setText(serial);
-                aadharNumber.setText(aadhaar);
+                aadhaarNumber.setText(aadhaar);
                 voterID.setText(voter);
 
                 String urrl = PreferenceStorage.getClientUrl(this) + GMSConstants.KEY_PIC_URL + user.getprofile_picture();

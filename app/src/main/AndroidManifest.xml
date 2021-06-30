@@ -59,6 +59,11 @@
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".activity.NumberVerificationActivity"
+            android:label="@string/verification_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBarLogin" />
+        <activity
             android:name=".activity.ForgotPasswordActivity"
             android:label="@string/forgot_password_title"
             android:screenOrientation="portrait"

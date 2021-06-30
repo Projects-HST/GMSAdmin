@@ -1,13 +1,13 @@
 package com.gms.admin.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,19 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
-import com.gms.admin.activity.MeetingDetailActivity;
 import com.gms.admin.activity.SearchResultActivity;
-import com.gms.admin.activity.StaffDetailsActivity;
-import com.gms.admin.adapter.MeetingListAdapter;
 import com.gms.admin.adapter.StaffListAdapter;
-import com.gms.admin.bean.support.Meeting;
-import com.gms.admin.bean.support.MeetingList;
 import com.gms.admin.bean.support.Paguthi;
 import com.gms.admin.bean.support.Staff;
 import com.gms.admin.bean.support.StaffList;
@@ -47,7 +42,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class StaffFragment extends Fragment implements IServiceListener, DialogClickListener, StaffListAdapter.OnItemClickListener {
+public class StaffFragment extends Fragment implements IServiceListener, DialogClickListener, StaffListAdapter.OnItemClickListener, View.OnClickListener {
 
     private static final String TAG = MeetingsFragment.class.getName();
     private static ArrayList<Paguthi> paguthis = new ArrayList<>();
@@ -57,11 +52,13 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
     private boolean isLoadingForFirstTime = true;
     private ProgressDialogHelper progressDialogHelper;
     private int val;
-    private LinearLayout loadMoreListView;
+    private LinearLayout loadMoreListView, statusLayout;
     private String paguthiID = "";
     private TextView constituentCount;
+    private TextView activeStaff, inActiveStaff;
     private SearchView searchView;
     int cc = 0;
+    int colour;
     private RecyclerView recyclerView;
 //    SwipeRefreshLayout swipeRefreshLayout;
     int listcount = 0;
@@ -98,9 +95,20 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_staff, container, false);
+
+        colour = Color.parseColor(PreferenceStorage.getAppBaseColor(getActivity()));
         serviceHelper = new ServiceHelper(view.getContext());
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(view.getContext());
+
+        statusLayout = view.findViewById(R.id.staff_layout);
+        statusLayout.setBackgroundColor(colour);
+
+        activeStaff = view.findViewById(R.id.active_staff);
+        inActiveStaff = view.findViewById(R.id.in_active_staff);
+        activeStaff.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.shadow_round));
+        activeStaff.setOnClickListener(this);
+        inActiveStaff.setOnClickListener(this);
         constituentCount = view.findViewById(R.id.frag_meeting_count);
 
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -201,12 +209,13 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
             }
             Gson gson = new Gson();
             staffList = gson.fromJson(response.toString(), StaffList.class);
-            staffArrayList.addAll(staffList.getStaffArrayList());
-            mAdapter = new StaffListAdapter(staffArrayList, this);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.scrollToPosition(listcount);
+            staffStatus("ACTIVE");
+//            staffArrayList.addAll(staffList.getStaffArrayList());
+//            mAdapter = new StaffListAdapter(staffArrayList, this);
+//            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//            recyclerView.setLayoutManager(mLayoutManager);
+//            recyclerView.setAdapter(mAdapter);
+//            recyclerView.scrollToPosition(listcount);
 //            swipeRefreshLayout.setRefreshing(false);
 
         }
@@ -271,10 +280,48 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
 
     @Override
     public void onItemClick(View view, int position) {
-        Staff meeting = null;
-        meeting = staffArrayList.get(position);
-        Intent intent = new Intent(getActivity(), StaffDetailsActivity.class);
-        intent.putExtra("meetingObj", meeting.getid());
-        startActivity(intent);
+//        Staff meeting = null;
+//        meeting = staffArrayList.get(position);
+//        Intent intent = new Intent(getActivity(), StaffDetailsActivity.class);
+//        intent.putExtra("meetingObj", meeting.getid());
+//        startActivity(intent);
+    }
+
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        this.getActivity().onContentChanged();
+//    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == activeStaff) {
+            activeStaff.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.shadow_round));
+            inActiveStaff.setBackground(null);
+            staffArrayList.clear();
+            staffStatus("ACTIVE");
+        }
+        if (view == inActiveStaff) {
+            activeStaff.setBackground(null);
+            inActiveStaff.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.shadow_round));
+            staffArrayList.clear();
+            staffStatus("INACTIVE");
+        }
+    }
+
+    public void staffStatus(String status) {
+
+        if (staffList.getStaffArrayList() != null && staffList.getStaffArrayList().size() > 0) {
+            for (int position = 0; position < staffList.getStaffArrayList().size(); position++) {
+                if (staffList.getStaffArrayList().get(position).getStatus().equalsIgnoreCase(status)) {
+                    staffArrayList.add(staffList.getStaffArrayList().get(position));
+                }
+            }
+            mAdapter = new StaffListAdapter(getContext(), staffArrayList,this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

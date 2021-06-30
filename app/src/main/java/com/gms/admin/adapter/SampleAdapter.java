@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.Grievance;
-import com.gms.admin.bean.support.Grievance;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHolder> {
 
@@ -76,25 +74,25 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Grievance Grievance = GrievancesList.get(position);
-        if (Grievance.getgrievance_type().equalsIgnoreCase("P")) {
+        Grievance grievance = GrievancesList.get(position);
+        if (grievance.getgrievance_type().equalsIgnoreCase("P")) {
             holder.txtEnquiryNo.setVisibility(View.GONE);
             holder.txtPetitionNo.setVisibility(View.VISIBLE);
-            holder.txtPetitionNo.setText("Petition Number - " + Grievance.getpetition_enquiry_no());
+            holder.txtPetitionNo.setText("Petition Number - " + grievance.getpetition_enquiry_no());
         } else{
             holder.txtPetitionNo.setVisibility(View.GONE);
             holder.txtEnquiryNo.setVisibility(View.VISIBLE);
-            holder.txtEnquiryNo.setText("Enquiry Number - " + Grievance.getpetition_enquiry_no());
+            holder.txtEnquiryNo.setText("Enquiry Number - " + grievance.getpetition_enquiry_no());
         }
 
-        holder.txtSeekerType.setText(capitalizeString(Grievance.getseeker_info()));
-        holder.txtdate.setText(getserverdateformat(Grievance.getgrievance_date()));
-        holder.txtUser.setText(capitalizeString(Grievance.getFull_name()));
-        holder.txtGrievanceName.setText(capitalizeString(Grievance.getgrievance_name()));
-        holder.txtGrievanceStatus.setText(capitalizeString(Grievance.getstatus()));
-        holder.txtGrievanceSubCategory.setText(capitalizeString(Grievance.getSub_category_name()));
+        holder.txtSeekerType.setText(capitalizeString(grievance.getseeker_info()));
+        holder.txtdate.setText(getserverdateformat(grievance.getgrievance_date()));
+        holder.txtUser.setText(capitalizeString(grievance.getFull_name()));
+        holder.txtGrievanceName.setText(capitalizeString(grievance.getgrievance_name()));
+        holder.txtGrievanceStatus.setText(capitalizeString(grievance.getstatus()));
+        holder.txtGrievanceSubCategory.setText(capitalizeString(grievance.getSub_category_name()));
 
-        if (Grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
+        if (grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
             holder.txtGrievanceStatus.setBackground(ContextCompat.getDrawable(holder.txtGrievanceStatus.getContext(), R.drawable.btn_round_completed));
         } else {
             holder.txtGrievanceStatus.setBackground(ContextCompat.getDrawable(holder.txtGrievanceStatus.getContext(), R.drawable.btn_round_processing));
