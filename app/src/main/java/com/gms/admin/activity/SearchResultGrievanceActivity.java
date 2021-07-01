@@ -24,8 +24,6 @@ import com.gms.admin.adapter.ConstituentListAdapter;
 import com.gms.admin.adapter.SampleAdapter;
 import com.gms.admin.bean.support.Grievance;
 import com.gms.admin.bean.support.GrievanceList;
-import com.gms.admin.bean.support.SearchResultUserList;
-import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -152,7 +150,8 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
             String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_SEARCH_RESULT_GRIEVANCE;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
 
     }
@@ -203,7 +202,7 @@ public class SearchResultGrievanceActivity extends AppCompatActivity implements 
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
 

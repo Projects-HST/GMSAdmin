@@ -255,27 +255,27 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
     private boolean validateFields() {
 
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date", R.style.alertDialogueTheme);
             return false;
         }
         if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date", R.style.alertDialogueTheme);
             return false;
         }
         if (paguthiId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi", R.style.alertDialogueTheme);
             return false;
         }
         if (officeId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select office", R.style.alertDialogueTheme);
             return false;
         }
         if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select status", R.style.alertDialogueTheme);
             return false;
         }
         if (!checkTime()) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date", R.style.alertDialogueTheme);
             return false;
         }
         return true;
@@ -426,7 +426,7 @@ public class ReportStatusActivity extends AppCompatActivity implements IServiceL
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -226,15 +225,15 @@ public class ReportVideoActivity extends AppCompatActivity implements IServiceLi
     private boolean validateFields() {
 
         if (paguthiId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi", R.style.alertDialogueTheme);
             return false;
         }
         if (officeId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select office", R.style.alertDialogueTheme);
             return false;
         }
         if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select status", R.style.alertDialogueTheme);
             return false;
         }
         return true;
@@ -339,7 +338,7 @@ public class ReportVideoActivity extends AppCompatActivity implements IServiceLi
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {

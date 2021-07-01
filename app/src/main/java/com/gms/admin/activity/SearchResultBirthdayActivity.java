@@ -20,13 +20,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ReportBirthdayListAdapter;
-import com.gms.admin.adapter.ReportMeetingListAdapter;
 import com.gms.admin.bean.support.Birthday;
 import com.gms.admin.bean.support.BirthdayList;
-import com.gms.admin.bean.support.Meeting;
 import com.gms.admin.bean.support.ReportGrievance;
 import com.gms.admin.bean.support.ReportGrievanceList;
-import com.gms.admin.bean.support.ReportMeetingList;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -135,7 +132,8 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
         if (CommonUtils.isNetworkAvailable(this)) {
             getCategoryList(event, count);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
 
     }
@@ -205,7 +203,7 @@ public class SearchResultBirthdayActivity extends AppCompatActivity implements I
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
 

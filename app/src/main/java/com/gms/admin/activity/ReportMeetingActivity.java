@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -32,7 +31,6 @@ import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 
 import org.json.JSONArray;
@@ -204,14 +202,14 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
     private boolean validateFields() {
 
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date", R.style.alertDialogueTheme);
             return false;
         }
         if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date", R.style.alertDialogueTheme);
             return false;
         }if (!checkTime()) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date", R.style.alertDialogueTheme);
             return false;
         }
         return true;
@@ -399,7 +397,7 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {

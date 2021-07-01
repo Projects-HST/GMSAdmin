@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.gms.admin.R;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -41,6 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
     @Override
@@ -90,11 +90,12 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                         e.printStackTrace();
                     }
                 } else {
-                    AlertDialogHelper.showSimpleAlertDialog(this, "Email ID/ Phone number is required to reset password");
+                    AlertDialogHelper.showSimpleAlertDialog(this, "Email ID/ Phone number is required to reset password",
+                            R.style.alertDialogueTheme);
                 }
             }
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available");
+            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available", R.style.alertDialogueTheme);
         }
 
     }
@@ -131,7 +132,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {
@@ -159,6 +160,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 }

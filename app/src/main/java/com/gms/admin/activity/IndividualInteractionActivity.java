@@ -18,9 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.gms.admin.R;
-import com.gms.admin.adapter.GrievanceListAdapter;
-import com.gms.admin.bean.support.Grievance;
-import com.gms.admin.bean.support.IndividualGrievanceList;
 import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
@@ -35,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class IndividualInteractionActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener {
@@ -149,7 +145,7 @@ public class IndividualInteractionActivity extends AppCompatActivity implements 
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
     private void loadMembersList(JSONArray memberCount) {

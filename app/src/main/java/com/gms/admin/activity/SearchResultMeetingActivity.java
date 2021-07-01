@@ -20,12 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
-import com.gms.admin.adapter.ConstituentListAdapter;
 import com.gms.admin.adapter.MeetingListAdapter;
 import com.gms.admin.bean.support.Meeting;
 import com.gms.admin.bean.support.MeetingList;
 import com.gms.admin.bean.support.SearchResultUserList;
-import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -151,7 +149,8 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
             String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_SEARCH_RESULT_MEETING;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
 
     }
@@ -202,7 +201,7 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
 

@@ -2,27 +2,21 @@ package com.gms.admin.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.gms.admin.R;
-import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
@@ -152,7 +146,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             public void afterTextChanged(Editable arg0) {
             }
         });
-
 
         save = (Button) findViewById(R.id.btn_save);
 

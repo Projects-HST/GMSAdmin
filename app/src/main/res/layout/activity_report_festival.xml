@@ -38,7 +38,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/birthday"
+                    android:text="@string/festival"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginTop="20dp"
@@ -111,7 +111,7 @@
                         android:layout_weight="0.3"
                         android:gravity="center_vertical|start"
                         android:paddingStart="20dp"
-                        android:text="@string/select_month"
+                        android:text="@string/select_fest"
                         android:textColor="@color/msg_by_grey" />
 
                     <ImageView

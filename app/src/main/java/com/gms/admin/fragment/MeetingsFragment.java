@@ -241,7 +241,8 @@ public class MeetingsFragment extends Fragment implements IServiceListener, Dial
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_MEETINGS;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
     }
 

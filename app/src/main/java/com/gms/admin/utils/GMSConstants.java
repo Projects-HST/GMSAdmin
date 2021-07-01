@@ -6,6 +6,7 @@ package com.gms.admin.utils;
 
 public class GMSConstants {
 
+
     //URL'S
     //BASE URL
     private static final String BASE_URL = "https://happysanz.in/";
@@ -311,6 +312,7 @@ public class GMSConstants {
     public static String ALERT_DIALOG_TAG = "alertDialogTag";
     public static String ALERT_DIALOG_POS_BUTTON = "alert_dialog_pos_button";
     public static String ALERT_DIALOG_NEG_BUTTON = "alert_dialog_neg_button";
+    public static final String ALERT_DIALOG_THEME = "alertDialogTheme";
 
     // Login Parameters
     public static final String KEY_CONSTITUENCY_CODE = "constituency_code";

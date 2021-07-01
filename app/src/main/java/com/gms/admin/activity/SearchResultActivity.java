@@ -3,33 +3,26 @@ package com.gms.admin.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ConstituentListAdapter;
-import com.gms.admin.bean.support.IndividualMeeting;
-import com.gms.admin.bean.support.User;
 import com.gms.admin.bean.support.SearchResultUserList;
-import com.gms.admin.customview.CircleImageView;
+import com.gms.admin.bean.support.User;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -37,17 +30,13 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.CommonUtils;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import static android.util.Log.d;
 
 public class SearchResultActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, ConstituentListAdapter.OnItemClickListener{
     private static final String TAG = "AdvaSearchResAct";
@@ -157,7 +146,8 @@ public class SearchResultActivity extends AppCompatActivity implements IServiceL
             String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_SEARCH_RESULT;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
 
     }
@@ -208,7 +198,7 @@ public class SearchResultActivity extends AppCompatActivity implements IServiceL
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
 

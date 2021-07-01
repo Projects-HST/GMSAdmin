@@ -336,7 +336,8 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
             progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
             checkVersion();
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
     }
 
@@ -356,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     }
 
     private void logout() {
-        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this, R.style.alertDialogueTheme);
         alertDialogBuilder.setTitle(getString(R.string.sign_out));
         alertDialogBuilder.setMessage(getString(R.string.sign_out_alert));
         alertDialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
@@ -378,6 +379,10 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
                 dialog.dismiss();
             }
         });
+//        AlertDialog alertDialog = alertDialogBuilder.show();
+//        alertDialog.show();
+//        alertDialog.getButton(alertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.text_black));
+//        alertDialog.getButton(alertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.text_black));
         alertDialogBuilder.show();
     }
 

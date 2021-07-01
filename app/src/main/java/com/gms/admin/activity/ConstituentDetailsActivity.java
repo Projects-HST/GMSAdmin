@@ -186,7 +186,7 @@ public class ConstituentDetailsActivity extends AppCompatActivity implements Vie
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {
@@ -299,6 +299,6 @@ public class ConstituentDetailsActivity extends AppCompatActivity implements Vie
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 }

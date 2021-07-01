@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,12 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.GrievanceListAdapter;
-import com.gms.admin.adapter.SampleAdapter;
 import com.gms.admin.bean.support.Grievance;
-import com.gms.admin.bean.support.GrievanceList;
 import com.gms.admin.bean.support.IndividualGrievanceList;
 import com.gms.admin.bean.support.User;
-import com.gms.admin.fragment.DynamicGrievanceFragment;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -194,7 +190,7 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {
@@ -231,7 +227,7 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
     @Override

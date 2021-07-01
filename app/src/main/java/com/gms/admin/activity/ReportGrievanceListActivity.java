@@ -1,9 +1,7 @@
 package com.gms.admin.activity;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,17 +10,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -32,34 +24,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ReportGrievanceListAdapter;
-import com.gms.admin.adapter.SampleAdapter;
-import com.gms.admin.bean.support.Grievance;
-import com.gms.admin.bean.support.GrievanceList;
 import com.gms.admin.bean.support.ReportGrievance;
 import com.gms.admin.bean.support.ReportGrievanceList;
-import com.gms.admin.bean.support.SpinnerData;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
-import com.gms.admin.utils.CommonUtils;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class ReportGrievanceListActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportGrievanceListAdapter.OnItemClickListener {
     private static final String TAG = ReportStatusActivity.class.getName();
@@ -402,7 +381,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         if (totalCount == 0) {
-                            AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                            AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                         }
                         swipeRefreshLayout.setRefreshing(false);
                     }

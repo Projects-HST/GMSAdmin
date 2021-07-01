@@ -23,14 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
-import com.gms.admin.adapter.MeetingListAdapter;
 import com.gms.admin.adapter.ReportMeetingListAdapter;
-import com.gms.admin.adapter.ReportStaffListAdapter;
 import com.gms.admin.bean.support.Meeting;
-import com.gms.admin.bean.support.MeetingList;
 import com.gms.admin.bean.support.ReportMeetingList;
-import com.gms.admin.bean.support.ReportStaff;
-import com.gms.admin.bean.support.ReportStaffList;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -193,7 +188,7 @@ public class ReportMeetingListActivity extends AppCompatActivity implements ISer
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         if (totalCount == 0) {
-                            AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                            AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                         }
                         swipeRefreshLayout.setRefreshing(false);
                     }

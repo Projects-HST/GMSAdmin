@@ -201,19 +201,19 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ReportConstituentActivity"
-            android:label="@string/report_birthday_title"
+            android:label="@string/report_constituent_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ReportVideoActivity"
-            android:label="@string/report_birthday_title"
+            android:label="@string/report_video_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ReportFestivalActivity"
-            android:label="@string/report_birthday_title"
+            android:label="@string/report_festival_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoActionBarLogin"
             android:windowSoftInputMode="stateHidden" />

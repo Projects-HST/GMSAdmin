@@ -129,7 +129,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
                             android:layout_marginEnd="40dp"
-                            android:hint="@string/phone_no">
+                            android:hint="@string/phone_no"
+                            app:hintTextColor="@color/text_black"
+                            app:boxStrokeColor="@color/stroke_black">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/phone"
@@ -174,7 +176,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
                             android:layout_marginEnd="40dp"
-                            android:hint="@string/mail">
+                            android:hint="@string/mail"
+                            app:hintTextColor="@color/text_black"
+                            app:boxStrokeColor="@color/stroke_black">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/email"
@@ -195,7 +199,9 @@
                             android:layout_below="@+id/ti_email"
                             android:layout_marginStart="40dp"
                             android:layout_marginEnd="40dp"
-                            android:hint="@string/password">
+                            android:hint="@string/password"
+                            app:hintTextColor="@color/text_black"
+                            app:boxStrokeColor="@color/stroke_black">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/password"

@@ -8,6 +8,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.ContextThemeWrapper;
+
+import androidx.annotation.StyleRes;
 
 import com.gms.admin.R;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -20,9 +23,11 @@ import com.gms.admin.utils.GMSConstants;
 public class CompoundAlertDialogFragment extends DialogFragment {
 
     private int tag;
+    private int theme;
+    AlertDialog dialog;
     DialogClickListener dialogActions;
 
-    public static CompoundAlertDialogFragment newInstance(String title, String message, String posButton, String negButton, int tag) {
+    public static CompoundAlertDialogFragment newInstance(String title, String message, String posButton, String negButton, int tag, @StyleRes int themeResId) {
         CompoundAlertDialogFragment frag = new CompoundAlertDialogFragment();
         Bundle args = new Bundle();
         args.putString(GMSConstants.ALERT_DIALOG_TITLE, title);
@@ -30,6 +35,7 @@ public class CompoundAlertDialogFragment extends DialogFragment {
         args.putString(GMSConstants.ALERT_DIALOG_POS_BUTTON, posButton);
         args.putString(GMSConstants.ALERT_DIALOG_NEG_BUTTON, negButton);
         args.putInt(GMSConstants.ALERT_DIALOG_TAG, tag);
+        args.putInt(GMSConstants.ALERT_DIALOG_THEME, themeResId);
         frag.setArguments(args);
         return frag;
     }
@@ -44,6 +50,12 @@ public class CompoundAlertDialogFragment extends DialogFragment {
         }
     }
 
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setStyle(DialogFragment.STYLE_NORMAL, R.style.alertDialogueTheme);
+//    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -51,15 +63,16 @@ public class CompoundAlertDialogFragment extends DialogFragment {
         String message = args.getString(GMSConstants.ALERT_DIALOG_MESSAGE, "");
         String title = args.getString(GMSConstants.ALERT_DIALOG_TITLE);
         tag = args.getInt(GMSConstants.ALERT_DIALOG_TAG, 0);
+//        theme = args.getInt(GMSConstants.ALERT_DIALOG_THEME, R.style.datePickerTheme);
+
         String posButton = args.getString(GMSConstants.ALERT_DIALOG_POS_BUTTON, getActivity().getString(R.string.alert_button_ok));
         String negButton = args.getString(GMSConstants.ALERT_DIALOG_NEG_BUTTON, getActivity().getString(R.string.alert_button_cancel));
-        return new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.alertDialogueTheme))
                 .setTitle(title)
                 .setMessage(message)
+                .setCancelable(false)
                 .setPositiveButton(posButton, mListener)
-                .setNegativeButton(negButton, mListener)
-                .create();
-
+                .setNegativeButton(negButton, mListener).create();
     }
 
     DialogInterface.OnClickListener mListener = new DialogInterface.OnClickListener() {

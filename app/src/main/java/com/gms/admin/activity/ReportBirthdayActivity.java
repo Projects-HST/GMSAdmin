@@ -9,27 +9,21 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -45,7 +39,6 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.PreferenceStorage;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -348,27 +341,27 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     private boolean validateFields() {
 
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date", R.style.alertDialogueTheme);
             return false;
         }
         if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date", R.style.alertDialogueTheme);
             return false;
         }
         if (paguthiId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi", R.style.alertDialogueTheme);
             return false;
         }
         if (officeId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select office", R.style.alertDialogueTheme);
             return false;
         }
         if (status.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select status", R.style.alertDialogueTheme);
             return false;
         }
         if (!checkTime()) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
+            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date", R.style.alertDialogueTheme);
             return false;
         }
         return true;
@@ -496,7 +489,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {

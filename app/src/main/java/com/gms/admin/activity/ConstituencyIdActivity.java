@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.gms.admin.R;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
+import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.GMSConstants;
@@ -20,7 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ConstituencyIdActivity extends AppCompatActivity implements IServiceListener, View.OnClickListener {
+public class ConstituencyIdActivity extends AppCompatActivity implements IServiceListener, View.OnClickListener, DialogClickListener {
 
     private static final String TAG = ConstituencyIdActivity.class.getName();
     private TextInputEditText constituency_code;
@@ -70,7 +71,7 @@ public class ConstituencyIdActivity extends AppCompatActivity implements IServic
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {
@@ -110,5 +111,15 @@ public class ConstituencyIdActivity extends AppCompatActivity implements IServic
         if (view == next){
             checkConstituencyCode();
         }
+    }
+
+    @Override
+    public void onAlertPositiveClicked(int tag) {
+
+    }
+
+    @Override
+    public void onAlertNegativeClicked(int tag) {
+
     }
 }

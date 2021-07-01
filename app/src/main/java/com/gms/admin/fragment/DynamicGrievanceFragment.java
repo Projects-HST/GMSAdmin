@@ -22,8 +22,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.activity.GrievanceDetailActivity;
-import com.gms.admin.activity.MeetingDetailActivity;
-import com.gms.admin.adapter.MeetingListAdapter;
 import com.gms.admin.adapter.SampleAdapter;
 import com.gms.admin.bean.support.Grievance;
 import com.gms.admin.bean.support.GrievanceList;
@@ -220,7 +218,8 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_GRIEVANCE_LIST_NEW;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
     }
 

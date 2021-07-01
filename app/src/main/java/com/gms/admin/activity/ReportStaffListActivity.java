@@ -2,7 +2,6 @@ package com.gms.admin.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,10 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
-import com.gms.admin.adapter.ReportGrievanceListAdapter;
 import com.gms.admin.adapter.ReportStaffListAdapter;
-import com.gms.admin.bean.support.ReportGrievance;
-import com.gms.admin.bean.support.ReportGrievanceList;
 import com.gms.admin.bean.support.ReportStaff;
 import com.gms.admin.bean.support.ReportStaffList;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -164,7 +160,7 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         if (totalCount == 0) {
-                            AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                            AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                         }
                         swipeRefreshLayout.setRefreshing(false);
                     }

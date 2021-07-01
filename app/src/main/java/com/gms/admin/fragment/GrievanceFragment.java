@@ -16,9 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gms.admin.R;
-import com.gms.admin.activity.SearchResultActivity;
 import com.gms.admin.activity.SearchResultGrievanceActivity;
-import com.gms.admin.adapter.ConstituentPaguthiTabAdapter;
 import com.gms.admin.adapter.GrievancePaguthiTabAdapter;
 import com.gms.admin.bean.support.Paguthi;
 import com.gms.admin.bean.support.PaguthiList;
@@ -193,7 +191,7 @@ public class GrievanceFragment extends Fragment implements IServiceListener, Dia
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
+                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {

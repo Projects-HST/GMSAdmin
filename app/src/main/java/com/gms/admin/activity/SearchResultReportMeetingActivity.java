@@ -2,7 +2,6 @@ package com.gms.admin.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
-import com.gms.admin.adapter.ReportGrievanceListAdapter;
 import com.gms.admin.adapter.ReportMeetingListAdapter;
 import com.gms.admin.bean.support.Meeting;
 import com.gms.admin.bean.support.ReportGrievance;
@@ -134,7 +132,8 @@ public class SearchResultReportMeetingActivity extends AppCompatActivity impleme
         if (CommonUtils.isNetworkAvailable(this)) {
             getCategoryList(event, count);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
 
     }
@@ -205,7 +204,7 @@ public class SearchResultReportMeetingActivity extends AppCompatActivity impleme
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error);
+        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
     }
 
 

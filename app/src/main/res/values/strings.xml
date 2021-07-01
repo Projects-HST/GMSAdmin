@@ -267,6 +267,7 @@
 
     <!--Report Festival Page Strings-->
     <string name="report_festival_title">Festival Report</string>
+    <string name="select_fest">Select Festival</string>
 
     <!--Report Video Page Strings-->
     <string name="report_video_title">Video Report</string>

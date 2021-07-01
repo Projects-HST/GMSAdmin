@@ -99,10 +99,10 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
                 finish();
             }
         });
-        toolbar.setTitle(getString(R.string.report_birthday_title));
+        toolbar.setTitle(getString(R.string.report_constituent_title));
 
         paguthi = findViewById(R.id.report_paguthi);
-        selectStatus = findViewById(R.id.status_month);
+//        selectStatus = findViewById(R.id.status_month);
         selectPaguthi = findViewById(R.id.paguthi_select);
         whatsappCheck = findViewById(R.id.whatsapp_no);
         phoneCheck = findViewById(R.id.phone_no);
@@ -123,7 +123,7 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
         search.setOnClickListener(this);
         selectOffice.setOnClickListener(this);
 
-        selectStatus.setOnClickListener(this);
+//        selectStatus.setOnClickListener(this);
         selectPaguthi.setOnClickListener(this);
 
         mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -137,9 +137,9 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
     @Override
     public void onClick(View v) {
 
-        if (v == selectStatus) {
-            showSpinnerData();
-        }
+//        if (v == selectStatus) {
+//            showSpinnerData();
+//        }
         if (v == selectPaguthi) {
             showPaguthiSpinnerData();
         }
@@ -238,15 +238,15 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
     private boolean validateFields() {
 
         if (paguthiId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi", R.style.alertDialogueTheme);
             return false;
         }
         if (officeId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select office", R.style.alertDialogueTheme);
             return false;
         }
         if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select status", R.style.alertDialogueTheme);
             return false;
         }
         return true;
@@ -375,7 +375,7 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
                     }
                 }
             } catch (JSONException e) {

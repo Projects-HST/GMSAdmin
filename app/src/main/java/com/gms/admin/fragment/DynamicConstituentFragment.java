@@ -1,7 +1,6 @@
 package com.gms.admin.fragment;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,12 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +23,6 @@ import com.gms.admin.adapter.ConstituentListAdapter;
 import com.gms.admin.bean.support.ConstituentUserList;
 import com.gms.admin.bean.support.Paguthi;
 import com.gms.admin.bean.support.User;
-import com.gms.admin.customview.CircleImageView;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -34,17 +30,13 @@ import com.gms.admin.servicehelpers.ServiceHelper;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 import com.gms.admin.utils.CommonUtils;
 import com.gms.admin.utils.GMSConstants;
-import com.gms.admin.utils.GMSValidator;
 import com.gms.admin.utils.PreferenceStorage;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import static android.util.Log.d;
 
 public class DynamicConstituentFragment extends Fragment implements IServiceListener, DialogClickListener, ConstituentListAdapter.OnItemClickListener{
 
@@ -185,7 +177,8 @@ public class DynamicConstituentFragment extends Fragment implements IServiceList
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_CONSTITUENT_LIST;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
     }
 

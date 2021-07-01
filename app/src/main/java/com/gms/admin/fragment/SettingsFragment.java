@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 
 import com.gms.admin.R;
+import com.gms.admin.activity.AboutUsActivity;
 import com.gms.admin.activity.ChangePasswordActivity;
 import com.gms.admin.activity.EditProfileActivity;
+import com.gms.admin.activity.PrivacyActivity;
+import com.gms.admin.activity.TermsAndConditions;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.serviceinterfaces.IServiceListener;
 
@@ -55,11 +58,17 @@ public class SettingsFragment extends Fragment implements IServiceListener, Dial
             Intent i = new Intent (getActivity(), ChangePasswordActivity.class);
             startActivity(i);
         }if (v == about) {
-
+            Intent i = new Intent (getActivity(), AboutUsActivity.class);
+            startActivity(i);
         }if (v == terms) {
+            Intent i = new Intent (getActivity(), TermsAndConditions.class);
+            startActivity(i);
 
         }if (v == privacy) {
-//            Intent i = new Intent (getActivity(), SampleClassasa.class);
+            Intent i = new Intent (getActivity(), PrivacyActivity.class);
+            startActivity(i);
+        }if (v == support) {
+//            Intent i = new Intent (getActivity(), PrivacyActivity.class);
 //            startActivity(i);
         }
     }

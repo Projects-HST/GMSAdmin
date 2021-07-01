@@ -241,7 +241,8 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_STAFF_LIST;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
+                    R.style.alertDialogueTheme);
         }
     }
 
@@ -259,7 +260,7 @@ public class StaffFragment extends Fragment implements IServiceListener, DialogC
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
+                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg, R.style.alertDialogueTheme);
                         if (listcount == 0) {
 //                            swipeRefreshLayout.setVisibility(View.GONE);
                         }
