@@ -190,7 +190,7 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {
@@ -227,7 +227,7 @@ public class IndividualGrievanceActivity extends AppCompatActivity implements IS
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
     @Override

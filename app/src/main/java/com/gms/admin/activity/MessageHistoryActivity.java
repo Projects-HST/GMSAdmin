@@ -112,7 +112,7 @@ public class MessageHistoryActivity extends AppCompatActivity implements IServic
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {
@@ -139,7 +139,7 @@ public class MessageHistoryActivity extends AppCompatActivity implements IServic
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
     private void loadMembersList(JSONArray memberCount) {

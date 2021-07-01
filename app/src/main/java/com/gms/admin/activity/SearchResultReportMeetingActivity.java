@@ -132,8 +132,7 @@ public class SearchResultReportMeetingActivity extends AppCompatActivity impleme
         if (CommonUtils.isNetworkAvailable(this)) {
             getCategoryList(event, count);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
         }
 
     }
@@ -204,7 +203,7 @@ public class SearchResultReportMeetingActivity extends AppCompatActivity impleme
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
 

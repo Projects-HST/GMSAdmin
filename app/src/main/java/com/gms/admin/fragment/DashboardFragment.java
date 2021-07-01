@@ -901,7 +901,7 @@ public class DashboardFragment extends Fragment implements IServiceListener, Dia
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(getActivity(), msg);
                     }
                 }
             } catch (JSONException e) {

@@ -149,8 +149,7 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
                 getLocationList(event, count);
             }
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
         }
 
     }
@@ -282,7 +281,7 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
 

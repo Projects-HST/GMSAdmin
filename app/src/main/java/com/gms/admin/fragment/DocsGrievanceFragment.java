@@ -124,8 +124,7 @@ public class DocsGrievanceFragment extends Fragment implements IServiceListener,
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_GRIEVANCE_DOC;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
         }
     }
 

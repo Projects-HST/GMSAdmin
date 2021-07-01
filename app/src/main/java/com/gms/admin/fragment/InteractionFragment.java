@@ -137,7 +137,7 @@ public class InteractionFragment extends Fragment  implements IServiceListener, 
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(getActivity(), error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(getActivity(), error);
     }
 
     private void loadMembersList(JSONArray memberCount) {

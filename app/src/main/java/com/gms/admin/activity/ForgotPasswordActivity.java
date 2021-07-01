@@ -90,12 +90,11 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                         e.printStackTrace();
                     }
                 } else {
-                    AlertDialogHelper.showSimpleAlertDialog(this, "Email ID/ Phone number is required to reset password",
-                            R.style.alertDialogueTheme);
+                    AlertDialogHelper.showSimpleAlertDialog(this, "Email ID/ Phone number is required to reset password");
                 }
             }
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available");
         }
 
     }
@@ -132,7 +131,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {
@@ -160,6 +159,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 }

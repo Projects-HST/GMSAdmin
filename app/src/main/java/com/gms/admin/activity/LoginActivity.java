@@ -193,8 +193,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         } else if (v == forgot) {
             if (contistuencyText.getText().toString().equalsIgnoreCase(getString(R.string.select_constituency))) {
-                AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.select_constituency_alert),
-                        R.style.alertDialogueTheme);
+                AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.select_constituency_alert));
             } else {
                 Intent intent = new Intent(this, ForgotPasswordActivity.class);
                 startActivity(intent);
@@ -263,7 +262,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
         }
         if (contistuencyText.getText().toString().equalsIgnoreCase(getString(R.string.select_constituency))) {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.select_constituency_alert), R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.select_constituency_alert));
             return false;
         } else {
             return true;
@@ -331,7 +330,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {

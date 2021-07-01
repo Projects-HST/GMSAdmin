@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -336,8 +337,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
             progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
             checkVersion();
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
         }
     }
 
@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements IServiceListener,
     }
 
     private void logout() {
-        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this, R.style.alertDialogueTheme);
+        android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(new ContextThemeWrapper(this, R.style.alertDialogueTheme));
         alertDialogBuilder.setTitle(getString(R.string.sign_out));
         alertDialogBuilder.setMessage(getString(R.string.sign_out_alert));
         alertDialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {

@@ -135,7 +135,7 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {
@@ -299,6 +299,6 @@ public class GraphActivity extends AppCompatActivity implements IServiceListener
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 }

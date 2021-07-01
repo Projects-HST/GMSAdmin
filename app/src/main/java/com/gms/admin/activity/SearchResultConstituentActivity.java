@@ -148,8 +148,7 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
             String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_SEARCH_RESULT_CONSTITUENT;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
         }
 
     }
@@ -200,7 +199,7 @@ public class SearchResultConstituentActivity extends AppCompatActivity implement
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
 

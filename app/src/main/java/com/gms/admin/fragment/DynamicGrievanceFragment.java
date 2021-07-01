@@ -218,8 +218,7 @@ public class DynamicGrievanceFragment extends Fragment implements IServiceListen
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_GRIEVANCE_LIST_NEW;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
         }
     }
 

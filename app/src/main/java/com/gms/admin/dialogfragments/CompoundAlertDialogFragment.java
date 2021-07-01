@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.ContextThemeWrapper;
 
-import androidx.annotation.StyleRes;
-
 import com.gms.admin.R;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.utils.GMSConstants;
@@ -27,7 +25,7 @@ public class CompoundAlertDialogFragment extends DialogFragment {
     AlertDialog dialog;
     DialogClickListener dialogActions;
 
-    public static CompoundAlertDialogFragment newInstance(String title, String message, String posButton, String negButton, int tag, @StyleRes int themeResId) {
+    public static CompoundAlertDialogFragment newInstance(String title, String message, String posButton, String negButton, int tag) {
         CompoundAlertDialogFragment frag = new CompoundAlertDialogFragment();
         Bundle args = new Bundle();
         args.putString(GMSConstants.ALERT_DIALOG_TITLE, title);
@@ -35,7 +33,6 @@ public class CompoundAlertDialogFragment extends DialogFragment {
         args.putString(GMSConstants.ALERT_DIALOG_POS_BUTTON, posButton);
         args.putString(GMSConstants.ALERT_DIALOG_NEG_BUTTON, negButton);
         args.putInt(GMSConstants.ALERT_DIALOG_TAG, tag);
-        args.putInt(GMSConstants.ALERT_DIALOG_THEME, themeResId);
         frag.setArguments(args);
         return frag;
     }

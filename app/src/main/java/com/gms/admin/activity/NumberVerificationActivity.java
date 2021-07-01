@@ -177,7 +177,7 @@ public class NumberVerificationActivity extends AppCompatActivity implements Vie
                     String url = PreferenceStorage.getClientUrl(this) + GMSConstants.MOBILE_VERIFY;
                     serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
                 } else {
-                    AlertDialogHelper.showSimpleAlertDialog(this, "Invalid OTP", R.style.alertDialogueTheme);
+                    AlertDialogHelper.showSimpleAlertDialog(this, "Invalid OTP");
                 }
 
             } else if (v == btnChangeNumber) {
@@ -189,7 +189,7 @@ public class NumberVerificationActivity extends AppCompatActivity implements Vie
 //                finish();
             }
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "No Network connection available");
         }
     }
 
@@ -217,7 +217,7 @@ public class NumberVerificationActivity extends AppCompatActivity implements Vie
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {
@@ -286,7 +286,7 @@ public class NumberVerificationActivity extends AppCompatActivity implements Vie
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
     void countDownTimers() {

@@ -145,7 +145,7 @@ public class IndividualInteractionActivity extends AppCompatActivity implements 
     @Override
     public void onError(String error) {
         progressDialogHelper.hideProgressDialog();
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
     private void loadMembersList(JSONArray memberCount) {

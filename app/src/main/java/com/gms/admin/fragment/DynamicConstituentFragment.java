@@ -177,8 +177,7 @@ public class DynamicConstituentFragment extends Fragment implements IServiceList
             String url = PreferenceStorage.getClientUrl(getActivity()) + GMSConstants.GET_CONSTITUENT_LIST;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(getActivity(), getString(R.string.error_no_net));
         }
     }
 

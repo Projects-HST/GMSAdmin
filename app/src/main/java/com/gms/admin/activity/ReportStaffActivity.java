@@ -109,14 +109,14 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
     private boolean validateFields() {
 
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
             return false;
         }
         if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
         }if (!checkTime()) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
             return false;
         }
         return true;

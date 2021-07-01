@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 
-import androidx.annotation.StyleRes;
-
 import com.gms.admin.R;
 import com.gms.admin.dialogfragments.AlertDialogForFragment;
 import com.gms.admin.dialogfragments.CompoundAlertDialogFragment;
@@ -19,9 +17,9 @@ import com.gms.admin.interfaces.DialogClickListener;
 
 public class AlertDialogHelper {
 
-    public static void showSimpleAlertDialog(Context context, String message, @StyleRes int themeResId) {
+    public static void showSimpleAlertDialog(Context context, String message) {
         DialogFragment simpleAlertDialogFragment = SimpleAlertDialogFragment.newInstance(
-                R.string.empty, message, themeResId);
+                R.string.empty, message);
         final Activity activity = (Activity) context;
         if (activity != null) {
             try {
@@ -34,9 +32,9 @@ public class AlertDialogHelper {
         }
     }
 
-    public static void showSimpleAlertDialog(Context context, String message, int tag, @StyleRes int themeResId) {
+    public static void showSimpleAlertDialog(Context context, String message, int tag) {
         DialogFragment simpleAlertDialogFragment = SimpleAlertDialogFragment.newInstance(
-                R.string.empty, message, tag, themeResId);
+                R.string.empty, message, tag);
         final Activity activity = (Activity) context;
         if (activity != null) {
             try {
@@ -49,9 +47,9 @@ public class AlertDialogHelper {
         }
     }
 
-    public static void showAlertDialogForFragment(Context context, DialogClickListener dialogClickListener, String message, int tag, @StyleRes int themeResId) {
+    public static void showAlertDialogForFragment(Context context, DialogClickListener dialogClickListener, String message,  int tag) {
         AlertDialogForFragment alertDialogForFragment = AlertDialogForFragment.newInstance(
-                R.string.empty, message, tag, themeResId);
+                R.string.empty, message, tag);
         alertDialogForFragment.setDialogListener(dialogClickListener);
         final Activity activity = (Activity) context;
         if (activity != null)
@@ -63,8 +61,8 @@ public class AlertDialogHelper {
             }
     }
 
-    public static void showCompoundAlertDialog(Context context, String title, String message, String posButton, String negButton, int tag, @StyleRes int themeResId) {
-        CompoundAlertDialogFragment compoundDialogFragment = CompoundAlertDialogFragment.newInstance(title, message, posButton, negButton, tag, themeResId);
+    public static void showCompoundAlertDialog(Context context, String title, String message, String posButton, String negButton, int tag) {
+        CompoundAlertDialogFragment compoundDialogFragment = CompoundAlertDialogFragment.newInstance(title, message, posButton, negButton, tag);
         Activity activity = (Activity)context;
         if(activity != null) {
             compoundDialogFragment.show(activity.getFragmentManager(), "dialog");

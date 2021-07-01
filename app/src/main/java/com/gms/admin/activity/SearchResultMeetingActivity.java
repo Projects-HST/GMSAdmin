@@ -149,8 +149,7 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
             String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_SEARCH_RESULT_MEETING;
             serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
         } else {
-            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net),
-                    R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, getString(R.string.error_no_net));
         }
 
     }
@@ -201,7 +200,7 @@ public class SearchResultMeetingActivity extends AppCompatActivity implements IS
     @Override
     public void onError(final String error) {
         swipeRefreshLayout.setRefreshing(false);
-        AlertDialogHelper.showSimpleAlertDialog(this, error, R.style.alertDialogueTheme);
+        AlertDialogHelper.showSimpleAlertDialog(this, error);
     }
 
 

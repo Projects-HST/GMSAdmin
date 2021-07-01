@@ -238,15 +238,15 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
     private boolean validateFields() {
 
         if (paguthiId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select paguthi");
             return false;
         }
         if (officeId.equalsIgnoreCase("0")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select office", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
             return false;
         }
         if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status", R.style.alertDialogueTheme);
+            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
             return false;
         }
         return true;
@@ -375,7 +375,7 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
                     } else {
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
-                        AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                        AlertDialogHelper.showSimpleAlertDialog(this, msg);
                     }
                 }
             } catch (JSONException e) {

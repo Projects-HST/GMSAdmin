@@ -8,8 +8,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 
-import androidx.annotation.StyleRes;
-
 import com.gms.admin.R;
 import com.gms.admin.interfaces.DialogClickListener;
 import com.gms.admin.utils.GMSConstants;
@@ -24,23 +22,21 @@ public class SimpleAlertDialogFragment extends DialogFragment {
     private int theme;
     DialogClickListener dialogActions;
 
-    public static SimpleAlertDialogFragment newInstance(int title, String message, @StyleRes int themeResId) {
+    public static SimpleAlertDialogFragment newInstance(int title, String message) {
         SimpleAlertDialogFragment frag = new SimpleAlertDialogFragment();
         Bundle args = new Bundle();
         args.putInt(GMSConstants.ALERT_DIALOG_TITLE, title);
         args.putString(GMSConstants.ALERT_DIALOG_MESSAGE, message);
-        args.putInt(GMSConstants.ALERT_DIALOG_THEME, themeResId);
         frag.setArguments(args);
         return frag;
     }
 
-    public static SimpleAlertDialogFragment newInstance(int title, String message, int tag, @StyleRes int themeResId) {
+    public static SimpleAlertDialogFragment newInstance(int title, String message, int tag) {
         SimpleAlertDialogFragment frag = new SimpleAlertDialogFragment();
         Bundle args = new Bundle();
         args.putInt(GMSConstants.ALERT_DIALOG_TITLE, title);
         args.putString(GMSConstants.ALERT_DIALOG_MESSAGE, message);
         args.putInt(GMSConstants.ALERT_DIALOG_TAG, tag);
-        args.putInt(GMSConstants.ALERT_DIALOG_THEME, themeResId);
         frag.setArguments(args);
         return frag;
     }

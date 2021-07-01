@@ -160,7 +160,7 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
                         signInSuccess = false;
                         Log.d(TAG, "Show error dialog");
                         if (totalCount == 0) {
-                            AlertDialogHelper.showSimpleAlertDialog(this, msg, R.style.alertDialogueTheme);
+                            AlertDialogHelper.showSimpleAlertDialog(this, msg);
                         }
                         swipeRefreshLayout.setRefreshing(false);
                     }
