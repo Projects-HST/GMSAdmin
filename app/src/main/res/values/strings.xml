@@ -109,6 +109,7 @@
 
     <string name="birthDay">Birthday Wishes</string>
     <string name="festival">Festival Wishes</string>
+    <string name="select_festival">Select Festival</string>
     <string name="diwali">Diwali</string>
     <string name="christmas">Christmas</string>
     <string name="ramzan">Ramzan</string>
@@ -253,6 +254,8 @@
     <!--Report Category Page Strings-->
     <string name="report_category_title">Category Report</string>
     <string name="select_category">Select Category</string>
+    <string name="select_seeker">Select Seeker</string>
+    <string name="seeker">Seeker</string>
 
     <!--Report Sub Category Page Strings-->
     <string name="report_sub_category_title">Sub Category Report</string>

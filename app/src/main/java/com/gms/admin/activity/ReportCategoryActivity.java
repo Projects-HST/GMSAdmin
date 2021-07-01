@@ -48,7 +48,7 @@ import java.util.Locale;
 
 public class ReportCategoryActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = ReportStatusActivity.class.getName();
-    private String checkRes = "", paguthiId = "0", officeId = "0", catId = "0", subCatId = "0";
+    private String checkRes = "", paguthiId = "0", officeId = "0", seekerID = "0", catId = "0", subCatId = "0";
     private SearchView searchView;
     private ServiceHelper serviceHelper;
     private ProgressDialogHelper progressDialogHelper;
@@ -56,13 +56,15 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
     private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter;
     private ArrayList<SpinnerData> spinnerSubCatData;
     private ArrayAdapter<SpinnerData> spinnerSubCatDataArrayAdapter;
-    private TextView dateFrom, dateTo, category,office, paguthi, subcategory;
-    private LinearLayout selectOffice,selectPaguthi, selectCategory, selectSubCategory;
+    private TextView dateFrom, dateTo, category,seeker,office, paguthi, subcategory;
+    private LinearLayout selectOffice,selectPaguthi, selectCategory, selectSeeker, selectSubCategory;
     private SimpleDateFormat mDateFormatter;
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
     private TextView search, clearData;
 
+    private ArrayList<SpinnerData> seekerSpinnerData;
+    private ArrayAdapter<SpinnerData> seekerSpinnerDataArrayAdapter = null;
     private ArrayList<SpinnerData> paguthispinnerData;
     private ArrayAdapter<SpinnerData> paguthispinnerDataArrayAdapter = null;
     private ArrayList<SpinnerData> officespinnerData;
@@ -88,8 +90,10 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
 
         dateFrom = findViewById(R.id.from_date);
         dateTo = findViewById(R.id.to_date);
+        seeker = findViewById(R.id.report_seeker);
         category = findViewById(R.id.report_category);
         subcategory = findViewById(R.id.report_sub_category);
+        selectSeeker = findViewById(R.id.status_seeker);
         selectCategory = findViewById(R.id.status_category);
         selectSubCategory = findViewById(R.id.status_sub_category);
 
@@ -97,6 +101,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
 
         dateFrom.setOnClickListener(this);
         dateTo.setOnClickListener(this);
+        selectSeeker.setOnClickListener(this);
         selectCategory.setOnClickListener(this);
         selectSubCategory.setOnClickListener(this);
         search.setOnClickListener(this);
@@ -123,7 +128,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
         serviceHelper.setServiceListener(this);
         progressDialogHelper = new ProgressDialogHelper(this);
 
-        getCategory();
+        getSeeker();
 
     }
 
@@ -139,6 +144,9 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
             fr = false;
             t = true;
             showBirthdayDate();
+        }
+        if (v == selectSeeker) {
+            showSeekerSpinnerData();
         }
         if (v == selectCategory) {
             showSpinnerData();
@@ -188,6 +196,33 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                         catId = spinnerDatas.getId();
 //                        rotate(90.0f, 0.0f);
                         getSubCategory();
+                    }
+                });
+        builderSingle.show();
+        builderSingle.setOnDismissListener(new AlertDialog.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+//                rotate(90.0f, 0.0f);
+            }
+        });
+    }
+
+    private void showSeekerSpinnerData() {
+        Log.d(TAG, "Show Spinner Data");
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.spinner_header_layout, null);
+        TextView header = (TextView) view.findViewById(R.id.spinner_header);
+        header.setText(getString(R.string.select_seeker));
+        builderSingle.setCustomTitle(view);
+
+        builderSingle.setAdapter(seekerSpinnerDataArrayAdapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SpinnerData spinnerDatas = seekerSpinnerData.get(which);
+                        seeker.setText(spinnerDatas.getName());
+                        seekerID = spinnerDatas.getId();
+//                        rotate(90.0f, 0.0f);
                     }
                 });
         builderSingle.show();
@@ -326,6 +361,22 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
 
     }
 
+    private void getSeeker() {
+        checkRes = "seeker";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(GMSConstants.KEY_USER_ID, PreferenceStorage.getUserId(this));
+            jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
+        String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_SEEKER_LIST;
+        serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
+    }
+
     private void getCategory() {
         checkRes = "category";
         JSONObject jsonObject = new JSONObject();
@@ -393,6 +444,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
     private void sendSearch() {
         PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
         PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
+        PreferenceStorage.saveReportSeeker(this, seekerID);
         PreferenceStorage.saveReportCategory(this, catId);
         PreferenceStorage.saveReportSubCategory(this, subCatId);
         PreferenceStorage.savePaguthiID(this, paguthiId);
@@ -481,6 +533,35 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
         if (validateResponse(response)) {
             try {
 
+                if (checkRes.equalsIgnoreCase("seeker")) {
+                    JSONArray getData = response.getJSONArray("seeker_details");
+                    int getLength = getData.length();
+                    String id = "";
+                    String name = "";
+                    seekerSpinnerData = new ArrayList<>();
+                    seekerSpinnerData.add(new SpinnerData("ALL", "All"));
+
+                    for (int i = 0; i < getLength; i++) {
+                        id = getData.getJSONObject(i).getString("id");
+                        name = capitalizeString(getData.getJSONObject(i).getString("seeker_info"));
+                        seekerSpinnerData.add(new SpinnerData(id, name));
+                    }
+
+                    //fill data in spinner
+                    seekerSpinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, seekerSpinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            Log.d(TAG, "getview called" + position);
+                            View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
+                            TextView gendername = (TextView) view.findViewById(R.id.data_name);
+                            gendername.setText(seekerSpinnerData.get(position).getName());
+
+                            // ... Fill in other views ...
+                            return view;
+                        }
+                    };
+                    getCategory();
+                }
                 if (checkRes.equalsIgnoreCase("category")) {
                     JSONArray getData = response.getJSONArray("category_details");
                     int getLength = getData.length();
