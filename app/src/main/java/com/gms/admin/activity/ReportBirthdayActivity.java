@@ -108,7 +108,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         paguthi = findViewById(R.id.report_paguthi);
         selectStatus = findViewById(R.id.status_month);
         selectPaguthi = findViewById(R.id.paguthi_select);
-
+        month = findViewById(R.id.report_month);
         office = findViewById(R.id.text_office);
         selectOffice = findViewById(R.id.select_office);
         search = findViewById(R.id.search);
@@ -160,7 +160,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                 return view;
             }
         };
-
+        getPaguthi();
     }
 
     private void getCategoryList(String count) {
@@ -187,12 +187,12 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         if (v == dateFrom) {
             fr = true;
             t = false;
-            showBirthdayDate();
+            createDialogWithoutDateField();
         }
         if (v == dateTo) {
             fr = false;
             t = true;
-            showBirthdayDate();
+            createDialogWithoutDateField();
         }
         if (v == selectStatus) {
             showSpinnerData();
@@ -260,6 +260,31 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
 
             mDatePicker.show();
         }
+    }
+
+    private DatePickerDialog createDialogWithoutDateField() {
+        DatePickerDialog dpd = new DatePickerDialog(this, null, 2014, 1, 24);
+        try {
+            java.lang.reflect.Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
+            for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) {
+                if (datePickerDialogField.getName().equals("mDatePicker")) {
+                    datePickerDialogField.setAccessible(true);
+                    DatePicker datePicker = (DatePicker) datePickerDialogField.get(dpd);
+                    java.lang.reflect.Field[] datePickerFields = datePickerDialogField.getType().getDeclaredFields();
+                    for (java.lang.reflect.Field datePickerField : datePickerFields) {
+                        Log.i("test", datePickerField.getName());
+                        if ("mDaySpinner".equals(datePickerField.getName())) {
+                            datePickerField.setAccessible(true);
+                            Object dayPicker = datePickerField.get(datePicker);
+                            ((View) dayPicker).setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex) {
+        }
+        return dpd;
     }
 
     private void showPaguthiSpinnerData() {
@@ -369,7 +394,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
 
     private boolean checkTime() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
             String dateString1 = dateFrom.getText().toString();
             String dateString2 = dateTo.getText().toString();
             Date date1 = null;
@@ -451,14 +476,14 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         if (dd != null && dd != "") {
 
             String date = dd;
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
             Date testDate = null;
             try {
                 testDate = sdf.parse(date);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
             serverFormatDate = formatter.format(testDate);
             System.out.println(".....Date..." + serverFormatDate);
         }

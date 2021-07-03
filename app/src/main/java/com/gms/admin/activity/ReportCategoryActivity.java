@@ -106,6 +106,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
         selectSubCategory.setOnClickListener(this);
         search.setOnClickListener(this);
 
+        paguthi = findViewById(R.id.report_paguthi);
         selectPaguthi = findViewById(R.id.paguthi_select);
 
         office = findViewById(R.id.text_office);
@@ -175,6 +176,9 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
             paguthiId = "0";
             officeId = "0";
             paguthi.setText("Select Paguthi");
+            seeker.setText("Select Seeker");
+            category.setText("Select Category");
+            subcategory.setText("Select Sub Category");
             office.setText("Select Office");
         }
     }
@@ -539,7 +543,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                     String id = "";
                     String name = "";
                     seekerSpinnerData = new ArrayList<>();
-                    seekerSpinnerData.add(new SpinnerData("ALL", "All"));
+                    seekerSpinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
@@ -568,7 +572,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                     String id = "";
                     String name = "";
                     spinnerData = new ArrayList<>();
-                    spinnerData.add(new SpinnerData("ALL", "All"));
+                    spinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
@@ -589,7 +593,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                             return view;
                         }
                     };
-                    getPaguthi();
+//                    getSubCategory();
                 }
                 if (checkRes.equalsIgnoreCase("sub_category")) {
                     JSONArray getData = response.getJSONArray("sub_category_details");
@@ -597,7 +601,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                     String id = "";
                     String name = "";
                     spinnerSubCatData = new ArrayList<>();
-                    spinnerSubCatData.add(new SpinnerData("ALL", "All"));
+                    spinnerSubCatData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
@@ -618,13 +622,14 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                             return view;
                         }
                     };
+                    getPaguthi();
                 }if (checkRes.equalsIgnoreCase("paguthi")) {
                     JSONArray getData = response.getJSONArray("paguthi_details");
                     int getLength = getData.length();
                     String id = "";
                     String name = "";
                     paguthispinnerData = new ArrayList<>();
-                    paguthispinnerData.add(new SpinnerData("ALL", "All"));
+                    paguthispinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
@@ -652,7 +657,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                     String id = "";
                     String name = "";
                     officespinnerData = new ArrayList<>();
-                    officespinnerData.add(new SpinnerData("ALL", "All"));
+                    officespinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");

@@ -59,6 +59,7 @@
             android:text=""
             android:textSize="14sp"/>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.5"
                 android:drawablePadding="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text=""
-                android:drawablePadding="5dp"
+                android:drawablePadding="10dp"
                 android:drawableStart="@drawable/ic_phone_grey"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
@@ -110,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:text=""
             android:layout_marginStart="10dp"
             android:layout_height="wrap_content"
@@ -117,33 +119,6 @@
             android:drawablePadding="5dp"
             android:maxLines="2"
             android:textSize="14sp"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="5dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/status_bg"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/grievance_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentStart="true"
-                    android:gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:text="completed"
-                    android:textSize="14sp" />
-
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 

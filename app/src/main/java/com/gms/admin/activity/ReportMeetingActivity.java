@@ -104,6 +104,7 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
         drawable.setColor(Color.parseColor(PreferenceStorage.getAppBaseColor(this)));
         search.setBackground(drawable);
         search.setOnClickListener(this);
+        selectStatus.setOnClickListener(this);
         selectOffice.setOnClickListener(this);
         selectPaguthi.setOnClickListener(this);
 
@@ -328,7 +329,7 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
             String ca = status.getText().toString();
             switch (ca) {
                 case "All":
-                    stat = A;
+                    stat = "";
                     break;
                 case "Processing":
                     stat = P;
@@ -344,7 +345,8 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
         PreferenceStorage.saveReportStatus(this, stat);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
-        Intent intt = new Intent(this, ReportMeetingListActivity.class);
+        Intent intt = new Intent(this, ReportGrievanceListActivity.class);
+        intt.putExtra("page", "meeting");
         startActivity(intt);
     }
 

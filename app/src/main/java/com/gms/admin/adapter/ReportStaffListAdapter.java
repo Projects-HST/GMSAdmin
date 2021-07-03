@@ -7,19 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
-import com.gms.admin.bean.support.Grievance;
 import com.gms.admin.bean.support.ReportStaff;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffListAdapter.MyViewHolder> implements Filterable {
 
@@ -64,7 +59,7 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView txtStaffName, txtTotalCount, txtActiveCount, txtInactiveCount;
+        public TextView txtStaffName, txtConstCount, txtVideoCount, txtGrievanceCount, txtBroadCount;
         public LinearLayout staffLayout;
 
         public MyViewHolder(View view) {
@@ -72,9 +67,10 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
             staffLayout = (LinearLayout) view.findViewById(R.id.staff_layout);
             staffLayout.setOnClickListener(this);
             txtStaffName = (TextView) view.findViewById(R.id.staff_name);
-            txtTotalCount = (TextView) view.findViewById(R.id.total_count);
-            txtActiveCount = (TextView) view.findViewById(R.id.active_count);
-            txtInactiveCount = (TextView) view.findViewById(R.id.inactive_count);
+            txtConstCount = (TextView) view.findViewById(R.id.count_const);
+            txtVideoCount = (TextView) view.findViewById(R.id.count_video);
+            txtGrievanceCount = (TextView) view.findViewById(R.id.count_grievance);
+            txtBroadCount = (TextView) view.findViewById(R.id.count_broadcast);
         }
 
         @Override
@@ -113,9 +109,10 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
         ReportStaff Grievance = reportStaffArrayList.get(position);
 
         holder.txtStaffName.setText(capitalizeString(Grievance.getFull_name()));
-        holder.txtTotalCount.setText((Grievance.gettotal()));
-        holder.txtActiveCount.setText((Grievance.getactive()));
-        holder.txtInactiveCount.setText((Grievance.getinactive()));
+        holder.txtConstCount.setText((Grievance.gettotal()));
+        holder.txtVideoCount.setText((Grievance.getactive()));
+        holder.txtVideoCount.setText((Grievance.getinactive()));
+        holder.txtBroadCount.setText((Grievance.getinactive()));
     }
 
     public static String capitalizeString(String string) {

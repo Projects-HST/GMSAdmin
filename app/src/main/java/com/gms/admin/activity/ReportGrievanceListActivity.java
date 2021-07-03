@@ -24,8 +24,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ReportGrievanceListAdapter;
+import com.gms.admin.adapter.ReportMeetingListAdapter;
+import com.gms.admin.adapter.ReportStatusListAdapter;
+import com.gms.admin.adapter.ReportWishesListAdapter;
 import com.gms.admin.bean.support.ReportGrievance;
 import com.gms.admin.bean.support.ReportGrievanceList;
+import com.gms.admin.bean.support.ReportMeetingList;
+import com.gms.admin.bean.support.ReportMeetings;
+import com.gms.admin.bean.support.ReportStatusList;
+import com.gms.admin.bean.support.ReportWishes;
+import com.gms.admin.bean.support.ReportWishesList;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -40,7 +48,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ReportGrievanceListActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportGrievanceListAdapter.OnItemClickListener {
+public class ReportGrievanceListActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener,
+        ReportGrievanceListAdapter.OnItemClickListener, ReportMeetingListAdapter.OnItemClickListener, ReportStatusListAdapter.OnItemClickListener, ReportWishesListAdapter.OnItemClickListener {
+
     private static final String TAG = ReportStatusActivity.class.getName();
 
     private TextView reportCount;
@@ -52,7 +62,11 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     private boolean isLoadingForFirstTime = true;
     private ProgressDialogHelper progressDialogHelper;
     ReportGrievanceList reportGrievanceList;
+    ArrayList<ReportGrievance> reportStatusArrayList = new ArrayList<>();
     ArrayList<ReportGrievance> reportGrievanceArrayList = new ArrayList<>();
+    ArrayList<ReportMeetings> reportMeetingsArrayList = new ArrayList<>();
+    ArrayList<ReportWishes> reportWishesArrayList = new ArrayList<>();
+    String whichReport;
     String page;
 
     @Override
@@ -188,6 +202,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getReportStatusList(String count) {
+        whichReport = "status";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
@@ -210,6 +225,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getReportGrievanceList(String count) {
+        whichReport = "grievance";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
@@ -233,6 +249,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getMeetingReportList(String count) {
+        whichReport = "meeting";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
@@ -254,6 +271,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getBirthdayReportList(String count) {
+        whichReport = "birthdayWish";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
@@ -264,7 +282,6 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -275,6 +292,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getFestivalReportList(String count) {
+        whichReport = "festivalWish";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
@@ -296,6 +314,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getContituentReportList(String count) {
+        whichReport = "constituent";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
@@ -310,7 +329,6 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -321,6 +339,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getReportVideoList(String count) {
+        whichReport = "video";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
@@ -339,6 +358,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     private void getReportStaffList(String count) {
+        whichReport = "staff";
         JSONObject jsonObject = new JSONObject();
         try {
 
@@ -411,15 +431,70 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
                 reportCount.setText(cou + " Record");
             }
             totalCount = cou;
-            Gson gson = new Gson();
-            reportGrievanceList = gson.fromJson(response.toString(), ReportGrievanceList.class);
-            reportGrievanceArrayList.addAll(reportGrievanceList.getReportGrievanceArrayList());
-            ReportGrievanceListAdapter mAdapter = new ReportGrievanceListAdapter(reportGrievanceArrayList, ReportGrievanceListActivity.this);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.scrollToPosition(listcount);
-            swipeRefreshLayout.setRefreshing(false);
+            if (page.equalsIgnoreCase("status")){
+                Gson gson = new Gson();
+                ReportStatusList reportStatusList = gson.fromJson(response.toString(), ReportStatusList.class);
+                reportStatusArrayList.addAll(reportStatusList.getReportGrievanceArrayList());
+                ReportStatusListAdapter mAdapter = new ReportStatusListAdapter(reportStatusArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            if (page.equalsIgnoreCase("grievance")) {
+                Gson gson = new Gson();
+                reportGrievanceList = gson.fromJson(response.toString(), ReportGrievanceList.class);
+                reportGrievanceArrayList.addAll(reportGrievanceList.getReportGrievanceArrayList());
+                ReportGrievanceListAdapter mAdapter = new ReportGrievanceListAdapter(reportGrievanceArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            if (page.equalsIgnoreCase("meeting")){
+                Gson gson = new Gson();
+                ReportMeetingList reportMeetingList = gson.fromJson(response.toString(), ReportMeetingList.class);
+                reportMeetingsArrayList.addAll(reportMeetingList.getMeetingArrayList());
+                ReportMeetingListAdapter mAdapter = new ReportMeetingListAdapter(reportMeetingsArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            if (page.equalsIgnoreCase("birthday")){
+                Gson gson = new Gson();
+                ReportWishesList reportWishesList = gson.fromJson(response.toString(), ReportWishesList.class);
+                reportWishesArrayList.addAll(reportWishesList.getReportWishesArrayList());
+                ReportWishesListAdapter mAdapter = new ReportWishesListAdapter(reportWishesArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            if (page.equalsIgnoreCase("festival")){
+                Gson gson = new Gson();
+                ReportWishesList reportWishesList = gson.fromJson(response.toString(), ReportWishesList.class);
+                reportWishesArrayList.addAll(reportWishesList.getReportWishesArrayList());
+                ReportWishesListAdapter mAdapter = new ReportWishesListAdapter(reportWishesArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            if (page.equalsIgnoreCase("constituent")){
+
+            }
+            if (page.equalsIgnoreCase("video")){
+
+            }
+            if (page.equalsIgnoreCase("staff")){
+
+            }
         }
     }
 
@@ -429,7 +504,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemGrievanceClick(View view, int position) {
         ReportGrievance reportGrievance = null;
         reportGrievance = reportGrievanceArrayList.get(position);
         Intent intent = new Intent(this, GrievanceDetailActivity.class);
@@ -465,6 +540,21 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onItemMeetingClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemStatusClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemWishesClick(View view, int position) {
 
     }
 }

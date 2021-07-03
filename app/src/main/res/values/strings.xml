@@ -329,6 +329,9 @@
     <string name="sign_in">Sign In</string>
     <string name="support"><![CDATA[Help & Support]]></string>
     <string name="account">Account Settings</string>
+    <string name="constituentCreated">Constituent Created</string>
+    <string name="videoAdd">Video Added</string>
+    <string name="grievanceAdd">Grievance Added</string>
 
     <!--New Strings-->
 

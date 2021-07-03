@@ -7,25 +7,23 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
-import com.gms.admin.bean.support.ReportMeetings;
-import com.gms.admin.utils.GMSValidator;
+import com.gms.admin.bean.support.ReportWishes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ReportMeetingListAdapter extends RecyclerView.Adapter<ReportMeetingListAdapter.MyViewHolder> {
+public class ReportWishesListAdapter extends RecyclerView.Adapter<ReportWishesListAdapter.MyViewHolder>{
 
-    private ArrayList<ReportMeetings> meetingArrayList;
+    private ArrayList<ReportWishes> wishesArrayList;
     Context context;
     private OnItemClickListener onItemClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView txtSurname, txtUser, txtdate, txtMobileNumber, txtMeetingTitle, txtAddress, txtMeetingStatus;
+        public TextView txtSurname, txtUser, txtdate, txtMobileNumber, txtGrievanceName, txtAddress, txtWishesStatus;
         public LinearLayout grievanceLayout;
 
         public MyViewHolder(View view) {
@@ -36,58 +34,59 @@ public class ReportMeetingListAdapter extends RecyclerView.Adapter<ReportMeeting
             txtSurname = (TextView) view.findViewById(R.id.father_husband_name);
             txtdate = (TextView) view.findViewById(R.id.dob);
             txtMobileNumber = (TextView) view.findViewById(R.id.mobile_number);
-            txtMeetingTitle = (TextView) view.findViewById(R.id.meeting_name );
             txtAddress = (TextView) view.findViewById(R.id.address);
-            txtMeetingStatus = (TextView) view.findViewById(R.id.grievance_status);
+            txtWishesStatus = (TextView) view.findViewById(R.id.grievance_status);
 
         }
 
         @Override
         public void onClick(View v) {
             if (onItemClickListener != null) {
-                onItemClickListener.onItemMeetingClick(v, getAdapterPosition());
+                onItemClickListener.onItemWishesClick(v, getAdapterPosition());
             }
 //            else {
 //                onClickListener.onClick(Selecttick);
 //            }
         }
-    }
 
-
-    public ReportMeetingListAdapter(ArrayList<ReportMeetings> meetingArrayList, ReportMeetingListAdapter.OnItemClickListener onItemClickListener) {
-        this.meetingArrayList = meetingArrayList;
-        this.onItemClickListener = onItemClickListener;
     }
 
     public interface OnItemClickListener {
-        public void onItemMeetingClick(View view, int position);
+        public void onItemWishesClick(View view, int position);
     }
 
+    public ReportWishesListAdapter(ArrayList<ReportWishes> wishesArrayList, OnItemClickListener onItemClickListener) {
+        this.wishesArrayList = wishesArrayList;
+        this.onItemClickListener = onItemClickListener;
+    }
 
     @Override
-    public ReportMeetingListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReportWishesListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.liste_item_report_meeting, parent, false);
+                .inflate(R.layout.list_item_report_wishes, parent, false);
 
-        return new ReportMeetingListAdapter.MyViewHolder(itemView);
+        return new ReportWishesListAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ReportMeetingListAdapter.MyViewHolder holder, int position) {
-        ReportMeetings meetingList = meetingArrayList.get(position);
-        holder.txtUser.setText(capitalizeString(meetingList.getfull_name()));
-        holder.txtSurname.setText(("Father Name" + " : " + capitalizeString(meetingList.getpaguthi_name())));
-        if (GMSValidator.checkNullString(meetingList.getmeeting_title())) {
-            holder.txtMeetingTitle.setText(capitalizeString(meetingList.getmeeting_title()));
-        }
-        holder.txtdate.setText(("Date of Birth" + " : " + (getserverdateformat(meetingList.getmeeting_date()))));
-        holder.txtMeetingStatus.setText(capitalizeString(meetingList.getmeeting_status()));
-        holder.txtAddress.setText((capitalizeString(meetingList.getDoorNo()) + (meetingList.getAddress()) + (meetingList.getPincode())));
-        if (meetingList.getmeeting_status().equalsIgnoreCase("COMPLETED")) {
-            holder.txtMeetingStatus.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.completed_meeting));
-        } else {
-            holder.txtMeetingStatus.setTextColor(ContextCompat.getColor(holder.txtMeetingStatus.getContext(), R.color.requested));
-        }
+    public void onBindViewHolder(ReportWishesListAdapter.MyViewHolder holder, int position) {
+        ReportWishes reportWishes = wishesArrayList.get(position);
+
+        holder.txtMobileNumber.setText((reportWishes.getMobile_no()));
+        holder.txtdate.setText(getserverdateformat(reportWishes.getDob()));
+        holder.txtUser.setText(capitalizeString(reportWishes.getFull_name()));
+        holder.txtSurname.setText(capitalizeString(reportWishes.getFather_husband_name()));
+        holder.txtWishesStatus.setText(capitalizeString(reportWishes.getSend_on()));
+        holder.txtAddress.setText((capitalizeString(reportWishes.getDoor_no()) + (reportWishes.getAddress()) + (reportWishes.getPin_code())));
+
+//        if (Grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
+//            holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.completed_grievance));
+//        } else {
+//            holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.requested));
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                holder.totalLayout.setForeground(ContextCompat.getDrawable(context, R.drawable.shadow_foreground));
+//            }
+//        }
     }
 
     private String getserverdateformat(String dd) {
@@ -125,6 +124,6 @@ public class ReportMeetingListAdapter extends RecyclerView.Adapter<ReportMeeting
 
     @Override
     public int getItemCount() {
-        return meetingArrayList.size();
+        return wishesArrayList.size();
     }
 }

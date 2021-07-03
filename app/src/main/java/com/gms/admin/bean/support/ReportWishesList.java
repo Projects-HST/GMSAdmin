@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ReportMeetingList {
+public class ReportWishesList {
 
     @SerializedName("count")
     @Expose
     private int count;
     @SerializedName("report_list")
     @Expose
-    private ArrayList<ReportMeetings> meetingArrayList = new ArrayList<>();
+    private ArrayList<ReportWishes> reportWishesArrayList = new ArrayList<>();
 
     /**
      * @return The count
@@ -29,16 +29,16 @@ public class ReportMeetingList {
     }
 
     /**
-     * @return The meetingArrayList
+     * @return The reportGrievanceArrayList
      */
-    public ArrayList<ReportMeetings> getMeetingArrayList() {
-        return meetingArrayList;
+    public ArrayList<ReportWishes> getReportWishesArrayList() {
+        return reportWishesArrayList;
     }
 
     /**
-     * @param meetingArrayList The meetingArrayList
+     * @param reportGrievanceArrayList The reportGrievanceArrayList
      */
-    public void setMeetingArrayList(ArrayList<ReportMeetings> meetingArrayList) {
-        this.meetingArrayList = meetingArrayList;
+    public void setReportWishesArrayList(ArrayList<ReportWishes> reportGrievanceArrayList) {
+        this.reportWishesArrayList = reportGrievanceArrayList;
     }
 }

@@ -24,8 +24,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
 import com.gms.admin.adapter.ReportMeetingListAdapter;
-import com.gms.admin.bean.support.Meeting;
 import com.gms.admin.bean.support.ReportMeetingList;
+import com.gms.admin.bean.support.ReportMeetings;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -52,7 +52,7 @@ public class ReportMeetingListActivity extends AppCompatActivity implements ISer
     private boolean isLoadingForFirstTime = true;
     private ProgressDialogHelper progressDialogHelper;
     ReportMeetingList reportMeetingList;
-    ArrayList<Meeting> meetingArrayList = new ArrayList<>();
+    ArrayList<ReportMeetings> meetingArrayList = new ArrayList<>();
     String page;
 
     @Override
@@ -147,13 +147,11 @@ public class ReportMeetingListActivity extends AppCompatActivity implements ISer
     private void getCategoryList(String count) {
         JSONObject jsonObject = new JSONObject();
         try {
-
             jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
             jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
             jsonObject.put(GMSConstants.KEY_ROWCOUNT, "50");
             jsonObject.put(GMSConstants.DYNAMIC_DATABASE, PreferenceStorage.getDynamicDb(this));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -233,10 +231,10 @@ public class ReportMeetingListActivity extends AppCompatActivity implements ISer
 
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
+//    @Override
+//    public void onItemClick(View view, int position) {
+//
+//    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -266,6 +264,11 @@ public class ReportMeetingListActivity extends AppCompatActivity implements ISer
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onItemMeetingClick(View view, int position) {
 
     }
 }

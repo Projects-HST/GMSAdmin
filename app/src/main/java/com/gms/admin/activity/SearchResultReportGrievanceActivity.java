@@ -295,14 +295,14 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
 
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
+//    @Override
+//    public void onItemClick(View view, int position) {
 //        ReportGrievance user = null;
 //        user = reportGrievanceArrayList.get(position);
 //        Intent intent = new Intent(this, GrievanceDetailActivity.class);
 //        intent.putExtra("grievanceObj", user.getid());
 //        startActivity(intent);
-    }
+//    }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View v = getCurrentFocus();
@@ -327,5 +327,10 @@ public class SearchResultReportGrievanceActivity extends AppCompatActivity imple
             InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
+    }
+
+    @Override
+    public void onItemGrievanceClick(View view, int position) {
+
     }
 }

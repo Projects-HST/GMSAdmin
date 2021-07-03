@@ -12,32 +12,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.ReportGrievance;
-import com.gms.admin.utils.GMSValidator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ReportGrievanceListAdapter extends RecyclerView.Adapter<ReportGrievanceListAdapter.MyViewHolder> {
+public class ReportVideoListAdapter extends RecyclerView.Adapter<ReportVideoListAdapter.MyViewHolder>{
 
     private ArrayList<ReportGrievance> GrievancesList;
     Context context;
     private OnItemClickListener onItemClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView txtSurname, txtUser, txtdate, txtMobileNumber, txtGrievanceName, txtAddress, txtGrievanceStatus;
+        public TextView txtPetitionEnquiryNo, txtUser, txtdate, txtMobileNumber, txtGrievanceName, txtGrievanceSubCategory, txtGrievanceStatus;
         public LinearLayout grievanceLayout;
 
         public MyViewHolder(View view) {
             super(view);
             grievanceLayout = (LinearLayout) view.findViewById(R.id.grievance_layout);
             grievanceLayout.setOnClickListener(this);
+            txtPetitionEnquiryNo = (TextView) view.findViewById(R.id.petition_enquiry_number);
             txtUser = (TextView) view.findViewById(R.id.full_name);
-            txtSurname = (TextView) view.findViewById(R.id.father_husband_name);
-            txtdate = (TextView) view.findViewById(R.id.dob);
+            txtdate = (TextView) view.findViewById(R.id.grievance_date);
             txtMobileNumber = (TextView) view.findViewById(R.id.mobile_number);
             txtGrievanceName = (TextView) view.findViewById(R.id.grievance_name);
-            txtAddress = (TextView) view.findViewById(R.id.address);
+            txtGrievanceSubCategory = (TextView) view.findViewById(R.id.grievance_sub_category);
             txtGrievanceStatus = (TextView) view.findViewById(R.id.grievance_status);
 
         }
@@ -45,7 +44,7 @@ public class ReportGrievanceListAdapter extends RecyclerView.Adapter<ReportGriev
         @Override
         public void onClick(View v) {
             if (onItemClickListener != null) {
-                onItemClickListener.onItemGrievanceClick(v, getAdapterPosition());
+                onItemClickListener.onItemClick(v, getAdapterPosition());
             }
 //            else {
 //                onClickListener.onClick(Selecttick);
@@ -55,35 +54,37 @@ public class ReportGrievanceListAdapter extends RecyclerView.Adapter<ReportGriev
     }
 
     public interface OnItemClickListener {
-        public void onItemGrievanceClick(View view, int position);
+        public void onItemClick(View view, int position);
     }
 
-    public ReportGrievanceListAdapter(ArrayList<ReportGrievance> GrievancesList, OnItemClickListener onItemClickListener) {
+    public ReportVideoListAdapter(ArrayList<ReportGrievance> GrievancesList, OnItemClickListener onItemClickListener) {
         this.GrievancesList = GrievancesList;
         this.onItemClickListener = onItemClickListener;
     }
 
     @Override
-    public ReportGrievanceListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReportVideoListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_report_grievance, parent, false);
+                .inflate(R.layout.list_item_report_video, parent, false);
 
-        return new ReportGrievanceListAdapter.MyViewHolder(itemView);
+        return new ReportVideoListAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ReportGrievanceListAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(ReportVideoListAdapter.MyViewHolder holder, int position) {
         ReportGrievance Grievance = GrievancesList.get(position);
-
-        if (GMSValidator.checkNullString(Grievance.getmobile_no())) {
-            holder.txtMobileNumber.setText((Grievance.getmobile_no()));
+        if (Grievance.getgrievance_type().equalsIgnoreCase("P")) {
+            holder.txtPetitionEnquiryNo.setText("Petition Number - " + Grievance.getpetition_enquiry_no());
+        } else{
+            holder.txtPetitionEnquiryNo.setText("Enquiry Number - " + Grievance.getpetition_enquiry_no());
         }
-        holder.txtdate.setText(("Date of Birth" + " : " +(getserverdateformat(Grievance.getDob()))));
+
+        holder.txtMobileNumber.setText((Grievance.getmobile_no()));
+        holder.txtdate.setText(getserverdateformat(Grievance.getgrievance_date()));
         holder.txtUser.setText(capitalizeString(Grievance.getFull_name()));
-        holder.txtSurname.setText(capitalizeString("Father Name" + " : " + Grievance.getFather_husband_name()));
-        holder.txtGrievanceName.setText(capitalizeString("Grievance Type" + " : " + Grievance.getgrievance_type()));
+        holder.txtGrievanceName.setText(capitalizeString(Grievance.getgrievance_name()));
         holder.txtGrievanceStatus.setText(capitalizeString(Grievance.getstatus()));
-        holder.txtAddress.setText((capitalizeString(Grievance.getDoorNo()) + (Grievance.getAddress()) + (Grievance.getPincode())));
+        holder.txtGrievanceSubCategory.setText("Created by " + capitalizeString(Grievance.getcreated_by()) +"("+ (Grievance.getrole_name())+")");
 
         if (Grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
             holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.completed_grievance));

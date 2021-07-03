@@ -55,6 +55,26 @@ public class ReportGrievance implements Serializable {
     @Expose
     private String paguthi_name;
 
+    @SerializedName("father_husband_name")
+    @Expose
+    private String father_husband_name;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
+
+    @SerializedName("door_no")
+    @Expose
+    private String doorNo;
+
+    @SerializedName("pin_code")
+    @Expose
+    private String pincode;
+
+    @SerializedName("dob")
+    @Expose
+    private String dob;
+
     /**
      * @return The id
      */
@@ -223,4 +243,43 @@ public class ReportGrievance implements Serializable {
         this.full_name = full_name;
     }
 
+    public String getFather_husband_name() {
+        return father_husband_name;
+    }
+
+    public void setFather_husband_name(String father_husband_name) {
+        this.father_husband_name = father_husband_name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDoorNo() {
+        return doorNo;
+    }
+
+    public void setDoorNo(String doorNo) {
+        this.doorNo = doorNo;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
 }
