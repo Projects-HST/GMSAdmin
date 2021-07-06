@@ -23,15 +23,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.gms.admin.R;
+import com.gms.admin.adapter.ReportConstituentListAdapter;
 import com.gms.admin.adapter.ReportGrievanceListAdapter;
 import com.gms.admin.adapter.ReportMeetingListAdapter;
+import com.gms.admin.adapter.ReportStaffListAdapter;
 import com.gms.admin.adapter.ReportStatusListAdapter;
+import com.gms.admin.adapter.ReportVideoListAdapter;
 import com.gms.admin.adapter.ReportWishesListAdapter;
+import com.gms.admin.bean.support.ReportConstituent;
+import com.gms.admin.bean.support.ReportConstituentList;
+import com.gms.admin.bean.support.ReportFestivalWishesList;
 import com.gms.admin.bean.support.ReportGrievance;
 import com.gms.admin.bean.support.ReportGrievanceList;
 import com.gms.admin.bean.support.ReportMeetingList;
 import com.gms.admin.bean.support.ReportMeetings;
+import com.gms.admin.bean.support.ReportStaff;
 import com.gms.admin.bean.support.ReportStatusList;
+import com.gms.admin.bean.support.ReportVideoList;
 import com.gms.admin.bean.support.ReportWishes;
 import com.gms.admin.bean.support.ReportWishesList;
 import com.gms.admin.helper.AlertDialogHelper;
@@ -49,7 +57,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ReportGrievanceListActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener,
-        ReportGrievanceListAdapter.OnItemClickListener, ReportMeetingListAdapter.OnItemClickListener, ReportStatusListAdapter.OnItemClickListener, ReportWishesListAdapter.OnItemClickListener {
+        ReportGrievanceListAdapter.OnItemClickListener, ReportMeetingListAdapter.OnItemClickListener, ReportStatusListAdapter.OnItemClickListener,
+        ReportWishesListAdapter.OnItemClickListener, ReportStaffListAdapter.OnItemClickListener, ReportConstituentListAdapter.OnItemClickListener,
+        ReportVideoListAdapter.OnItemClickListener {
 
     private static final String TAG = ReportStatusActivity.class.getName();
 
@@ -66,6 +76,8 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
     ArrayList<ReportGrievance> reportGrievanceArrayList = new ArrayList<>();
     ArrayList<ReportMeetings> reportMeetingsArrayList = new ArrayList<>();
     ArrayList<ReportWishes> reportWishesArrayList = new ArrayList<>();
+    ArrayList<ReportConstituent> reportConstituentArrayList = new ArrayList<>();
+    ArrayList<ReportStaff> reportStaffArrayList = new ArrayList<>();
     String whichReport;
     String page;
 
@@ -274,8 +286,8 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         whichReport = "birthdayWish";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
-            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+            jsonObject.put(GMSConstants.KEY_FROM_YEAR, PreferenceStorage.getFromYear(this));
+            jsonObject.put(GMSConstants.KEY_TO_YEAR, PreferenceStorage.getToYear(this));
             jsonObject.put(GMSConstants.KEY_MONTH, PreferenceStorage.getReportStatus(this));
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
             jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
@@ -295,9 +307,9 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         whichReport = "festivalWish";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
-            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
-            jsonObject.put(GMSConstants.KEY_FESTIVAL, PreferenceStorage.getReportStatus(this));
+            jsonObject.put(GMSConstants.KEY_FROM_YEAR, PreferenceStorage.getFromYear(this));
+            jsonObject.put(GMSConstants.KEY_TO_YEAR, PreferenceStorage.getToYear(this));
+            jsonObject.put(GMSConstants.KEY_FESTIVAL, PreferenceStorage.getFestival(this));
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
             jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
             jsonObject.put(GMSConstants.KEY_OFFSET, count);
@@ -307,7 +319,6 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         progressDialogHelper.showProgressDialog(getString(R.string.progress_loading));
         String url = PreferenceStorage.getClientUrl(this) + GMSConstants.GET_REPORT_FESTIVAL;
         serviceHelper.makeGetServiceCall(jsonObject.toString(), url);
@@ -317,8 +328,8 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
         whichReport = "constituent";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
-            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
+//            jsonObject.put(GMSConstants.KEY_FROM_DATE, PreferenceStorage.getFromDate(this));
+//            jsonObject.put(GMSConstants.KEY_TO_DATE, PreferenceStorage.getToDate(this));
             jsonObject.put(GMSConstants.PAGUTHI, PreferenceStorage.getPaguthiID(this));
             jsonObject.put(GMSConstants.OFFICE, PreferenceStorage.getOfficeID(this));
             jsonObject.put(GMSConstants.KEY_WHATSAPP_NO, getIntent().getStringExtra("wh"));
@@ -477,7 +488,7 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
             }
             if (page.equalsIgnoreCase("festival")){
                 Gson gson = new Gson();
-                ReportWishesList reportWishesList = gson.fromJson(response.toString(), ReportWishesList.class);
+                ReportFestivalWishesList reportWishesList = gson.fromJson(response.toString(), ReportFestivalWishesList.class);
                 reportWishesArrayList.addAll(reportWishesList.getReportWishesArrayList());
                 ReportWishesListAdapter mAdapter = new ReportWishesListAdapter(reportWishesArrayList, this);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -487,13 +498,26 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
                 swipeRefreshLayout.setRefreshing(false);
             }
             if (page.equalsIgnoreCase("constituent")){
-
+                Gson gson = new Gson();
+                ReportConstituentList reportConstituentList  = gson.fromJson(response.toString(), ReportConstituentList.class);
+                reportConstituentArrayList.addAll(reportConstituentList.getReportConstituentArrayList());
+                ReportConstituentListAdapter mAdapter = new ReportConstituentListAdapter(reportConstituentArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
             }
             if (page.equalsIgnoreCase("video")){
-
-            }
-            if (page.equalsIgnoreCase("staff")){
-
+                Gson gson = new Gson();
+                ReportVideoList reportVideoList = gson.fromJson(response.toString(), ReportVideoList.class);
+                reportConstituentArrayList.addAll(reportVideoList.getReportConstituentArrayList());
+                ReportVideoListAdapter mAdapter = new ReportVideoListAdapter(reportConstituentArrayList, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
     }
@@ -555,6 +579,21 @@ public class ReportGrievanceListActivity extends AppCompatActivity implements IS
 
     @Override
     public void onItemWishesClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemStaffClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onItemVideoClick(View view, int position) {
 
     }
 }

@@ -109,31 +109,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:id="@+id/whatsapp_no"
-                    android:text="@string/whatsapp"/>
+                    android:text="@string/whatsapp"
+                    android:buttonTint="@color/black"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:id="@+id/phone_no"
-                    android:text="@string/phone_no"/>
+                    android:text="@string/phone_no"
+                    android:buttonTint="@color/black"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:id="@+id/email_id"
-                    android:text="@string/email"/>
+                    android:text="@string/email"
+                    android:buttonTint="@color/black"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:id="@+id/date_of_birth"
-                    android:text="@string/dob"/>
+                    android:text="@string/dob"
+                    android:buttonTint="@color/black"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:id="@+id/voter_id"
-                    android:text="@string/voter_id"/>
+                    android:text="@string/voter_id"
+                    android:buttonTint="@color/black"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

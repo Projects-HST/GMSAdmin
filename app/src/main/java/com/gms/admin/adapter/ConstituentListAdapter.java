@@ -5,15 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
-import com.gms.admin.bean.support.Grievance;
 import com.gms.admin.bean.support.User;
 import com.gms.admin.utils.GMSConstants;
 import com.gms.admin.utils.GMSValidator;
@@ -22,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ConstituentListAdapter extends RecyclerView.Adapter<ConstituentListAdapter.MyViewHolder> {
+public class  ConstituentListAdapter extends RecyclerView.Adapter<ConstituentListAdapter.MyViewHolder> {
 
     private ArrayList<User> users;
     Context context;

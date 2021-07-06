@@ -73,11 +73,11 @@ public class ReportWishesListAdapter extends RecyclerView.Adapter<ReportWishesLi
         ReportWishes reportWishes = wishesArrayList.get(position);
 
         holder.txtMobileNumber.setText((reportWishes.getMobile_no()));
-        holder.txtdate.setText(getserverdateformat(reportWishes.getDob()));
+        holder.txtdate.setText(("Date of Birth" + " : " +(getserverdateformat(reportWishes.getDob()))));
         holder.txtUser.setText(capitalizeString(reportWishes.getFull_name()));
-        holder.txtSurname.setText(capitalizeString(reportWishes.getFather_husband_name()));
-        holder.txtWishesStatus.setText(capitalizeString(reportWishes.getSend_on()));
-        holder.txtAddress.setText((capitalizeString(reportWishes.getDoor_no()) + (reportWishes.getAddress()) + (reportWishes.getPin_code())));
+        holder.txtSurname.setText(capitalizeString("Father Name" + " : " + reportWishes.getFather_husband_name()));
+        holder.txtWishesStatus.setText(capitalizeString("Letter sent on" + " : " + (reportWishes.getSend_on())));
+        holder.txtAddress.setText((capitalizeString(reportWishes.getDoor_no()) + " , " + (reportWishes.getAddress()) + " - " + (reportWishes.getPin_code())));
 
 //        if (Grievance.getstatus().equalsIgnoreCase("COMPLETED")) {
 //            holder.txtGrievanceStatus.setTextColor(ContextCompat.getColor(holder.txtGrievanceStatus.getContext(), R.color.completed_grievance));

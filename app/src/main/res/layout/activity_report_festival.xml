@@ -64,7 +64,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical|start"
                         android:paddingStart="20dp"
-                        android:text="@string/from_date"
+                        android:text="@string/from_year"
                         android:textColor="@color/msg_by_grey" />
 
                 </LinearLayout>
@@ -88,7 +88,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical|start"
                         android:paddingStart="20dp"
-                        android:text="@string/to_date"
+                        android:text="@string/to_year"
                         android:textColor="@color/msg_by_grey" />
 
 

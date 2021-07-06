@@ -154,6 +154,11 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
         if (v == clearData) {
             paguthiId = "0";
             officeId = "0";
+            whatsappCheck.setChecked(false);
+            phoneCheck.setChecked(false);
+            dobCheck.setChecked(false);
+            emailCheck.setChecked(false);
+            voterCheck.setChecked(false);
             paguthi.setText("Select Paguthi");
             office.setText("Select Office");
         }
@@ -245,10 +250,10 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
             AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
             return false;
         }
-        if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
-            return false;
-        }
+//        if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
+//            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+//            return false;
+//        }
         return true;
     }
 
@@ -301,7 +306,7 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
 
     private void sendSearch() {
         checBox();
-        PreferenceStorage.saveReportStatus(this, monthId);
+//        PreferenceStorage.saveReportStatus(this, monthId);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
@@ -411,7 +416,7 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
                     String id = "";
                     String name = "";
                     paguthispinnerData = new ArrayList<>();
-                    paguthispinnerData.add(new SpinnerData("ALL", "All"));
+                    paguthispinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
@@ -439,7 +444,7 @@ public class ReportConstituentActivity  extends AppCompatActivity implements ISe
                     String id = "";
                     String name = "";
                     officespinnerData = new ArrayList<>();
-                    officespinnerData.add(new SpinnerData("ALL", "All"));
+                    officespinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");

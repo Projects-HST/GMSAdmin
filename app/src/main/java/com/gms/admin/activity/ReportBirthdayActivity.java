@@ -32,6 +32,7 @@ import com.gms.admin.adapter.ReportBirthdayListAdapter;
 import com.gms.admin.bean.support.Birthday;
 import com.gms.admin.bean.support.BirthdayList;
 import com.gms.admin.bean.support.SpinnerData;
+import com.gms.admin.dialogfragments.YearPickerDialog;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -49,10 +50,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class ReportBirthdayActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportBirthdayListAdapter.OnItemClickListener, DatePickerDialog.OnDateSetListener {
+public class ReportBirthdayActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener,
+        ReportBirthdayListAdapter.OnItemClickListener, DatePickerDialog.OnDateSetListener, YearPickerDialog.OnDateSetListener {
+
     private static final String TAG = ReportStatusActivity.class.getName();
     private String checkRes = "", monthId = "0";
     private String paguthiId = "0", officeId = "0";
@@ -187,12 +189,12 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         if (v == dateFrom) {
             fr = true;
             t = false;
-            createDialogWithoutDateField();
+            showBirthdayDate();
         }
         if (v == dateTo) {
             fr = false;
             t = true;
-            createDialogWithoutDateField();
+            showBirthdayDate();
         }
         if (v == selectStatus) {
             showSpinnerData();
@@ -233,7 +235,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         }
         Log.d(TAG, "current date is" + currentdate);
         int month = newCalendar.get(Calendar.MONTH);
-        int day = newCalendar.get(Calendar.DAY_OF_MONTH);
+//        int day = newCalendar.get(Calendar.DAY_OF_MONTH);
         int year = newCalendar.get(Calendar.YEAR);
         if ((currentdate != null) && !(currentdate.isEmpty())) {
             //extract the date/month and year
@@ -243,49 +245,65 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
 
                 newDate.setTime(startDate);
                 month = newDate.get(Calendar.MONTH);
-                day = newDate.get(Calendar.DAY_OF_MONTH);
+//                day = newDate.get(Calendar.DAY_OF_MONTH);
                 year = newDate.get(Calendar.YEAR);
-                Log.d(TAG, "month" + month + "day" + day + "year" + year);
+                Log.d(TAG, "month" + month + "year" + year);
 
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
-                mDatePicker.show();
+//                YearPickerDialog.Builder builder = new YearPickerDialog.Builder(this, R.style.datePickerTheme, new YearPickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(int selectedMonth, int selectedYear) {
+//                        if (fr){
+//                            dateFrom.setText(Integer.toString(selectedYear));
+//                        }else {
+//                            dateTo.setText(Integer.toString(selectedYear));
+//                        }
+//                    }
+//                }, year,0);
+//                builder.showYearOnly()
+//                        .setYearRange(1980, 2050)
+//                        .build().show();
+                YearPickerDialog yearPickerDialog = new YearPickerDialog(this, this, year, 0);
+                yearPickerDialog.showYearOnly();
+                yearPickerDialog.setActivatedYear(year);
+                yearPickerDialog.setMinYear(1947);
+                yearPickerDialog.setMaxYear(2050);
+                yearPickerDialog.show();
             }
+
         } else {
             Log.d(TAG, "show default date");
-
-            mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
-
-            mDatePicker.show();
+            YearPickerDialog yearPickerDialog = new YearPickerDialog(this, this, year, 0);
+            yearPickerDialog.showYearOnly();
+            yearPickerDialog.show();
         }
     }
 
-    private DatePickerDialog createDialogWithoutDateField() {
-        DatePickerDialog dpd = new DatePickerDialog(this, null, 2014, 1, 24);
-        try {
-            java.lang.reflect.Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
-            for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) {
-                if (datePickerDialogField.getName().equals("mDatePicker")) {
-                    datePickerDialogField.setAccessible(true);
-                    DatePicker datePicker = (DatePicker) datePickerDialogField.get(dpd);
-                    java.lang.reflect.Field[] datePickerFields = datePickerDialogField.getType().getDeclaredFields();
-                    for (java.lang.reflect.Field datePickerField : datePickerFields) {
-                        Log.i("test", datePickerField.getName());
-                        if ("mDaySpinner".equals(datePickerField.getName())) {
-                            datePickerField.setAccessible(true);
-                            Object dayPicker = datePickerField.get(datePicker);
-                            ((View) dayPicker).setVisibility(View.GONE);
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception ex) {
-        }
-        return dpd;
-    }
+//    private DatePickerDialog createDialogWithoutDateField() {
+//        DatePickerDialog dpd = new DatePickerDialog(this, null, 2014, 1, 24);
+//        try {
+//            java.lang.reflect.Field[] datePickerDialogFields = dpd.getClass().getDeclaredFields();
+//            for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) {
+//                if (datePickerDialogField.getName().equals("mDatePicker")) {
+//                    datePickerDialogField.setAccessible(true);
+//                    DatePicker datePicker = (DatePicker) datePickerDialogField.get(dpd);
+//                    java.lang.reflect.Field[] datePickerFields = datePickerDialogField.getType().getDeclaredFields();
+//                    for (java.lang.reflect.Field datePickerField : datePickerFields) {
+//                        Log.i("test", datePickerField.getName());
+//                        if ("mDaySpinner".equals(datePickerField.getName())) {
+//                            datePickerField.setAccessible(true);
+//                            Object dayPicker = datePickerField.get(datePicker);
+//                            ((View) dayPicker).setVisibility(View.GONE);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception ex) {
+//        }
+//        return dpd;
+//    }
 
     private void showPaguthiSpinnerData() {
         Log.d(TAG, "Show Spinner Data");
@@ -461,8 +479,8 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     }
 
     private void sendSearch() {
-        PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
-        PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
+        PreferenceStorage.saveFromYear(this, (dateFrom.getText().toString()));
+        PreferenceStorage.saveToYear(this, (dateTo.getText().toString()));
         PreferenceStorage.saveReportStatus(this, monthId);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
@@ -543,21 +561,19 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
         progressDialogHelper.hideProgressDialog();
         if (validateResponse(response)) {
             try {
-
                 if (checkRes.equalsIgnoreCase("paguthi")) {
                     JSONArray getData = response.getJSONArray("paguthi_details");
                     int getLength = getData.length();
                     String id = "";
                     String name = "";
                     paguthispinnerData = new ArrayList<>();
-                    paguthispinnerData.add(new SpinnerData("ALL", "All"));
+                    paguthispinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
                         name = capitalizeString(getData.getJSONObject(i).getString("paguthi_name"));
                         paguthispinnerData.add(new SpinnerData(id, name));
                     }
-
                     //fill data in spinner
                     paguthispinnerDataArrayAdapter = new ArrayAdapter<SpinnerData>(this, R.layout.spinner_data_layout, R.id.data_name, paguthispinnerData) { // The third parameter works around ugly Android legacy. http://stackoverflow.com/a/18529511/145173
                         @Override
@@ -579,7 +595,7 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                     String id = "";
                     String name = "";
                     officespinnerData = new ArrayList<>();
-                    officespinnerData.add(new SpinnerData("ALL", "All"));
+                    officespinnerData.add(new SpinnerData("", "All"));
 
                     for (int i = 0; i < getLength; i++) {
                         id = getData.getJSONObject(i).getString("id");
@@ -594,7 +610,6 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
                             View view = getLayoutInflater().inflate(R.layout.spinner_data_layout, parent, false);
                             TextView gendername = (TextView) view.findViewById(R.id.data_name);
                             gendername.setText(officespinnerData.get(position).getName());
-
                             // ... Fill in other views ...
                             return view;
                         }
@@ -643,14 +658,35 @@ public class ReportBirthdayActivity extends AppCompatActivity implements IServic
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-        if (fr) {
-            dateFrom.setText(mDateFormatter.format(date.getTime()));
-        } else {
-            dateTo.setText(mDateFormatter.format(date.getTime()));
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onDateSet(int selectedMonth, int selectedYear) {
+        if (fr){
+            dateFrom.setText(Integer.toString(selectedYear));
+        }else {
+            dateTo.setText(Integer.toString(selectedYear));
         }
         fr = false;
         t = false;
     }
+
+//    @Override
+//    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//        Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+//        if (fr) {
+//            dateFrom.setText(mDateFormatter.format(date.getTime()));
+//        } else {
+//            dateTo.setText(mDateFormatter.format(date.getTime()));
+//        }
+//        fr = false;
+//        t = false;
+//    }
+
+//    @Override
+//    public void onDateSet(int selectedMonth, int selectedYear) {
+//
+//    }
 }

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +31,7 @@ import com.gms.admin.adapter.ReportBirthdayListAdapter;
 import com.gms.admin.bean.support.Birthday;
 import com.gms.admin.bean.support.BirthdayList;
 import com.gms.admin.bean.support.SpinnerData;
+import com.gms.admin.dialogfragments.YearPickerDialog;
 import com.gms.admin.helper.AlertDialogHelper;
 import com.gms.admin.helper.ProgressDialogHelper;
 import com.gms.admin.interfaces.DialogClickListener;
@@ -49,10 +49,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class ReportFestivalActivity  extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportBirthdayListAdapter.OnItemClickListener, DatePickerDialog.OnDateSetListener {
+public class ReportFestivalActivity  extends AppCompatActivity implements IServiceListener, DialogClickListener,
+        View.OnClickListener, ReportBirthdayListAdapter.OnItemClickListener, YearPickerDialog.OnDateSetListener {
     private static final String TAG = ReportStatusActivity.class.getName();
     private String checkRes = "", monthId = "0";
     private String paguthiId = "0", officeId = "0";
@@ -219,14 +219,19 @@ public class ReportFestivalActivity  extends AppCompatActivity implements IServi
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
-                mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
-                mDatePicker.show();
+                YearPickerDialog yearPickerDialog = new YearPickerDialog(this, this, year, 0);
+                yearPickerDialog.showYearOnly();
+                yearPickerDialog.setActivatedYear(year);
+                yearPickerDialog.setMinYear(1947);
+                yearPickerDialog.setMaxYear(2050);
+                yearPickerDialog.show();
             }
+
         } else {
             Log.d(TAG, "show default date");
-
-            mDatePicker = new DatePickerDialog(this, R.style.datePickerTheme, this, year, month, day);
-            mDatePicker.show();
+            YearPickerDialog yearPickerDialog = new YearPickerDialog(this, this, year, 0);
+            yearPickerDialog.showYearOnly();
+            yearPickerDialog.show();
         }
     }
 
@@ -291,7 +296,7 @@ public class ReportFestivalActivity  extends AppCompatActivity implements IServi
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         SpinnerData spinnerDatas = spinnerData.get(which);
-                        month.setText(spinnerDatas.getName());
+                        status.setText(spinnerDatas.getName());
                         monthId = spinnerDatas.getId();
                         PreferenceStorage.saveMonth(getApplicationContext(), monthId);
 //                        rotate(90.0f, 0.0f);
@@ -404,9 +409,9 @@ public class ReportFestivalActivity  extends AppCompatActivity implements IServi
     }
 
     private void sendSearch() {
-        PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
-        PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
-        PreferenceStorage.saveReportStatus(this, monthId);
+        PreferenceStorage.saveFromYear(this, (dateFrom.getText().toString()));
+        PreferenceStorage.saveToYear(this, (dateTo.getText().toString()));
+        PreferenceStorage.saveFestival(this, monthId);
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
@@ -611,13 +616,24 @@ public class ReportFestivalActivity  extends AppCompatActivity implements IServi
 
     }
 
+//    @Override
+//    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//        Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+//        if (fr) {
+//            dateFrom.setText(mDateFormatter.format(date.getTime()));
+//        } else {
+//            dateTo.setText(mDateFormatter.format(date.getTime()));
+//        }
+//        fr = false;
+//        t = false;
+//    }
+
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-        if (fr) {
-            dateFrom.setText(mDateFormatter.format(date.getTime()));
-        } else {
-            dateTo.setText(mDateFormatter.format(date.getTime()));
+    public void onDateSet(int selectedMonth, int selectedYear) {
+        if (fr){
+            dateFrom.setText(Integer.toString(selectedYear));
+        }else {
+            dateTo.setText(Integer.toString(selectedYear));
         }
         fr = false;
         t = false;

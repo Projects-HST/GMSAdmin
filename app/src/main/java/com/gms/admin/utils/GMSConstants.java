@@ -276,6 +276,8 @@ public class GMSConstants {
     public static final String KEY_USER_MAIL_STATUS = "email_verify_status";
     public static final String KEY_USER_TYPE = "user_type";
     public static final String KEY_FROM_DATE = "from_date";
+    public static final String KEY_FROM_YEAR = "from_year";
+    public static final String KEY_TO_YEAR = "to_year";
     public static final String KEY_TO_DATE = "to_date";
     public static final String KEY_STATUS = "status";
     public static final String KEY_LAST_LOGIN = "last_login";

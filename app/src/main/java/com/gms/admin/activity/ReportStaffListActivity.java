@@ -39,7 +39,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ReportStaffListActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener, ReportStaffListAdapter.OnItemClickListener {
+public class ReportStaffListActivity extends AppCompatActivity implements IServiceListener, DialogClickListener, View.OnClickListener,
+        ReportStaffListAdapter.OnItemClickListener {
     private static final String TAG = ReportStatusActivity.class.getName();
 
     private TextView reportCount;
@@ -51,7 +52,7 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
     private boolean isLoadingForFirstTime = true;
     private ProgressDialogHelper progressDialogHelper;
     ReportStaffList reportGrievanceList;
-    ArrayList<ReportStaff> reportGrievanceArrayList = new ArrayList<>();
+    ArrayList<ReportStaff> reportStaffArrayList = new ArrayList<>();
     String page;
     ReportStaffListAdapter mAdapter;
 
@@ -71,6 +72,8 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
                 finish();
             }
         });
+
+        page = getIntent().getStringExtra("page");
 
         reportCount = findViewById(R.id.frag_grievance_count);
 
@@ -188,15 +191,17 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
                 reportCount.setText(cou + " Record");
             }
             totalCount = cou;
-            Gson gson = new Gson();
-            reportGrievanceList = gson.fromJson(response.toString(), ReportStaffList.class);
-            reportGrievanceArrayList.addAll(reportGrievanceList.getReportStaffArrayList());
-            mAdapter = new ReportStaffListAdapter(reportGrievanceArrayList, ReportStaffListActivity.this);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.scrollToPosition(listcount);
-            swipeRefreshLayout.setRefreshing(false);
+            if (page.equalsIgnoreCase("staff")){
+                Gson gson = new Gson();
+                ReportStaffList reportStaffList = gson.fromJson(response.toString(), ReportStaffList.class);
+                reportStaffArrayList.addAll(reportStaffList.getReportStaffArrayList());
+                ReportStaffListAdapter mAdapter = new ReportStaffListAdapter(reportStaffArrayList, this, this);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.scrollToPosition(listcount);
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
     }
 
@@ -205,10 +210,10 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
 
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
+//    @Override
+//    public void onItemClick(View view, int position) {
+//
+//    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -238,6 +243,11 @@ public class ReportStaffListActivity extends AppCompatActivity implements IServi
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onItemStaffClick(View view, int position) {
 
     }
 }

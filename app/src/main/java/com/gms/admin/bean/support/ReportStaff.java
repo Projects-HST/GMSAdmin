@@ -11,17 +11,21 @@ public class ReportStaff implements Serializable {
     @Expose
     private String id;
 
-    @SerializedName("total")
+    @SerializedName("total_cons")
     @Expose
-    private String total;
+    private String total_cons;
 
-    @SerializedName("active")
+    @SerializedName("total_v")
     @Expose
-    private String active;
+    private String total_v;
 
-    @SerializedName("inactive")
+    @SerializedName("total_g")
     @Expose
-    private String inactive;
+    private String total_g;
+
+    @SerializedName("total_broadcast")
+    @Expose
+    private String total_broadcast;
 
     @SerializedName("full_name")
     @Expose
@@ -41,47 +45,6 @@ public class ReportStaff implements Serializable {
         this.id = id;
     }
 
-    /**
-     * @return The total
-     */
-    public String gettotal() {
-        return total;
-    }
-
-    /**
-     * @param total The total
-     */
-    public void settotal(String total) {
-        this.total = total;
-    }
-
-    /**
-     * @return The active
-     */
-    public String getactive() {
-        return active;
-    }
-
-    /**
-     * @param active The active
-     */
-    public void setactive(String active) {
-        this.active = active;
-    }
-
-    /**
-     * @return The inactive
-     */
-    public String getinactive() {
-        return inactive;
-    }
-
-    /**
-     * @param inactive The inactive
-     */
-    public void setinactive(String inactive) {
-        this.inactive = inactive;
-    }
 
     /**
      * @return The full_name
@@ -97,4 +60,35 @@ public class ReportStaff implements Serializable {
         this.full_name = full_name;
     }
 
+    public String getTotal_cons() {
+        return total_cons;
+    }
+
+    public void setTotal_cons(String total_cons) {
+        this.total_cons = total_cons;
+    }
+
+    public String getTotal_v() {
+        return total_v;
+    }
+
+    public void setTotal_v(String total_v) {
+        this.total_v = total_v;
+    }
+
+    public String getTotal_g() {
+        return total_g;
+    }
+
+    public void setTotal_g(String total_g) {
+        this.total_g = total_g;
+    }
+
+    public String getTotal_broadcast() {
+        return total_broadcast;
+    }
+
+    public void setTotal_broadcast(String total_broadcast) {
+        this.total_broadcast = total_broadcast;
+    }
 }

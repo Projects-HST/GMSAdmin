@@ -232,10 +232,10 @@ public class ReportVideoActivity extends AppCompatActivity implements IServiceLi
             AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
             return false;
         }
-        if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
-            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
-            return false;
-        }
+//        if (month.getText().toString().trim().equalsIgnoreCase("Select Status")) {
+//            AlertDialogHelper.showSimpleAlertDialog(this, "Select status");
+//            return false;
+//        }
         return true;
     }
 
@@ -291,7 +291,7 @@ public class ReportVideoActivity extends AppCompatActivity implements IServiceLi
         PreferenceStorage.savePaguthiID(this, paguthiId);
         PreferenceStorage.saveOfficeID(this, officeId);
         Intent intt = new Intent(this, ReportGrievanceListActivity.class);
-        intt.putExtra("page", "status");
+        intt.putExtra("page", "video");
         startActivity(intt);
     }
 

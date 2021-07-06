@@ -147,6 +147,7 @@ public class ReportStaffActivity extends AppCompatActivity implements DialogClic
         PreferenceStorage.saveFromDate(this, getserverdateformat(dateFrom.getText().toString()));
         PreferenceStorage.saveToDate(this, getserverdateformat(dateTo.getText().toString()));
         Intent intt = new Intent(this, ReportStaffListActivity.class);
+        intt.putExtra("page", "staff");
         startActivity(intt);
     }
 

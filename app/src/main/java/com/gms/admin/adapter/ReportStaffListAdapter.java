@@ -1,6 +1,7 @@
 package com.gms.admin.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,8 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
     private ArrayList<ReportStaff> reportStaffArrayList;
     private ArrayList<ReportStaff> reportStaffArrayListFiltered;
     private ArrayList<ReportStaff> og;
-    Context context;
+    Context mContext;
+    GradientDrawable drawable;
     private OnItemClickListener onItemClickListener;
 
     @Override
@@ -62,11 +64,12 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
         public TextView txtStaffName, txtConstCount, txtVideoCount, txtGrievanceCount, txtBroadCount;
         public LinearLayout staffLayout;
 
+
         public MyViewHolder(View view) {
             super(view);
-            staffLayout = (LinearLayout) view.findViewById(R.id.staff_layout);
+            staffLayout = (LinearLayout) view.findViewById(R.id.grievance_layout);
             staffLayout.setOnClickListener(this);
-            txtStaffName = (TextView) view.findViewById(R.id.staff_name);
+            txtStaffName = (TextView) view.findViewById(R.id.full_name);
             txtConstCount = (TextView) view.findViewById(R.id.count_const);
             txtVideoCount = (TextView) view.findViewById(R.id.count_video);
             txtGrievanceCount = (TextView) view.findViewById(R.id.count_grievance);
@@ -76,7 +79,7 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
         @Override
         public void onClick(View v) {
             if (onItemClickListener != null) {
-                onItemClickListener.onItemClick(v, getAdapterPosition());
+                onItemClickListener.onItemStaffClick(v, getAdapterPosition());
             }
 //            else {
 //                onClickListener.onClick(Selecttick);
@@ -86,11 +89,12 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        public void onItemStaffClick(View view, int position);
     }
 
-    public ReportStaffListAdapter(ArrayList<ReportStaff> reportStaffArrayList, ReportStaffListAdapter.OnItemClickListener onItemClickListener) {
+    public ReportStaffListAdapter(ArrayList<ReportStaff> reportStaffArrayList, Context context,ReportStaffListAdapter.OnItemClickListener onItemClickListener) {
         this.reportStaffArrayList = reportStaffArrayList;
+        this.mContext = context;
         this.og = reportStaffArrayList;
         this.reportStaffArrayListFiltered = reportStaffArrayList;
         this.onItemClickListener = onItemClickListener;
@@ -101,6 +105,8 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_report_staff, parent, false);
 
+
+
         return new ReportStaffListAdapter.MyViewHolder(itemView);
     }
 
@@ -109,10 +115,10 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
         ReportStaff Grievance = reportStaffArrayList.get(position);
 
         holder.txtStaffName.setText(capitalizeString(Grievance.getFull_name()));
-        holder.txtConstCount.setText((Grievance.gettotal()));
-        holder.txtVideoCount.setText((Grievance.getactive()));
-        holder.txtVideoCount.setText((Grievance.getinactive()));
-        holder.txtBroadCount.setText((Grievance.getinactive()));
+        holder.txtConstCount.setText((Grievance.getTotal_cons()));
+        holder.txtVideoCount.setText((Grievance.getTotal_v()));
+        holder.txtGrievanceCount.setText((Grievance.getTotal_g()));
+        holder.txtBroadCount.setText((Grievance.getTotal_broadcast()));
     }
 
     public static String capitalizeString(String string) {

@@ -332,6 +332,10 @@
     <string name="constituentCreated">Constituent Created</string>
     <string name="videoAdd">Video Added</string>
     <string name="grievanceAdd">Grievance Added</string>
+    <string name="label_year">Year</string>
+    <string name="label_month">Month</string>
+    <string name="from_year">From Year</string>
+    <string name="to_year">To Year</string>
 
     <!--New Strings-->
 

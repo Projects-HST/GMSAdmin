@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ReportWishesList {
+public class ReportFestivalWishesList {
 
     @SerializedName("count")
     @Expose
     private int count;
-    @SerializedName("birthday_report")
+    @SerializedName("festival_report")
     @Expose
     private ArrayList<ReportWishes> reportWishesArrayList = new ArrayList<>();
 

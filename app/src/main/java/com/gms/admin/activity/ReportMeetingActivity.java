@@ -499,7 +499,6 @@ public class ReportMeetingActivity extends AppCompatActivity implements DialogCl
         progressDialogHelper.hideProgressDialog();
         if (validateResponse(response)) {
             try {
-
                 if (checkRes.equalsIgnoreCase("paguthi")) {
                     JSONArray getData = response.getJSONArray("paguthi_details");
                     int getLength = getData.length();

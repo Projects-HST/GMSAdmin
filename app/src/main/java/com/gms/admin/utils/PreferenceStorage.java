@@ -834,6 +834,42 @@ public class PreferenceStorage {
     /*End*/
 
     /*To search*/
+    public static void saveFromYear(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_FROM_YEAR, ser);
+        editor.apply();
+    }
+
+    public static String getFromYear(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_FROM_YEAR, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
+    public static void saveToYear(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_TO_YEAR, ser);
+        editor.apply();
+    }
+
+    public static String getToYear(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_TO_YEAR, "");
+        return ser;
+    }
+    /*End*/
+
+    /*To search*/
     public static void saveReportStatus(Context context, String ser) {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -923,6 +959,23 @@ public class PreferenceStorage {
     }
     /*End*/
 
+    /*To search*/
+    public static void saveFestival(Context context, String ser) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(GMSConstants.KEY_FESTIVAL, ser);
+        editor.apply();
+    }
+
+    public static String getFestival(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        String ser;
+        ser = sharedPreferences.getString(GMSConstants.KEY_FESTIVAL, "");
+        return ser;
+    }
+    /*End*/
 
     /*To search*/
     public static void saveColour(Context context, String ser) {

@@ -75,9 +75,9 @@ public class ReportStatusListAdapter extends RecyclerView.Adapter<ReportStatusLi
         ReportGrievance Grievance = GrievancesList.get(position);
 
         holder.txtMobileNumber.setText((Grievance.getmobile_no()));
-        holder.txtSurname.setText(Grievance.getFather_husband_name());
+        holder.txtSurname.setText(capitalizeString("Father Name" + " : " + Grievance.getFather_husband_name()));
         holder.txtdate.setText(("Date of Birth" + " : " +(getserverdateformat(Grievance.getDob()))));
-        holder.txtUser.setText(capitalizeString("Father Name" + " : " + Grievance.getFather_husband_name()));
+        holder.txtUser.setText(capitalizeString(Grievance.getFull_name()));
         holder.txtGrievanceStatus.setText(capitalizeString(Grievance.getstatus()));
         holder.txtAddress.setText((capitalizeString(Grievance.getDoorNo()) + (Grievance.getAddress()) + (Grievance.getPincode())));
 

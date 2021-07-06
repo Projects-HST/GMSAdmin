@@ -10,4 +10,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="menuTextSize">20sp</dimen>
 
+    <dimen name="datepicker_view_animator_height">50dp</dimen>
+    <dimen name="datepicker_year_label_height">50dp</dimen>
+
 </resources>

@@ -62,7 +62,7 @@
         <item name="android:colorControlNormal" tools:targetApi="Q">@color/colorPrimary</item>
     </style>
 
-    <style name="datePickerTheme" parent="ThemeOverlay.AppCompat.Dialog">
+    <style name="datePickerTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/black</item>
@@ -81,6 +81,21 @@
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/msg_by_grey</item>
         <item name="android:textColorTertiary">@color/text_black</item>
+    </style>
+
+    <style name="MonthPickerDialogStyle" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+    <item name="monthBgColor">@color/white</item>
+    <item name="monthBgSelectedColor">@color/black</item>
+    <item name="monthFontColorSelected">@color/black</item>
+    <item name="monthFontColorNormal">@color/black</item>
+    <item name="monthFontColorDisabled">@color/black</item>
+    <item name="headerBgColor">@color/black</item>
+    <item name="headerFontColorSelected">@color/black</item>
+    <item name="headerFontColorNormal">@color/msg_by_grey</item>
+    <item name="headerTitleColor">@color/white</item>
+
+    <item name="dialogActionButtonColor">@color/black</item>
+
     </style>
 
 </resources>

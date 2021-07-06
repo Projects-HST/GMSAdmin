@@ -56,8 +56,8 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
     private ArrayAdapter<SpinnerData> spinnerDataArrayAdapter;
     private ArrayList<SpinnerData> spinnerSubCatData;
     private ArrayAdapter<SpinnerData> spinnerSubCatDataArrayAdapter;
-    private TextView dateFrom, dateTo, category,seeker,office, paguthi, subcategory;
-    private LinearLayout selectOffice,selectPaguthi, selectCategory, selectSeeker, selectSubCategory;
+    private TextView dateFrom, dateTo, category, seeker, office, paguthi, subcategory;
+    private LinearLayout selectOffice, selectPaguthi, selectCategory, selectSeeker, selectSubCategory;
     private SimpleDateFormat mDateFormatter;
     private DatePickerDialog mDatePicker;
     boolean fr = false, t = false;
@@ -199,9 +199,15 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                         category.setText(spinnerDatas.getName());
                         catId = spinnerDatas.getId();
 //                        rotate(90.0f, 0.0f);
-                        getSubCategory();
+                        if (catId.equalsIgnoreCase("1")) {
+                            selectSubCategory.setClickable(false);
+                            getPaguthi();
+                        } else {
+                            getSubCategory();
+                        }
                     }
                 });
+
         builderSingle.show();
         builderSingle.setOnDismissListener(new AlertDialog.OnDismissListener() {
             @Override
@@ -252,6 +258,9 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (catId.equalsIgnoreCase("1")){
+                            selectSubCategory.setClickable(false);
+                        }
                         SpinnerData spinnerDatas = spinnerSubCatData.get(which);
                         subcategory.setText(spinnerDatas.getName());
                         subCatId = spinnerDatas.getId();
@@ -320,13 +329,16 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
         if (dateFrom.getText().toString().equalsIgnoreCase("From Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select from date");
             return false;
-        } if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
+        }
+        if (dateTo.getText().toString().equalsIgnoreCase("To Date")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select to date");
             return false;
-        } if (catId.equalsIgnoreCase("0")) {
+        }
+        if (catId.equalsIgnoreCase("0")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select category");
             return false;
-        } if (subCatId.equalsIgnoreCase("0")) {
+        }
+        if (subCatId.equalsIgnoreCase("0")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select Subcategory");
             return false;
         }
@@ -337,7 +349,8 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
         if (officeId.equalsIgnoreCase("0")) {
             AlertDialogHelper.showSimpleAlertDialog(this, "Select office");
             return false;
-        }if (!checkTime()) {
+        }
+        if (!checkTime()) {
             AlertDialogHelper.showSimpleAlertDialog(this, "End date cannot be before start date");
             return false;
         }
@@ -593,7 +606,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                             return view;
                         }
                     };
-//                    getSubCategory();
+                    getPaguthi();
                 }
                 if (checkRes.equalsIgnoreCase("sub_category")) {
                     JSONArray getData = response.getJSONArray("sub_category_details");
@@ -622,8 +635,9 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                             return view;
                         }
                     };
-                    getPaguthi();
-                }if (checkRes.equalsIgnoreCase("paguthi")) {
+//                    getPaguthi();
+                }
+                if (checkRes.equalsIgnoreCase("paguthi")) {
                     JSONArray getData = response.getJSONArray("paguthi_details");
                     int getLength = getData.length();
                     String id = "";
@@ -651,7 +665,8 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
                         }
                     };
                     getOffice();
-                }if (checkRes.equalsIgnoreCase("office")) {
+                }
+                if (checkRes.equalsIgnoreCase("office")) {
                     JSONArray getData = response.getJSONArray("list_details");
                     int getLength = getData.length();
                     String id = "";
@@ -719,6 +734,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
         }
         return serverFormatDate;
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View v = getCurrentFocus();
@@ -740,7 +756,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
 
     public static void hideKeyboard(Activity activity) {
         if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
-            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
     }
@@ -752,7 +768,7 @@ public class ReportCategoryActivity extends AppCompatActivity implements IServic
             if (!found && Character.isLetter(chars[i])) {
                 chars[i] = Character.toUpperCase(chars[i]);
                 found = true;
-            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'') { // You can add other chars here
+            } else if (Character.isWhitespace(chars[i]) || chars[i] == '.' || chars[i] == '\'') { // You can add other chars here
                 found = false;
             }
         }
