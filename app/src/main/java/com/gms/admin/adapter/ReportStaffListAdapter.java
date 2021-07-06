@@ -1,6 +1,7 @@
 package com.gms.admin.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gms.admin.R;
 import com.gms.admin.bean.support.ReportStaff;
+import com.gms.admin.utils.PreferenceStorage;
 
 import java.util.ArrayList;
 
@@ -105,8 +107,10 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_report_staff, parent, false);
 
-
-
+        drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setCornerRadius(10);
+        drawable.setColor(Color.parseColor(PreferenceStorage.getAppBaseColor(mContext)));
         return new ReportStaffListAdapter.MyViewHolder(itemView);
     }
 
@@ -116,9 +120,13 @@ public class ReportStaffListAdapter extends RecyclerView.Adapter<ReportStaffList
 
         holder.txtStaffName.setText(capitalizeString(Grievance.getFull_name()));
         holder.txtConstCount.setText((Grievance.getTotal_cons()));
+        holder.txtConstCount.setBackground((drawable));
         holder.txtVideoCount.setText((Grievance.getTotal_v()));
+        holder.txtVideoCount.setBackground(drawable);
         holder.txtGrievanceCount.setText((Grievance.getTotal_g()));
+        holder.txtGrievanceCount.setBackground(drawable);
         holder.txtBroadCount.setText((Grievance.getTotal_broadcast()));
+        holder.txtBroadCount.setBackground(drawable);
     }
 
     public static String capitalizeString(String string) {
